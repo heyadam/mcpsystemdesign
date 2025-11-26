@@ -1,6 +1,8 @@
 # Design System MCP Server
 
-A production-ready MCP (Model Context Protocol) server that exposes design system components and style guides for AI assistants. Deploy to Vercel and connect it to Claude or other MCP-compatible clients.
+A production-ready MCP (Model Context Protocol) server that exposes design system components and style guides for AI assistants. Deployed on Vercel with SSE transport for remote access.
+
+**Live Server:** https://aids-server.vercel.app/
 
 ## Features
 
@@ -36,8 +38,6 @@ npm i -g vercel
 vercel
 ```
 
-After deployment, your MCP server will be available at `https://your-project.vercel.app/api/mcp`.
-
 ## Project Structure
 
 ```
@@ -61,10 +61,10 @@ After deployment, your MCP server will be available at `https://your-project.ver
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/mcp` | GET | Establish SSE connection |
-| `/api/mcp?sessionId=...` | POST | Send MCP messages |
-| `/api/health` | GET | Health check |
-| `/` | GET | Server info page |
+| `https://aids-server.vercel.app/api/mcp` | GET | Establish SSE connection |
+| `https://aids-server.vercel.app/api/mcp?sessionId=...` | POST | Send MCP messages |
+| `https://aids-server.vercel.app/api/health` | GET | Health check |
+| `https://aids-server.vercel.app/` | GET | Server info page |
 
 ## Available MCP Tools
 
@@ -88,7 +88,29 @@ After deployment, your MCP server will be available at `https://your-project.ver
 | `get_breakpoints` | Get responsive breakpoint definitions |
 | `get_design_system_info` | Get design system overview and stats |
 
-## Connecting to Claude
+## Connecting to AI Assistants
+
+### Cursor
+
+1. Open Cursor Settings (`Cmd+,` on macOS or `Ctrl+,` on Windows/Linux)
+2. Search for "MCP" or navigate to **Features → MCP Servers**
+3. Click **"Add new MCP server"**
+4. Configure with:
+   - **Name:** `design-system`
+   - **Type:** `sse`
+   - **URL:** `https://aids-server.vercel.app/api/mcp`
+
+Alternatively, add to your `.cursor/mcp.json` file:
+
+```json
+{
+  "mcpServers": {
+    "design-system": {
+      "url": "https://aids-server.vercel.app/api/mcp"
+    }
+  }
+}
+```
 
 ### Claude Desktop
 
@@ -98,7 +120,7 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 {
   "mcpServers": {
     "design-system": {
-      "url": "https://your-project.vercel.app/api/mcp"
+      "url": "https://aids-server.vercel.app/api/mcp"
     }
   }
 }
@@ -112,7 +134,7 @@ Add to your `.claude/settings.json`:
 {
   "mcpServers": {
     "design-system": {
-      "url": "https://your-project.vercel.app/api/mcp"
+      "url": "https://aids-server.vercel.app/api/mcp"
     }
   }
 }

@@ -178,11 +178,44 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
       </div>
     </div>
 
-    <h2>Usage with Claude</h2>
-    <p>Add this to your Claude MCP configuration:</p>
+    <h2>Setup Instructions</h2>
+
+    <h3 style="font-size: 16px; margin-top: 20px; margin-bottom: 8px;">Cursor</h3>
+    <p style="font-size: 14px;">1. Open Settings (<code>Cmd+,</code> / <code>Ctrl+,</code>)<br>
+    2. Navigate to <strong>Features → MCP Servers</strong><br>
+    3. Click <strong>"Add new MCP server"</strong><br>
+    4. Set Name: <code>design-system</code>, Type: <code>sse</code></p>
     <div class="endpoint">
-      <code>{ "url": "https://your-deployment.vercel.app/api/mcp" }</code>
+      <code>https://aids-server.vercel.app/api/mcp</code>
     </div>
+    <p style="font-size: 14px;">Or add to <code>.cursor/mcp.json</code>:</p>
+    <div class="endpoint" style="white-space: pre; font-size: 13px;"><code>{
+  "mcpServers": {
+    "design-system": {
+      "url": "https://aids-server.vercel.app/api/mcp"
+    }
+  }
+}</code></div>
+
+    <h3 style="font-size: 16px; margin-top: 20px; margin-bottom: 8px;">Claude Desktop</h3>
+    <p style="font-size: 14px;">Add to <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>:</p>
+    <div class="endpoint" style="white-space: pre; font-size: 13px;"><code>{
+  "mcpServers": {
+    "design-system": {
+      "url": "https://aids-server.vercel.app/api/mcp"
+    }
+  }
+}</code></div>
+
+    <h3 style="font-size: 16px; margin-top: 20px; margin-bottom: 8px;">Claude Code CLI</h3>
+    <p style="font-size: 14px;">Add to <code>.claude/settings.json</code>:</p>
+    <div class="endpoint" style="white-space: pre; font-size: 13px;"><code>{
+  "mcpServers": {
+    "design-system": {
+      "url": "https://aids-server.vercel.app/api/mcp"
+    }
+  }
+}</code></div>
   </div>
 </body>
 </html>
