@@ -184,18 +184,15 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     <p style="font-size: 14px;">1. Open Settings (<code>Cmd+,</code> / <code>Ctrl+,</code>)<br>
     2. Navigate to <strong>Features → MCP Servers</strong><br>
     3. Click <strong>"Add new MCP server"</strong><br>
-    4. Set Name: <code>design-system</code>, Type: <code>http</code></p>
+    4. Set Name: <code>design-system</code>, Type: <code>sse</code></p>
     <div class="endpoint">
-      <code>https://aids-server.vercel.app/api/mcp</code>
+      <code>https://aids-server.vercel.app/sse</code>
     </div>
     <p style="font-size: 14px;">Or add to <code>.cursor/mcp.json</code>:</p>
     <div class="endpoint" style="white-space: pre; font-size: 13px;"><code>{
   "mcpServers": {
     "design-system": {
-      "transport": {
-        "type": "http",
-        "url": "https://aids-server.vercel.app/api/mcp"
-      }
+      "url": "https://aids-server.vercel.app/sse"
     }
   }
 }</code></div>
@@ -205,10 +202,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     <div class="endpoint" style="white-space: pre; font-size: 13px;"><code>{
   "mcpServers": {
     "design-system": {
-      "transport": {
-        "type": "http",
-        "url": "https://aids-server.vercel.app/api/mcp"
-      }
+      "url": "https://aids-server.vercel.app/sse"
     }
   }
 }</code></div>
@@ -218,10 +212,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     <div class="endpoint" style="white-space: pre; font-size: 13px;"><code>{
   "mcpServers": {
     "design-system": {
-      "transport": {
-        "type": "http",
-        "url": "https://aids-server.vercel.app/api/mcp"
-      }
+      "url": "https://aids-server.vercel.app/sse"
     }
   }
 }</code></div>

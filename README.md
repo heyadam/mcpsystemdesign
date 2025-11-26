@@ -97,8 +97,8 @@ vercel
 3. Click **"Add new MCP server"**
 4. Configure with:
    - **Name:** `design-system`
-   - **Type:** `http` (or `streamableHttp`)
-   - **URL:** `https://aids-server.vercel.app/api/mcp`
+   - **Type:** `sse`
+   - **URL:** `https://aids-server.vercel.app/sse`
 
 Alternatively, add to your `.cursor/mcp.json` file:
 
@@ -106,10 +106,7 @@ Alternatively, add to your `.cursor/mcp.json` file:
 {
   "mcpServers": {
     "design-system": {
-      "transport": {
-        "type": "http",
-        "url": "https://aids-server.vercel.app/api/mcp"
-      }
+      "url": "https://aids-server.vercel.app/sse"
     }
   }
 }
@@ -123,10 +120,7 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 {
   "mcpServers": {
     "design-system": {
-      "transport": {
-        "type": "http",
-        "url": "https://aids-server.vercel.app/api/mcp"
-      }
+      "url": "https://aids-server.vercel.app/sse"
     }
   }
 }
@@ -140,10 +134,7 @@ Add to your `.claude/settings.json`:
 {
   "mcpServers": {
     "design-system": {
-      "transport": {
-        "type": "http",
-        "url": "https://aids-server.vercel.app/api/mcp"
-      }
+      "url": "https://aids-server.vercel.app/sse"
     }
   }
 }
