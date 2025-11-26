@@ -1,9 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
-import { z } from "zod";
 
-// Inline design system data to avoid module resolution issues in Vercel
+// Design system data
 const designSystem = {
   name: "ACME Design System",
   version: "2.0.0",
@@ -173,39 +170,113 @@ const designSystem = {
   }
 };
 
-// Store active transports for message handling
-const transports = new Map<string, SSEServerTransport>();
+// Tool definitions for MCP
+const tools = [
+  {
+    name: "list_components",
+    description: "List all available design system components with their categories",
+    inputSchema: { type: "object", properties: {}, required: [] }
+  },
+  {
+    name: "get_component",
+    description: "Get detailed specification for a specific component including props, examples, and usage",
+    inputSchema: {
+      type: "object",
+      properties: {
+        componentName: { type: "string", description: "Name of the component (case-insensitive)" }
+      },
+      required: ["componentName"]
+    }
+  },
+  {
+    name: "search_components",
+    description: "Search for components by name, description, or category",
+    inputSchema: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "Search query" },
+        category: { type: "string", description: "Filter by category (optional)" }
+      },
+      required: ["query"]
+    }
+  },
+  {
+    name: "get_component_examples",
+    description: "Get code examples for a specific component",
+    inputSchema: {
+      type: "object",
+      properties: {
+        componentName: { type: "string", description: "Name of the component" }
+      },
+      required: ["componentName"]
+    }
+  },
+  {
+    name: "get_style_guide",
+    description: "Get style guide information (colors, typography, spacing, breakpoints)",
+    inputSchema: {
+      type: "object",
+      properties: {
+        section: {
+          type: "string",
+          enum: ["colors", "typography", "spacing", "breakpoints", "all"],
+          description: "Which section of the style guide to retrieve"
+        }
+      },
+      required: []
+    }
+  },
+  {
+    name: "get_colors",
+    description: "Get color tokens from the design system",
+    inputSchema: {
+      type: "object",
+      properties: {
+        category: { type: "string", description: "Color category (Primary, Neutral, Semantic)" }
+      },
+      required: []
+    }
+  },
+  {
+    name: "get_typography",
+    description: "Get typography styles from the design system",
+    inputSchema: { type: "object", properties: {}, required: [] }
+  },
+  {
+    name: "get_spacing",
+    description: "Get spacing scale tokens from the design system",
+    inputSchema: { type: "object", properties: {}, required: [] }
+  },
+  {
+    name: "get_breakpoints",
+    description: "Get responsive breakpoint definitions",
+    inputSchema: { type: "object", properties: {}, required: [] }
+  },
+  {
+    name: "get_design_system_info",
+    description: "Get overview information about the design system",
+    inputSchema: { type: "object", properties: {}, required: [] }
+  }
+];
 
-function createMcpServer(): McpServer {
-  const server = new McpServer({
-    name: "design-system-mcp",
-    version: "1.0.0",
-  });
-
-  // Tool: List all components
-  server.tool(
-    "list_components",
-    "List all available design system components with their categories",
-    {},
-    async () => {
+// Tool implementations
+function executeTool(name: string, args: Record<string, unknown>): { content: Array<{ type: string; text: string }>; isError?: boolean } {
+  switch (name) {
+    case "list_components": {
       const componentList = designSystem.components.map((c) => ({
         name: c.name,
         category: c.category,
         description: c.description,
       }));
-
-      const byCategory = componentList.reduce(
-        (acc, comp) => {
-          if (!acc[comp.category]) acc[comp.category] = [];
-          acc[comp.category].push({ name: comp.name, description: comp.description });
-          return acc;
-        },
-        {} as Record<string, { name: string; description: string }[]>
-      );
+      const byCategory = componentList.reduce((acc, comp) => {
+        if (!acc[comp.category]) acc[comp.category] = [];
+        acc[comp.category].push({ name: comp.name, description: comp.description });
+        return acc;
+      }, {} as Record<string, { name: string; description: string }[]>);
 
       return {
         content: [{
-          type: "text" as const,
+          type: "text",
           text: JSON.stringify({
             designSystemName: designSystem.name,
             version: designSystem.version,
@@ -215,59 +286,37 @@ function createMcpServer(): McpServer {
         }],
       };
     }
-  );
 
-  // Tool: Get component details
-  server.tool(
-    "get_component",
-    "Get detailed specification for a specific component",
-    { componentName: z.string().describe("Name of the component") },
-    async ({ componentName }) => {
+    case "get_component": {
+      const componentName = args.componentName as string;
       const component = designSystem.components.find(
         (c) => c.name.toLowerCase() === componentName.toLowerCase()
       );
-
       if (!component) {
         return {
-          content: [{
-            type: "text" as const,
-            text: `Component "${componentName}" not found. Available: ${designSystem.components.map(c => c.name).join(", ")}`,
-          }],
+          content: [{ type: "text", text: `Component "${componentName}" not found. Available: ${designSystem.components.map(c => c.name).join(", ")}` }],
           isError: true,
         };
       }
-
-      return {
-        content: [{ type: "text" as const, text: JSON.stringify(component, null, 2) }],
-      };
+      return { content: [{ type: "text", text: JSON.stringify(component, null, 2) }] };
     }
-  );
 
-  // Tool: Search components
-  server.tool(
-    "search_components",
-    "Search for components by name, description, or category",
-    {
-      query: z.string().describe("Search query"),
-      category: z.string().optional().describe("Filter by category"),
-    },
-    async ({ query, category }) => {
-      const queryLower = query.toLowerCase();
+    case "search_components": {
+      const query = (args.query as string).toLowerCase();
+      const category = args.category as string | undefined;
       let results = designSystem.components.filter((c) =>
-        c.name.toLowerCase().includes(queryLower) ||
-        c.description.toLowerCase().includes(queryLower) ||
-        c.category.toLowerCase().includes(queryLower)
+        c.name.toLowerCase().includes(query) ||
+        c.description.toLowerCase().includes(query) ||
+        c.category.toLowerCase().includes(query)
       );
-
       if (category) {
         results = results.filter((c) => c.category.toLowerCase() === category.toLowerCase());
       }
-
       return {
         content: [{
-          type: "text" as const,
+          type: "text",
           text: JSON.stringify({
-            query,
+            query: args.query,
             resultsCount: results.length,
             results: results.map((c) => ({
               name: c.name,
@@ -279,189 +328,190 @@ function createMcpServer(): McpServer {
         }],
       };
     }
-  );
 
-  // Tool: Get component examples
-  server.tool(
-    "get_component_examples",
-    "Get code examples for a specific component",
-    { componentName: z.string().describe("Name of the component") },
-    async ({ componentName }) => {
+    case "get_component_examples": {
+      const componentName = args.componentName as string;
       const component = designSystem.components.find(
         (c) => c.name.toLowerCase() === componentName.toLowerCase()
       );
-
       if (!component) {
-        return {
-          content: [{ type: "text" as const, text: `Component "${componentName}" not found.` }],
-          isError: true,
-        };
+        return { content: [{ type: "text", text: `Component "${componentName}" not found.` }], isError: true };
       }
-
       const examplesText = component.examples
         .map((ex) => `### ${ex.title}\n\`\`\`tsx\n${ex.code}\n\`\`\``)
         .join("\n\n");
-
       return {
-        content: [{
-          type: "text" as const,
-          text: `# ${component.name} Examples\n\nImport: \`${component.importStatement}\`\n\n${examplesText}`,
-        }],
+        content: [{ type: "text", text: `# ${component.name} Examples\n\nImport: \`${component.importStatement}\`\n\n${examplesText}` }],
       };
     }
-  );
 
-  // Tool: Get style guide
-  server.tool(
-    "get_style_guide",
-    "Get style guide information (colors, typography, spacing, breakpoints)",
-    {
-      section: z.enum(["colors", "typography", "spacing", "breakpoints", "all"]).optional(),
-    },
-    async ({ section = "all" }) => {
+    case "get_style_guide": {
+      const section = (args.section as string) || "all";
       const styleGuide = designSystem.styleGuide;
       const result = section === "all" ? styleGuide : { [section]: (styleGuide as any)[section] };
-
       return {
-        content: [{
-          type: "text" as const,
-          text: JSON.stringify({ designSystem: designSystem.name, section, data: result }, null, 2),
-        }],
+        content: [{ type: "text", text: JSON.stringify({ designSystem: designSystem.name, section, data: result }, null, 2) }],
       };
     }
-  );
 
-  // Tool: Get colors
-  server.tool(
-    "get_colors",
-    "Get color tokens from the design system",
-    { category: z.string().optional().describe("Color category (Primary, Neutral, Semantic)") },
-    async ({ category }) => {
+    case "get_colors": {
+      const category = args.category as string | undefined;
       let colors = designSystem.styleGuide.colors;
       if (category) {
         colors = colors.filter((c) => c.name.toLowerCase() === category.toLowerCase());
       }
+      return { content: [{ type: "text", text: JSON.stringify({ colors }, null, 2) }] };
+    }
+
+    case "get_typography":
+      return { content: [{ type: "text", text: JSON.stringify({ typography: designSystem.styleGuide.typography }, null, 2) }] };
+
+    case "get_spacing":
+      return { content: [{ type: "text", text: JSON.stringify({ spacing: designSystem.styleGuide.spacing }, null, 2) }] };
+
+    case "get_breakpoints":
+      return { content: [{ type: "text", text: JSON.stringify({ breakpoints: designSystem.styleGuide.breakpoints }, null, 2) }] };
+
+    case "get_design_system_info":
       return {
-        content: [{ type: "text" as const, text: JSON.stringify({ colors }, null, 2) }],
+        content: [{
+          type: "text",
+          text: JSON.stringify({
+            name: designSystem.name,
+            version: designSystem.version,
+            description: designSystem.description,
+            stats: {
+              totalComponents: designSystem.components.length,
+              categories: [...new Set(designSystem.components.map((c) => c.category))],
+              colorCategories: designSystem.styleGuide.colors.length,
+              typographyStyles: designSystem.styleGuide.typography.length,
+            },
+          }, null, 2),
+        }],
+      };
+
+    default:
+      return { content: [{ type: "text", text: `Unknown tool: ${name}` }], isError: true };
+  }
+}
+
+// Handle JSON-RPC requests
+function handleJsonRpc(request: { jsonrpc: string; id?: string | number; method: string; params?: unknown }): unknown {
+  const { method, params, id } = request;
+
+  switch (method) {
+    case "initialize":
+      return {
+        jsonrpc: "2.0",
+        id,
+        result: {
+          protocolVersion: "2024-11-05",
+          capabilities: {
+            tools: {},
+          },
+          serverInfo: {
+            name: "design-system-mcp",
+            version: "1.0.0",
+          },
+        },
+      };
+
+    case "notifications/initialized":
+      // No response needed for notifications
+      return null;
+
+    case "tools/list":
+      return {
+        jsonrpc: "2.0",
+        id,
+        result: { tools },
+      };
+
+    case "tools/call": {
+      const { name, arguments: args } = params as { name: string; arguments?: Record<string, unknown> };
+      const result = executeTool(name, args || {});
+      return {
+        jsonrpc: "2.0",
+        id,
+        result,
       };
     }
-  );
 
-  // Tool: Get typography
-  server.tool("get_typography", "Get typography styles", {}, async () => ({
-    content: [{ type: "text" as const, text: JSON.stringify({ typography: designSystem.styleGuide.typography }, null, 2) }],
-  }));
+    case "ping":
+      return {
+        jsonrpc: "2.0",
+        id,
+        result: {},
+      };
 
-  // Tool: Get spacing
-  server.tool("get_spacing", "Get spacing scale tokens", {}, async () => ({
-    content: [{ type: "text" as const, text: JSON.stringify({ spacing: designSystem.styleGuide.spacing }, null, 2) }],
-  }));
-
-  // Tool: Get breakpoints
-  server.tool("get_breakpoints", "Get responsive breakpoint definitions", {}, async () => ({
-    content: [{ type: "text" as const, text: JSON.stringify({ breakpoints: designSystem.styleGuide.breakpoints }, null, 2) }],
-  }));
-
-  // Tool: Get design system info
-  server.tool("get_design_system_info", "Get overview of the design system", {}, async () => ({
-    content: [{
-      type: "text" as const,
-      text: JSON.stringify({
-        name: designSystem.name,
-        version: designSystem.version,
-        description: designSystem.description,
-        stats: {
-          totalComponents: designSystem.components.length,
-          categories: [...new Set(designSystem.components.map((c) => c.category))],
-          colorCategories: designSystem.styleGuide.colors.length,
-          typographyStyles: designSystem.styleGuide.typography.length,
+    default:
+      return {
+        jsonrpc: "2.0",
+        id,
+        error: {
+          code: -32601,
+          message: `Method not found: ${method}`,
         },
-      }, null, 2),
-    }],
-  }));
-
-  return server;
+      };
+  }
 }
 
 // CORS headers
-const corsHeaders = {
+const corsHeaders: Record<string, string> = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Accept, Cache-Control",
+  "Access-Control-Allow-Headers": "Content-Type, Accept, Authorization",
 };
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Handle CORS preflight
-  if (req.method === "OPTIONS") {
-    res.writeHead(204, corsHeaders);
-    res.end();
-    return;
-  }
-
   // Apply CORS headers
   Object.entries(corsHeaders).forEach(([key, value]) => {
     res.setHeader(key, value);
   });
 
+  // Handle CORS preflight
+  if (req.method === "OPTIONS") {
+    res.status(204).end();
+    return;
+  }
+
+  // Only accept POST for MCP
+  if (req.method !== "POST") {
+    res.status(405).json({ error: "Method not allowed. Use POST for MCP requests." });
+    return;
+  }
+
   try {
-    if (req.method === "GET") {
-      // SSE connection endpoint
-      console.log("New SSE connection request");
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
-      res.writeHead(200, {
-        ...corsHeaders,
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache, no-transform",
-        Connection: "keep-alive",
-      });
-
-      const server = createMcpServer();
-      const transport = new SSEServerTransport("/api/mcp", res);
-
-      // Store transport with session ID for message routing
-      const sessionId = transport.sessionId;
-      transports.set(sessionId, transport);
-      console.log(`SSE transport created with session: ${sessionId}`);
-
-      // Clean up on close
-      req.on("close", () => {
-        console.log(`SSE connection closed: ${sessionId}`);
-        transports.delete(sessionId);
-      });
-
-      await server.connect(transport);
-      console.log("MCP server connected to SSE transport");
-
-    } else if (req.method === "POST") {
-      // Message endpoint
-      const sessionId = req.query.sessionId as string;
-
-      if (!sessionId) {
-        res.status(400).json({ error: "Missing sessionId query parameter" });
-        return;
-      }
-
-      const transport = transports.get(sessionId);
-
-      if (!transport) {
-        res.status(404).json({ error: "Session not found. Please establish SSE connection first." });
-        return;
-      }
-
-      // Parse and handle the message
-      const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-      console.log(`Received message for session ${sessionId}:`, JSON.stringify(body));
-
-      await transport.handlePostMessage(req, res, body);
-
-    } else {
-      res.status(405).json({ error: "Method not allowed" });
+    // Handle batch requests
+    if (Array.isArray(body)) {
+      const responses = body
+        .map((request) => handleJsonRpc(request))
+        .filter((response) => response !== null);
+      res.status(200).json(responses);
+      return;
     }
+
+    // Handle single request
+    const response = handleJsonRpc(body);
+    if (response === null) {
+      // Notification - no response
+      res.status(204).end();
+      return;
+    }
+
+    res.status(200).json(response);
   } catch (error) {
     console.error("MCP handler error:", error);
     res.status(500).json({
-      error: "Internal server error",
-      message: error instanceof Error ? error.message : "Unknown error",
+      jsonrpc: "2.0",
+      id: null,
+      error: {
+        code: -32700,
+        message: "Parse error",
+        data: error instanceof Error ? error.message : "Unknown error",
+      },
     });
   }
 }
