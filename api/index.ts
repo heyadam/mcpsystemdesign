@@ -65,7 +65,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
           Build faster with<br/>minimal components
         </h1>
         <p class="mt-6 text-lg text-gray-500 leading-relaxed">
-          A clean, Vercel-inspired design system with Tailwind CSS.
+          A comprehensive, Vercel-inspired design system with 30+ components.
           Accessible via MCP for AI-powered development.
         </p>
         <div class="mt-8 flex items-center gap-3">
@@ -218,6 +218,241 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
               <button class="px-4 py-2 text-sm font-medium bg-white text-gray-900 rounded-md shadow-sm">Overview</button>
               <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Analytics</button>
               <button class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Settings</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Select & Checkbox -->
+      <div class="mt-16">
+        <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider">Select & Checkbox</h3>
+        <div class="mt-4 p-8 bg-white rounded-2xl border border-gray-200">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-4">
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Country</label>
+                <div class="relative">
+                  <select class="h-10 w-full px-3 pr-10 bg-white border border-gray-200 rounded-lg text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent cursor-pointer">
+                    <option value="">Select country</option>
+                    <option value="us">United States</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="ca">Canada</option>
+                  </select>
+                  <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <label class="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900" checked />
+                <span class="text-sm text-gray-700">Email notifications</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900" />
+                <span class="text-sm text-gray-700">SMS notifications</span>
+              </label>
+              <label class="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900" checked />
+                <span class="text-sm text-gray-700">Marketing emails</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="mt-16">
+        <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider">Table</h3>
+        <div class="mt-4 border border-gray-200 rounded-2xl overflow-hidden">
+          <table class="w-full">
+            <thead class="bg-gray-50 border-b border-gray-200">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white">
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-xs font-medium">JD</div>
+                    <div>
+                      <div class="text-sm font-medium text-gray-900">John Doe</div>
+                      <div class="text-sm text-gray-500">john@example.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full bg-emerald-50 text-emerald-700"><span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>Active</span></td>
+                <td class="px-6 py-4 text-sm text-gray-500">Admin</td>
+                <td class="px-6 py-4 text-right"><button class="text-sm text-gray-500 hover:text-gray-900">Edit</button></td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white text-xs font-medium">JS</div>
+                    <div>
+                      <div class="text-sm font-medium text-gray-900">Jane Smith</div>
+                      <div class="text-sm text-gray-500">jane@example.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full bg-amber-50 text-amber-700"><span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>Pending</span></td>
+                <td class="px-6 py-4 text-sm text-gray-500">User</td>
+                <td class="px-6 py-4 text-right"><button class="text-sm text-gray-500 hover:text-gray-900">Edit</button></td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-xs font-medium">MJ</div>
+                    <div>
+                      <div class="text-sm font-medium text-gray-900">Mike Johnson</div>
+                      <div class="text-sm text-gray-500">mike@example.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4"><span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600"><span class="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>Inactive</span></td>
+                <td class="px-6 py-4 text-sm text-gray-500">Viewer</td>
+                <td class="px-6 py-4 text-right"><button class="text-sm text-gray-500 hover:text-gray-900">Edit</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Alerts -->
+      <div class="mt-16">
+        <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider">Alerts</h3>
+        <div class="mt-4 space-y-4">
+          <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-blue-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <div>
+                <p class="text-sm font-medium text-blue-800">Information</p>
+                <p class="mt-1 text-sm text-blue-700">A new software update is available for download.</p>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <div>
+                <p class="text-sm font-medium text-emerald-800">Success</p>
+                <p class="mt-1 text-sm text-emerald-700">Your changes have been saved successfully.</p>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl">
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+              <div>
+                <p class="text-sm font-medium text-amber-800">Warning</p>
+                <p class="mt-1 text-sm text-amber-700">Your trial expires in 3 days. Upgrade now.</p>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 bg-red-50 border border-red-200 rounded-xl">
+            <div class="flex gap-3">
+              <svg class="w-5 h-5 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <div>
+                <p class="text-sm font-medium text-red-800">Error</p>
+                <p class="mt-1 text-sm text-red-700">There was an error processing your request.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress & Skeleton -->
+      <div class="mt-16">
+        <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider">Progress & Loading</h3>
+        <div class="mt-4 p-8 bg-white rounded-2xl border border-gray-200">
+          <div class="space-y-6">
+            <div class="space-y-2">
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-700">Uploading...</span>
+                <span class="text-gray-500">75%</span>
+              </div>
+              <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-gray-900 rounded-full transition-all duration-300" style="width: 75%"></div>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-700">Processing</span>
+                <span class="text-gray-500">50%</span>
+              </div>
+              <div class="h-2 bg-emerald-100 rounded-full overflow-hidden">
+                <div class="h-full bg-emerald-500 rounded-full" style="width: 50%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-8 pt-8 border-t border-gray-200">
+            <p class="text-sm font-medium text-gray-700 mb-4">Skeleton Loading</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-gray-200 rounded-full animate-pulse"></div>
+              <div class="space-y-2">
+                <div class="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
+                <div class="h-3 w-24 bg-gray-200 rounded animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="mt-16">
+        <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider">Navigation</h3>
+        <div class="mt-4 p-8 bg-white rounded-2xl border border-gray-200 space-y-8">
+          <!-- Breadcrumb -->
+          <div>
+            <p class="text-xs text-gray-400 uppercase tracking-wider mb-3">Breadcrumb</p>
+            <nav class="flex items-center gap-2 text-sm">
+              <a href="#" class="text-gray-500 hover:text-gray-900 transition-colors">Home</a>
+              <span class="text-gray-300">/</span>
+              <a href="#" class="text-gray-500 hover:text-gray-900 transition-colors">Products</a>
+              <span class="text-gray-300">/</span>
+              <span class="text-gray-900 font-medium">Headphones</span>
+            </nav>
+          </div>
+          <!-- Pagination -->
+          <div>
+            <p class="text-xs text-gray-400 uppercase tracking-wider mb-3">Pagination</p>
+            <nav class="flex items-center gap-1">
+              <button class="w-9 h-9 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+              </button>
+              <button class="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium bg-gray-900 text-white">1</button>
+              <button class="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">2</button>
+              <button class="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">3</button>
+              <span class="w-9 h-9 flex items-center justify-center text-gray-400">...</span>
+              <button class="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">10</button>
+              <button class="w-9 h-9 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+              </button>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Preview -->
+      <div class="mt-16">
+        <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider">Modal</h3>
+        <div class="mt-4 p-8 bg-gray-900/5 rounded-2xl border border-gray-200">
+          <div class="max-w-md mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+              <h2 class="text-lg font-semibold text-gray-900">Confirm Action</h2>
+              <button class="text-gray-400 hover:text-gray-600">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+            <div class="px-6 py-4">
+              <p class="text-sm text-gray-500">Are you sure you want to proceed? This action cannot be undone.</p>
+            </div>
+            <div class="flex justify-end gap-3 px-6 py-4 bg-gray-50 border-t border-gray-200">
+              <button class="h-9 px-4 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">Cancel</button>
+              <button class="h-9 px-4 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors">Confirm</button>
             </div>
           </div>
         </div>
