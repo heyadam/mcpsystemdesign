@@ -73,7 +73,7 @@ function handleJsonRpc(req: { jsonrpc: string; id?: string | number; method: str
 
   switch (method) {
     case "initialize":
-      return { jsonrpc: "2.0", id, result: { protocolVersion: "2024-11-05", capabilities: { tools: {} }, serverInfo: { name: "aids", version: "1.0.0" } } };
+      return { jsonrpc: "2.0", id, result: { protocolVersion: "2024-11-05", capabilities: { tools: {} }, serverInfo: { name: "mcpdesignsystem", version: "1.0.0" } } };
     case "notifications/initialized":
       return null;
     case "tools/list":

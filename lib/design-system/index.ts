@@ -11,9 +11,9 @@ export { styleGuide, categories } from './style-guide';
 
 // Main design system object
 export const designSystem: DesignSystem = {
-  name: "AI Design System",
+  name: "mcpsystem.design",
   version: "1.0.0",
-  description: "A comprehensive, AI-first design system optimized for MCP integrations and built with Tailwind CSS.",
+  description: "An AI-first design system optimized for MCP integrations and built with Tailwind CSS.",
   components,
   categories,
   styleGuide,

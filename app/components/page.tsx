@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { getNavigationItems, getDesignSystemStats } from '@/lib/design-system';
 
 export const metadata = {
-  title: 'Components - AI Design System',
-  description: 'Browse all components in the AI Design System.',
+  title: 'Components - mcpsystem.design',
+  description: 'Browse all components in mcpsystem.design.',
 };
 
 export default function ComponentsPage() {

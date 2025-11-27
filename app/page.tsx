@@ -13,9 +13,9 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center">
-              <span className="text-white dark:text-black font-bold text-sm">AI</span>
+              <span className="text-white dark:text-black font-bold text-sm">M</span>
             </div>
-            <span className="font-semibold text-gray-900 dark:text-gray-100">AIDS</span>
+            <span className="font-semibold text-gray-900 dark:text-gray-100">mcpsystem.design</span>
           </Link>
           <nav className="flex items-center gap-1">
             <Link href="/docs/getting-started" className="nav-link">Getting Started</Link>
@@ -76,7 +76,7 @@ export default function HomePage() {
             <pre className="text-sm text-gray-300 font-mono overflow-x-auto">
 {`{
   "mcpServers": {
-    "aids": {
+    "mcpdesignsystem": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }
@@ -136,7 +136,7 @@ export default function HomePage() {
       <footer className="py-12 px-6 border-t border-gray-200 dark:border-gray-800">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            AIDS v{designSystem.version}
+            mcpsystem.design v{designSystem.version}
           </p>
           <div className="flex items-center gap-4">
             <Link href="/docs/getting-started" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">

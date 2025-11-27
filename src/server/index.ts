@@ -5,7 +5,7 @@ import type { Component, StyleGuide } from "../data/types.js";
 
 export function createMcpServer(): McpServer {
   const server = new McpServer({
-    name: "aids",
+    name: "mcpdesignsystem",
     version: "1.0.0",
   });
 

@@ -410,7 +410,7 @@ function handleJsonRpc(request: { jsonrpc: string; id?: string | number; method:
             tools: {},
           },
           serverInfo: {
-            name: "aids",
+            name: "mcpdesignsystem",
             version: "1.0.0",
           },
         },

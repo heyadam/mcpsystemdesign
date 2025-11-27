@@ -3,7 +3,7 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'AI Design System',
+  title: 'mcpsystem.design',
   description: 'A comprehensive, Vercel-inspired design system built with Tailwind CSS.',
 };
 

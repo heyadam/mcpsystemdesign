@@ -1,4 +1,4 @@
-# AIDS - AI Design System MCP Server
+# mcpsystem.design MCP Server
 
 A production-ready MCP (Model Context Protocol) server that exposes design system components and style guides for AI assistants. Deployed on Vercel with SSE transport for remote access.
 
@@ -106,7 +106,7 @@ vercel
 2. Search for "MCP" or navigate to **Features → MCP Servers**
 3. Click **"Add new MCP server"**
 4. Configure with:
-   - **Name:** `aids`
+   - **Name:** `mcpdesignsystem`
    - **Type:** `sse`
    - **URL:** `https://aids-server.vercel.app/sse`
 
@@ -115,7 +115,7 @@ Alternatively, add to your `.cursor/mcp.json` file:
 ```json
 {
   "mcpServers": {
-    "aids": {
+    "mcpdesignsystem": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }
@@ -129,7 +129,7 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 ```json
 {
   "mcpServers": {
-    "aids": {
+    "mcpdesignsystem": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }
@@ -143,7 +143,7 @@ Add to your `.claude/settings.json`:
 ```json
 {
   "mcpServers": {
-    "aids": {
+    "mcpdesignsystem": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }

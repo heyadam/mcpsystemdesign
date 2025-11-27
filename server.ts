@@ -90,7 +90,7 @@ Routes:
 MCP config for local testing:
 {
   "mcpServers": {
-    "aids": {
+    "mcpdesignsystem": {
       "url": "http://localhost:${PORT}/sse"
     }
   }

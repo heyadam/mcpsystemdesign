@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const cursorConfig = `{
   "mcpServers": {
-    "aids": {
+    "mcpdesignsystem": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }
@@ -12,7 +12,7 @@ const cursorConfig = `{
 
 const claudeCodeConfig = `{
   "mcpServers": {
-    "aids": {
+    "mcpdesignsystem": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }
@@ -83,7 +83,7 @@ export default function GettingStartedPage() {
     <div className="max-w-3xl">
       <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-100">Getting Started</h1>
       <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">
-        Connect the AI Design System to your AI assistant via the Model Context Protocol (MCP).
+        Connect mcpsystem.design to your AI assistant via the Model Context Protocol (MCP).
       </p>
 
       {/* Cursor Section */}

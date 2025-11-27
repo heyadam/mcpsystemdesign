@@ -1,4 +1,4 @@
-# AIDS - AI Design System MCP Server
+# mcpsystem.design MCP Server
 
 ## Project Overview
 
@@ -187,7 +187,7 @@ Add to `.cursor/mcp.json`:
 ```json
 {
   "mcpServers": {
-    "aids": {
+    "mcpdesignsystem": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }
@@ -199,7 +199,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "aids": {
+    "mcpdesignsystem": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }
@@ -211,7 +211,7 @@ Add to `.claude/settings.json`:
 ```json
 {
   "mcpServers": {
-    "aids": {
+    "mcpdesignsystem": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }

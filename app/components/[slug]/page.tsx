@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!component) return { title: 'Not Found' };
 
   return {
-    title: `${component.name} - AI Design System`,
+    title: `${component.name} - mcpsystem.design`,
     description: component.description,
   };
 }

@@ -26,9 +26,9 @@ export function DocsHeader({ onMenuClick }: DocsHeaderProps) {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center">
-              <span className="text-white dark:text-black font-bold text-sm">AI</span>
+              <span className="text-white dark:text-black font-bold text-sm">M</span>
             </div>
-            <span className="font-semibold text-gray-900 dark:text-gray-100 hidden sm:block">AIDS</span>
+            <span className="font-semibold text-gray-900 dark:text-gray-100 hidden sm:block">mcpsystem.design</span>
           </Link>
         </div>
 

@@ -9,7 +9,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Design System (AIDS)</title>
+  <title>mcpsystem.design</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,8 +43,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
           </svg>
         </div>
-        <span class="font-semibold tracking-tight">AI Design System</span>
-        <span class="text-xs text-gray-400 font-medium ml-1">AIDS</span>
+        <span class="font-semibold tracking-tight">mcpsystem.design</span>
       </div>
       <nav class="flex items-center gap-1">
         <a href="#setup" class="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors">Setup</a>
@@ -100,7 +99,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
           <div class="mt-4 code-block rounded-xl overflow-hidden">
             <pre class="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>{
   "mcpServers": {
-    "aids": {
+    "mcpdesignsystem": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }
@@ -121,7 +120,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
           <div class="mt-4 code-block rounded-xl overflow-hidden">
             <pre class="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>{
   "mcpServers": {
-    "aids": {
+    "mcpdesignsystem": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }

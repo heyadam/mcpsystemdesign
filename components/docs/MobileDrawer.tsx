@@ -67,9 +67,9 @@ export function MobileDrawer({ isOpen, onClose, variant = 'components' }: Mobile
         <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center">
-              <span className="text-white dark:text-black font-bold text-sm">AI</span>
+              <span className="text-white dark:text-black font-bold text-sm">M</span>
             </div>
-            <span className="font-semibold text-gray-900 dark:text-gray-100">AI Design System</span>
+            <span className="font-semibold text-gray-900 dark:text-gray-100">mcpsystem.design</span>
           </div>
           <button
             onClick={onClose}
