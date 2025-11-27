@@ -1,12 +1,11 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { NextRequest, NextResponse } from 'next/server';
 import {
   designSystem,
   getComponentByName,
   searchComponents,
-  getComponentsByCategory,
   getAllCategories,
   styleGuide
-} from "../lib/design-system";
+} from '@/lib/design-system';
 
 // Tool definitions for MCP
 const tools = [
@@ -49,7 +48,8 @@ function executeTool(name: string, args: Record<string, unknown>): { content: Ar
     }
     case "get_style_guide": {
       const section = (args.section as string) || "all";
-      const data = section === "all" ? styleGuide : { [section]: (styleGuide as any)[section] };
+      const sg = styleGuide as unknown as Record<string, unknown>;
+      const data = section === "all" ? styleGuide : { [section]: sg[section] };
       return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
     }
     case "get_colors":
@@ -68,18 +68,18 @@ function executeTool(name: string, args: Record<string, unknown>): { content: Ar
 }
 
 // Handle JSON-RPC requests
-function handleJsonRpc(req: { jsonrpc: string; id?: string | number; method: string; params?: any }): any {
+function handleJsonRpc(req: { jsonrpc: string; id?: string | number; method: string; params?: Record<string, unknown> }): Record<string, unknown> | null {
   const { method, params, id } = req;
 
   switch (method) {
     case "initialize":
-      return { jsonrpc: "2.0", id, result: { protocolVersion: "2024-11-05", capabilities: { tools: {} }, serverInfo: { name: "minimal-design-system", version: "1.0.0" } } };
+      return { jsonrpc: "2.0", id, result: { protocolVersion: "2024-11-05", capabilities: { tools: {} }, serverInfo: { name: "design-system-mcp", version: "1.0.0" } } };
     case "notifications/initialized":
       return null;
     case "tools/list":
       return { jsonrpc: "2.0", id, result: { tools } };
     case "tools/call":
-      const result = executeTool(params.name, params.arguments || {});
+      const result = executeTool((params as Record<string, unknown>)?.name as string, ((params as Record<string, unknown>)?.arguments as Record<string, unknown>) || {});
       return { jsonrpc: "2.0", id, result };
     case "ping":
       return { jsonrpc: "2.0", id, result: {} };
@@ -88,50 +88,84 @@ function handleJsonRpc(req: { jsonrpc: string; id?: string | number; method: str
   }
 }
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, Cache-Control");
+// CORS headers
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, Cache-Control',
+};
 
-  if (req.method === "OPTIONS") {
-    res.status(204).end();
-    return;
-  }
+// OPTIONS handler for CORS
+export async function OPTIONS() {
+  return new NextResponse(null, { status: 204, headers: corsHeaders });
+}
 
-  if (req.method === "GET") {
-    res.setHeader("Content-Type", "text/event-stream");
-    res.setHeader("Cache-Control", "no-cache, no-transform");
-    res.setHeader("Connection", "keep-alive");
+// GET handler for SSE
+export async function GET(request: NextRequest) {
+  const encoder = new TextEncoder();
 
-    const host = req.headers.host || "aids-server.vercel.app";
-    const protocol = host.includes("localhost") ? "http" : "https";
-    res.write(`event: endpoint\ndata: ${protocol}://${host}/sse\n\n`);
+  // Get the host for the endpoint URL
+  const host = request.headers.get('host') || 'aids-server.vercel.app';
+  const protocol = host.includes('localhost') ? 'http' : 'https';
+  const endpointUrl = `${protocol}://${host}/api/sse`;
 
-    const interval = setInterval(() => res.write(": ping\n\n"), 30000);
-    req.on("close", () => clearInterval(interval));
-    return;
-  }
+  const stream = new ReadableStream({
+    start(controller) {
+      // Send the endpoint event immediately
+      const endpointEvent = `event: endpoint\ndata: ${endpointUrl}\n\n`;
+      controller.enqueue(encoder.encode(endpointEvent));
 
-  if (req.method === "POST") {
-    try {
-      const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-
-      if (Array.isArray(body)) {
-        const responses = body.map(r => handleJsonRpc(r)).filter(r => r !== null);
-        res.status(200).json(responses);
-      } else {
-        const response = handleJsonRpc(body);
-        if (response === null) {
-          res.status(202).end();
-        } else {
-          res.status(200).json(response);
+      // Send periodic pings to keep connection alive
+      const pingInterval = setInterval(() => {
+        try {
+          controller.enqueue(encoder.encode(': ping\n\n'));
+        } catch {
+          clearInterval(pingInterval);
         }
-      }
-    } catch (error) {
-      res.status(500).json({ jsonrpc: "2.0", id: null, error: { code: -32700, message: "Parse error" } });
-    }
-    return;
-  }
+      }, 30000);
 
-  res.status(405).json({ error: "Method not allowed" });
+      // Clean up on close
+      request.signal.addEventListener('abort', () => {
+        clearInterval(pingInterval);
+        controller.close();
+      });
+    },
+  });
+
+  return new NextResponse(stream, {
+    headers: {
+      ...corsHeaders,
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache, no-transform',
+      'Connection': 'keep-alive',
+    },
+  });
+}
+
+// POST handler for JSON-RPC
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+
+    // Handle batch requests
+    if (Array.isArray(body)) {
+      const responses = body
+        .map((req: { jsonrpc: string; id?: string | number; method: string; params?: Record<string, unknown> }) => handleJsonRpc(req))
+        .filter((response): response is Record<string, unknown> => response !== null);
+      return NextResponse.json(responses, { headers: corsHeaders });
+    }
+
+    // Handle single request
+    const response = handleJsonRpc(body);
+    if (response === null) {
+      return new NextResponse(null, { status: 202, headers: corsHeaders });
+    }
+
+    return NextResponse.json(response, { headers: corsHeaders });
+  } catch (error) {
+    return NextResponse.json(
+      { jsonrpc: "2.0", id: null, error: { code: -32700, message: "Parse error" } },
+      { status: 500, headers: corsHeaders }
+    );
+  }
 }

@@ -2,7 +2,8 @@ import http from "node:http";
 
 // Import the handlers
 import indexHandler from "./api/index.js";
-import sseHandler from "./api/sse.js";
+// Note: SSE endpoint is now at app/api/sse/route.ts (Next.js App Router)
+// Use `npm run dev` for local development with the full Next.js server
 
 const PORT = process.env.PORT || 3000;
 
@@ -63,7 +64,10 @@ const server = http.createServer(async (req, res) => {
     if (path === "/" || path === "/api/index") {
       await indexHandler(vercelReq, vercelRes);
     } else if (path === "/sse" || path === "/api/sse") {
-      await sseHandler(vercelReq, vercelRes);
+      // SSE endpoint is now handled by Next.js App Router
+      res.statusCode = 301;
+      res.setHeader("Location", "http://localhost:3000/api/sse");
+      res.end("Redirecting to Next.js server");
     } else {
       res.statusCode = 404;
       res.end("Not found");
