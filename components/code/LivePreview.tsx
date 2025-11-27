@@ -1,14 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useTheme } from '@/components/ThemeProvider';
 
 interface LivePreviewProps {
   code: string;
 }
 
 export function LivePreview({ code }: LivePreviewProps) {
+  const { resolvedTheme } = useTheme();
   const [view, setView] = useState<'preview' | 'code'>('preview');
+  const [previewTheme, setPreviewTheme] = useState<'light' | 'dark'>('light');
   const [copied, setCopied] = useState(false);
+
+  // Sync preview theme with global theme when it changes
+  useEffect(() => {
+    setPreviewTheme(resolvedTheme);
+  }, [resolvedTheme]);
 
   const copyToClipboard = async () => {
     await navigator.clipboard.writeText(code);
@@ -29,34 +37,66 @@ export function LivePreview({ code }: LivePreviewProps) {
     .trim();
 
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden">
+    <div className="border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden">
       {/* Toolbar */}
-      <div className="flex items-center justify-between px-4 py-2 bg-gray-50 border-b border-gray-200">
-        <div className="inline-flex bg-white rounded-lg p-0.5 border border-gray-200">
-          <button
-            onClick={() => setView('preview')}
-            className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
-              view === 'preview'
-                ? 'bg-gray-900 text-white'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            Preview
-          </button>
-          <button
-            onClick={() => setView('code')}
-            className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
-              view === 'code'
-                ? 'bg-gray-900 text-white'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            Code
-          </button>
+      <div className="flex items-center justify-between px-4 py-2 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+        <div className="flex items-center gap-3">
+          <div className="inline-flex bg-white dark:bg-gray-800 rounded-lg p-0.5 border border-gray-200 dark:border-gray-700">
+            <button
+              onClick={() => setView('preview')}
+              className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
+                view === 'preview'
+                  ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+              }`}
+            >
+              Preview
+            </button>
+            <button
+              onClick={() => setView('code')}
+              className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
+                view === 'code'
+                  ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+              }`}
+            >
+              Code
+            </button>
+          </div>
+          {view === 'preview' && (
+            <div className="inline-flex bg-white dark:bg-gray-800 rounded-lg p-0.5 border border-gray-200 dark:border-gray-700">
+              <button
+                onClick={() => setPreviewTheme('light')}
+                className={`px-2 py-1 text-xs font-medium rounded-md transition-all flex items-center gap-1 ${
+                  previewTheme === 'light'
+                    ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+                }`}
+                title="Light preview"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </button>
+              <button
+                onClick={() => setPreviewTheme('dark')}
+                className={`px-2 py-1 text-xs font-medium rounded-md transition-all flex items-center gap-1 ${
+                  previewTheme === 'dark'
+                    ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+                }`}
+                title="Dark preview"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
         <button
           onClick={copyToClipboard}
-          className="text-xs text-gray-500 hover:text-gray-900 transition-colors flex items-center gap-1"
+          className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-1"
         >
           {copied ? (
             <>
@@ -78,9 +118,13 @@ export function LivePreview({ code }: LivePreviewProps) {
 
       {/* Content */}
       {view === 'preview' ? (
-        <div className="p-6 bg-white">
+        <div className={`p-6 transition-colors ${
+          previewTheme === 'dark'
+            ? 'preview-container-dark bg-gray-900'
+            : 'preview-container bg-white'
+        }`}>
           <div
-            className="flex flex-wrap items-center gap-4"
+            className={`flex flex-wrap items-center gap-4 ${previewTheme === 'dark' ? 'dark' : ''}`}
             dangerouslySetInnerHTML={{ __html: cleanCode }}
           />
         </div>

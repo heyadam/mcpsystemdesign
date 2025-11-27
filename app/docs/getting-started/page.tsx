@@ -81,23 +81,23 @@ const tools = [
 export default function GettingStartedPage() {
   return (
     <div className="max-w-3xl">
-      <h1 className="text-3xl font-semibold text-gray-900">Getting Started</h1>
-      <p className="mt-4 text-lg text-gray-500">
+      <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-100">Getting Started</h1>
+      <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">
         Connect the AI Design System to your AI assistant via the Model Context Protocol (MCP).
       </p>
 
       {/* Cursor Section */}
       <section id="cursor" className="mt-12 scroll-mt-24">
-        <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-3">
-          <span className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-            <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-3">
+          <span className="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center">
+            <svg className="w-5 h-5 text-white dark:text-black" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
             </svg>
           </span>
           Cursor
         </h2>
-        <p className="mt-3 text-gray-600">
-          Add this configuration to your project's <code className="px-1.5 py-0.5 bg-gray-100 rounded text-sm font-mono">.cursor/mcp.json</code> file:
+        <p className="mt-3 text-gray-600 dark:text-gray-400">
+          Add this configuration to your project's <code className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-sm font-mono">.cursor/mcp.json</code> file:
         </p>
         <div className="mt-4">
           <ConfigBlock config={cursorConfig} filename=".cursor/mcp.json" />
@@ -106,7 +106,7 @@ export default function GettingStartedPage() {
 
       {/* Claude Code Section */}
       <section id="claude-code" className="mt-12 scroll-mt-24">
-        <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-3">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-3">
           <span className="w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg flex items-center justify-center">
             <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
@@ -114,8 +114,8 @@ export default function GettingStartedPage() {
           </span>
           Claude Code
         </h2>
-        <p className="mt-3 text-gray-600">
-          Add this configuration to your <code className="px-1.5 py-0.5 bg-gray-100 rounded text-sm font-mono">.claude/settings.json</code> file:
+        <p className="mt-3 text-gray-600 dark:text-gray-400">
+          Add this configuration to your <code className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-sm font-mono">.claude/settings.json</code> file:
         </p>
         <div className="mt-4">
           <ConfigBlock config={claudeCodeConfig} filename=".claude/settings.json" />
@@ -124,53 +124,53 @@ export default function GettingStartedPage() {
 
       {/* Verification Section */}
       <section id="verification" className="mt-12 scroll-mt-24">
-        <h2 className="text-xl font-semibold text-gray-900">Verify Connection</h2>
-        <p className="mt-3 text-gray-600">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Verify Connection</h2>
+        <p className="mt-3 text-gray-600 dark:text-gray-400">
           After adding the configuration, restart your editor. Then try asking your AI assistant:
         </p>
         <ul className="mt-4 space-y-2">
           <li className="flex items-start gap-2">
-            <span className="text-gray-400 mt-1">•</span>
-            <code className="text-sm text-gray-700 bg-gray-100 px-2 py-1 rounded">"List all available components"</code>
+            <span className="text-gray-400 dark:text-gray-500 mt-1">•</span>
+            <code className="text-sm text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">"List all available components"</code>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-gray-400 mt-1">•</span>
-            <code className="text-sm text-gray-700 bg-gray-100 px-2 py-1 rounded">"Show me the Button component"</code>
+            <span className="text-gray-400 dark:text-gray-500 mt-1">•</span>
+            <code className="text-sm text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">"Show me the Button component"</code>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-gray-400 mt-1">•</span>
-            <code className="text-sm text-gray-700 bg-gray-100 px-2 py-1 rounded">"What colors are in the design system?"</code>
+            <span className="text-gray-400 dark:text-gray-500 mt-1">•</span>
+            <code className="text-sm text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">"What colors are in the design system?"</code>
           </li>
         </ul>
       </section>
 
       {/* Available Tools Section */}
       <section id="tools" className="mt-12 scroll-mt-24">
-        <h2 className="text-xl font-semibold text-gray-900">Available Tools</h2>
-        <p className="mt-3 text-gray-600">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Available Tools</h2>
+        <p className="mt-3 text-gray-600 dark:text-gray-400">
           The MCP server exposes these tools to your AI assistant:
         </p>
-        <div className="mt-4 border border-gray-200 rounded-xl overflow-hidden">
+        <div className="mt-4 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Tool
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Description
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
               {tools.map((tool) => (
-                <tr key={tool.name} className="hover:bg-gray-50">
+                <tr key={tool.name} className="hover:bg-gray-50 dark:hover:bg-gray-900">
                   <td className="px-4 py-3">
-                    <code className="text-sm font-mono text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded">
+                    <code className="text-sm font-mono text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/30 px-1.5 py-0.5 rounded">
                       {tool.name}
                     </code>
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-600">
+                  <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400">
                     {tool.description}
                   </td>
                 </tr>
