@@ -62,21 +62,21 @@ export function MobileDrawer({ isOpen, onClose, variant = 'components' }: Mobile
       />
 
       {/* Drawer */}
-      <div className="fixed inset-y-0 left-0 w-72 bg-white shadow-xl overflow-y-auto">
+      <div className="fixed inset-y-0 left-0 w-72 bg-white dark:bg-gray-950 shadow-xl overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">DS</span>
+            <div className="w-8 h-8 bg-black dark:bg-white rounded-lg flex items-center justify-center">
+              <span className="text-white dark:text-black font-bold text-sm">AI</span>
             </div>
-            <span className="font-semibold text-gray-900">AI Design System</span>
+            <span className="font-semibold text-gray-900 dark:text-gray-100">AI Design System</span>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             aria-label="Close menu"
           >
-            <svg className="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -90,7 +90,7 @@ export function MobileDrawer({ isOpen, onClose, variant = 'components' }: Mobile
               <div>
                 <Link
                   href="/"
-                  className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -104,28 +104,28 @@ export function MobileDrawer({ isOpen, onClose, variant = 'components' }: Mobile
                     href={item.href}
                     className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
                       pathname === item.href
-                        ? 'text-gray-900 font-medium bg-gray-100'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                        ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
+                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
                     }`}
                   >
                     {item.title}
                   </Link>
                 </div>
               ))}
-              <div className="pt-4 border-t border-gray-200">
-                <div className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+              <div className="pt-4 border-t border-gray-200 dark:border-gray-800">
+                <div className="px-3 py-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
                   Quick Links
                 </div>
                 <div className="mt-1 space-y-1">
                   <Link
                     href="/components"
-                    className="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-lg transition-colors"
+                    className="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100 rounded-lg transition-colors"
                   >
                     Components
                   </Link>
                   <a
                     href="/sse"
-                    className="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-lg transition-colors"
+                    className="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100 rounded-lg transition-colors"
                   >
                     MCP Server
                   </a>
@@ -140,8 +140,8 @@ export function MobileDrawer({ isOpen, onClose, variant = 'components' }: Mobile
                   href="/components"
                   className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
                     pathname === '/components'
-                      ? 'text-gray-900 font-medium bg-gray-100'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
+                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
                   }`}
                 >
                   All Components
@@ -150,7 +150,7 @@ export function MobileDrawer({ isOpen, onClose, variant = 'components' }: Mobile
 
               {navItems.map(({ category, components }) => (
                 <div key={category.slug}>
-                  <div className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  <div className="px-3 py-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
                     {category.name}
                   </div>
                   <div className="mt-1 space-y-1">
@@ -162,8 +162,8 @@ export function MobileDrawer({ isOpen, onClose, variant = 'components' }: Mobile
                           href={`/components/${component.slug}`}
                           className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
                             isActive
-                              ? 'text-gray-900 font-medium bg-gray-100'
-                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                              ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
+                              : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
                           }`}
                         >
                           {component.name}

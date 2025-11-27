@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Enable dark mode via class strategy */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Ensure Tailwind scans component data files */
 @source "../lib/design-system/components.ts";
 
@@ -40,11 +43,86 @@
   @apply duration-150 duration-200 duration-300;
   @apply translate-y-0 translate-y-1 -translate-y-1;
   @apply scale-95 scale-100 scale-105;
+  /* Dark mode classes for safelist */
+  @apply dark:bg-gray-900 dark:bg-gray-800 dark:bg-gray-950;
+  @apply dark:text-white dark:text-gray-100 dark:text-gray-300 dark:text-gray-400;
+  @apply dark:border-gray-700 dark:border-gray-800;
+  @apply dark:hover:bg-gray-800 dark:hover:bg-gray-700;
 }
 
 @theme {
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Menlo", monospace;
+
+  /* Semantic color tokens - these auto-switch via CSS */
+  --color-surface: var(--color-surface-light);
+  --color-surface-raised: var(--color-surface-raised-light);
+  --color-surface-overlay: var(--color-surface-overlay-light);
+  --color-surface-sunken: var(--color-surface-sunken-light);
+
+  --color-border: var(--color-border-light);
+  --color-border-muted: var(--color-border-muted-light);
+
+  --color-text: var(--color-text-light);
+  --color-text-muted: var(--color-text-muted-light);
+  --color-text-subtle: var(--color-text-subtle-light);
+
+  --color-primary: var(--color-primary-light);
+  --color-primary-hover: var(--color-primary-hover-light);
+  --color-primary-text: var(--color-primary-text-light);
+
+  /* Light mode values */
+  --color-surface-light: #ffffff;
+  --color-surface-raised-light: #ffffff;
+  --color-surface-overlay-light: rgba(255, 255, 255, 0.8);
+  --color-surface-sunken-light: #f9fafb;
+
+  --color-border-light: #e5e7eb;
+  --color-border-muted-light: #f3f4f6;
+
+  --color-text-light: #111827;
+  --color-text-muted-light: #6b7280;
+  --color-text-subtle-light: #9ca3af;
+
+  --color-primary-light: #000000;
+  --color-primary-hover-light: #1f2937;
+  --color-primary-text-light: #ffffff;
+
+  /* Dark mode values */
+  --color-surface-dark: #030712;
+  --color-surface-raised-dark: #111827;
+  --color-surface-overlay-dark: rgba(3, 7, 18, 0.8);
+  --color-surface-sunken-dark: #030712;
+
+  --color-border-dark: #1f2937;
+  --color-border-muted-dark: #111827;
+
+  --color-text-dark: #f9fafb;
+  --color-text-muted-dark: #9ca3af;
+  --color-text-subtle-dark: #6b7280;
+
+  --color-primary-dark: #ffffff;
+  --color-primary-hover-dark: #e5e7eb;
+  --color-primary-text-dark: #000000;
+}
+
+/* Apply dark mode variables */
+.dark {
+  --color-surface: var(--color-surface-dark);
+  --color-surface-raised: var(--color-surface-raised-dark);
+  --color-surface-overlay: var(--color-surface-overlay-dark);
+  --color-surface-sunken: var(--color-surface-sunken-dark);
+
+  --color-border: var(--color-border-dark);
+  --color-border-muted: var(--color-border-muted-dark);
+
+  --color-text: var(--color-text-dark);
+  --color-text-muted: var(--color-text-muted-dark);
+  --color-text-subtle: var(--color-text-subtle-dark);
+
+  --color-primary: var(--color-primary-dark);
+  --color-primary-hover: var(--color-primary-hover-dark);
+  --color-primary-text: var(--color-primary-text-dark);
 }
 
 /* Custom base styles */
@@ -61,14 +139,71 @@
 /* Custom component styles */
 @layer components {
   .nav-link {
-    @apply px-3 py-2 text-sm text-gray-500 hover:text-gray-900 transition-colors rounded-lg;
+    @apply px-3 py-2 text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors rounded-lg;
   }
 
   .nav-link-active {
-    @apply px-3 py-2 text-sm text-gray-900 font-medium bg-gray-100 rounded-lg;
+    @apply px-3 py-2 text-sm text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800 rounded-lg;
   }
 
   .sidebar-category {
-    @apply px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider;
+    @apply px-3 py-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider;
+  }
+
+  /* Preview container - forces light mode for component examples */
+  .preview-container {
+    --color-surface: var(--color-surface-light);
+    --color-surface-raised: var(--color-surface-raised-light);
+    --color-border: var(--color-border-light);
+    --color-text: var(--color-text-light);
+    --color-text-muted: var(--color-text-muted-light);
+    color-scheme: light;
+  }
+
+  /* Dark preview container - forces dark mode for component examples */
+  .preview-container-dark {
+    --color-surface: var(--color-surface-dark);
+    --color-surface-raised: var(--color-surface-raised-dark);
+    --color-border: var(--color-border-dark);
+    --color-text: var(--color-text-dark);
+    --color-text-muted: var(--color-text-muted-dark);
+    color-scheme: dark;
+  }
+}
+
+/* Utility classes using semantic colors */
+@layer utilities {
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+  .bg-surface-raised {
+    background-color: var(--color-surface-raised);
+  }
+  .bg-surface-sunken {
+    background-color: var(--color-surface-sunken);
+  }
+  .bg-surface-overlay {
+    background-color: var(--color-surface-overlay);
+  }
+  .border-default {
+    border-color: var(--color-border);
+  }
+  .border-muted {
+    border-color: var(--color-border-muted);
+  }
+  .text-default {
+    color: var(--color-text);
+  }
+  .text-muted {
+    color: var(--color-text-muted);
+  }
+  .text-subtle {
+    color: var(--color-text-subtle);
+  }
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  .text-primary-contrast {
+    color: var(--color-primary-text);
   }
 }

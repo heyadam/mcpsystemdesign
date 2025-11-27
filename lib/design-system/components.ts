@@ -54,28 +54,28 @@ export const components: Component[] = [
     examples: [
       {
         title: "Primary",
-        code: `<button className="h-10 px-4 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors">
+        code: `<button className="h-10 px-4 bg-black dark:bg-white text-white dark:text-black rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors">
   Deploy
 </button>`,
         preview: "primary"
       },
       {
         title: "Secondary",
-        code: `<button className="h-10 px-4 bg-gray-100 text-gray-900 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">
+        code: `<button className="h-10 px-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
   Cancel
 </button>`,
         preview: "secondary"
       },
       {
         title: "Outline",
-        code: `<button className="h-10 px-4 bg-white text-gray-900 border border-gray-200 rounded-lg text-sm font-medium hover:bg-gray-50 hover:border-gray-300 transition-colors">
+        code: `<button className="h-10 px-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600 transition-colors">
   Settings
 </button>`,
         preview: "outline"
       },
       {
         title: "Ghost",
-        code: `<button className="h-10 px-4 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
+        code: `<button className="h-10 px-4 text-gray-600 dark:text-gray-400 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
   Learn more
 </button>`,
         preview: "ghost"
@@ -89,7 +89,7 @@ export const components: Component[] = [
       },
       {
         title: "With Icon",
-        code: `<button className="h-10 px-4 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors inline-flex items-center gap-2">
+        code: `<button className="h-10 px-4 bg-black dark:bg-white text-white dark:text-black rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors inline-flex items-center gap-2">
   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
   Add New
 </button>`,
@@ -97,7 +97,7 @@ export const components: Component[] = [
       },
       {
         title: "Loading",
-        code: `<button className="h-10 px-4 bg-black text-white rounded-lg text-sm font-medium inline-flex items-center gap-2 opacity-70 cursor-not-allowed" disabled>
+        code: `<button className="h-10 px-4 bg-black dark:bg-white text-white dark:text-black rounded-lg text-sm font-medium inline-flex items-center gap-2 opacity-70 cursor-not-allowed" disabled>
   <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -108,9 +108,9 @@ export const components: Component[] = [
       },
       {
         title: "Sizes",
-        code: `<button className="h-8 px-3 bg-black text-white rounded-md text-xs font-medium">Small</button>
-<button className="h-10 px-4 bg-black text-white rounded-lg text-sm font-medium">Medium</button>
-<button className="h-12 px-6 bg-black text-white rounded-lg text-base font-medium">Large</button>`,
+        code: `<button className="h-8 px-3 bg-black dark:bg-white text-white dark:text-black rounded-md text-xs font-medium">Small</button>
+<button className="h-10 px-4 bg-black dark:bg-white text-white dark:text-black rounded-lg text-sm font-medium">Medium</button>
+<button className="h-12 px-6 bg-black dark:bg-white text-white dark:text-black rounded-lg text-base font-medium">Large</button>`,
         preview: "sizes"
       }
     ],
@@ -131,13 +131,13 @@ export const components: Component[] = [
     examples: [
       {
         title: "Variants",
-        code: `<button className="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors" aria-label="Settings">
-  <svg className="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+        code: `<button className="w-10 h-10 flex items-center justify-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors" aria-label="Settings">
+  <svg className="w-5 h-5 text-gray-600 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
 </button>
-<button className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors" aria-label="Close">
-  <svg className="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+<button className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="Close">
+  <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
 </button>
-<button className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-red-50 text-red-500 transition-colors" aria-label="Delete">
+<button className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 text-red-500 transition-colors" aria-label="Delete">
   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
 </button>`,
         preview: "variants"
@@ -158,10 +158,10 @@ export const components: Component[] = [
     examples: [
       {
         title: "Default",
-        code: `<div className="inline-flex rounded-lg border border-gray-200 divide-x divide-gray-200">
-  <button className="px-4 py-2 text-sm font-medium text-gray-900 bg-white hover:bg-gray-50 first:rounded-l-lg">Left</button>
-  <button className="px-4 py-2 text-sm font-medium text-gray-900 bg-gray-100 hover:bg-gray-200">Center</button>
-  <button className="px-4 py-2 text-sm font-medium text-gray-900 bg-white hover:bg-gray-50 last:rounded-r-lg">Right</button>
+        code: `<div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 divide-x divide-gray-200 dark:divide-gray-700">
+  <button className="px-4 py-2 text-sm font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 first:rounded-l-lg">Left</button>
+  <button className="px-4 py-2 text-sm font-medium text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">Center</button>
+  <button className="px-4 py-2 text-sm font-medium text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 last:rounded-r-lg">Right</button>
 </div>`,
         preview: "default"
       }
@@ -222,31 +222,31 @@ export const components: Component[] = [
         code: `<input
   type="text"
   placeholder="Enter your name"
-  className="h-10 w-full px-3 bg-white border border-gray-200 rounded-lg text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-shadow"
+  className="h-10 w-full px-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent transition-shadow"
 />`,
         preview: "default"
       },
       {
         title: "With Label & Helper",
         code: `<div className="space-y-2">
-  <label className="text-sm font-medium text-gray-700">Email address</label>
+  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email address</label>
   <input
     type="email"
     placeholder="you@example.com"
-    className="h-10 w-full px-3 bg-white border border-gray-200 rounded-lg text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+    className="h-10 w-full px-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent"
   />
-  <p className="text-sm text-gray-500">We'll never share your email.</p>
+  <p className="text-sm text-gray-500 dark:text-gray-400">We'll never share your email.</p>
 </div>`,
         preview: "with-label"
       },
       {
         title: "Error State",
         code: `<div className="space-y-2">
-  <label className="text-sm font-medium text-gray-700">Email</label>
+  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
   <input
     type="email"
     value="invalid-email"
-    className="h-10 w-full px-3 bg-white border border-red-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+    className="h-10 w-full px-3 bg-white dark:bg-gray-900 border border-red-300 dark:border-red-500 rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
   />
   <p className="text-sm text-red-500">Please enter a valid email address.</p>
 </div>`,
@@ -259,7 +259,7 @@ export const components: Component[] = [
   <input
     type="text"
     placeholder="Search..."
-    className="h-10 w-full pl-10 pr-3 bg-white border border-gray-200 rounded-lg text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
+    className="h-10 w-full pl-10 pr-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100"
   />
 </div>`,
         preview: "with-icon"
@@ -270,7 +270,7 @@ export const components: Component[] = [
   type="text"
   value="Disabled input"
   disabled
-  className="h-10 w-full px-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-500 cursor-not-allowed"
+  className="h-10 w-full px-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-500 dark:text-gray-400 cursor-not-allowed"
 />`,
         preview: "disabled"
       }
@@ -296,19 +296,19 @@ export const components: Component[] = [
         code: `<textarea
   placeholder="Enter your message..."
   rows="4"
-  className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-y"
+  className="w-full px-3 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent resize-y"
 ></textarea>`,
         preview: "default"
       },
       {
         title: "With Character Count",
         code: `<div className="space-y-2">
-  <label className="text-sm font-medium text-gray-700">Bio</label>
+  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Bio</label>
   <textarea
     placeholder="Tell us about yourself..."
     rows="3"
     maxLength="200"
-    className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 resize-none"
+    className="w-full px-3 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 resize-none"
   ></textarea>
   <p className="text-xs text-gray-400 text-right">0 / 200</p>
 </div>`,
@@ -334,7 +334,7 @@ export const components: Component[] = [
       {
         title: "Default",
         code: `<div className="relative">
-  <select className="h-10 w-full px-3 pr-10 bg-white border border-gray-200 rounded-lg text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent cursor-pointer">
+  <select className="h-10 w-full px-3 pr-10 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-gray-100 appearance-none focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent cursor-pointer">
     <option value="">Select an option</option>
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
@@ -347,9 +347,9 @@ export const components: Component[] = [
       {
         title: "With Label",
         code: `<div className="space-y-2">
-  <label className="text-sm font-medium text-gray-700">Country</label>
+  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Country</label>
   <div className="relative">
-    <select className="h-10 w-full px-3 pr-10 bg-white border border-gray-200 rounded-lg text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-gray-900 cursor-pointer">
+    <select className="h-10 w-full px-3 pr-10 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-gray-100 appearance-none focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 cursor-pointer">
       <option value="">Select country</option>
       <option value="us">United States</option>
       <option value="uk">United Kingdom</option>
@@ -381,19 +381,19 @@ export const components: Component[] = [
         title: "States",
         code: `<!-- Unchecked -->
 <label className="flex items-center gap-3 cursor-pointer">
-  <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900 focus:ring-offset-0" />
-  <span className="text-sm text-gray-700">Unchecked</span>
+  <input type="checkbox" className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white bg-white dark:bg-gray-900 focus:ring-gray-900 dark:focus:ring-gray-100 focus:ring-offset-0" />
+  <span className="text-sm text-gray-700 dark:text-gray-300">Unchecked</span>
 </label>
 
 <!-- Checked -->
 <label className="flex items-center gap-3 cursor-pointer">
-  <input type="checkbox" checked className="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900 focus:ring-offset-0" />
-  <span className="text-sm text-gray-700">Checked</span>
+  <input type="checkbox" checked className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white bg-white dark:bg-gray-900 focus:ring-gray-900 dark:focus:ring-gray-100 focus:ring-offset-0" />
+  <span className="text-sm text-gray-700 dark:text-gray-300">Checked</span>
 </label>
 
 <!-- Disabled -->
 <label className="flex items-center gap-3 cursor-not-allowed">
-  <input type="checkbox" disabled className="w-4 h-4 rounded border-gray-200 text-gray-400" />
+  <input type="checkbox" disabled className="w-4 h-4 rounded border-gray-200 dark:border-gray-700 text-gray-400" />
   <span className="text-sm text-gray-400">Disabled</span>
 </label>`,
         preview: "states"
@@ -401,10 +401,10 @@ export const components: Component[] = [
       {
         title: "With Description",
         code: `<label className="flex items-start gap-3 cursor-pointer">
-  <input type="checkbox" className="w-4 h-4 mt-0.5 rounded border-gray-300 text-gray-900 focus:ring-gray-900" />
+  <input type="checkbox" className="w-4 h-4 mt-0.5 rounded border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white bg-white dark:bg-gray-900 focus:ring-gray-900 dark:focus:ring-gray-100" />
   <div>
-    <span className="text-sm font-medium text-gray-700">Marketing emails</span>
-    <p className="text-sm text-gray-500">Receive emails about new products and features.</p>
+    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Marketing emails</span>
+    <p className="text-sm text-gray-500 dark:text-gray-400">Receive emails about new products and features.</p>
   </div>
 </label>`,
         preview: "with-description"
@@ -428,18 +428,18 @@ export const components: Component[] = [
       {
         title: "Radio Group",
         code: `<fieldset className="space-y-3">
-  <legend className="text-sm font-medium text-gray-700">Notification preference</legend>
+  <legend className="text-sm font-medium text-gray-700 dark:text-gray-300">Notification preference</legend>
   <label className="flex items-center gap-3 cursor-pointer">
-    <input type="radio" name="notification" value="all" checked className="w-4 h-4 border-gray-300 text-gray-900 focus:ring-gray-900" />
-    <span className="text-sm text-gray-700">All notifications</span>
+    <input type="radio" name="notification" value="all" checked className="w-4 h-4 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white bg-white dark:bg-gray-900 focus:ring-gray-900 dark:focus:ring-gray-100" />
+    <span className="text-sm text-gray-700 dark:text-gray-300">All notifications</span>
   </label>
   <label className="flex items-center gap-3 cursor-pointer">
-    <input type="radio" name="notification" value="mentions" className="w-4 h-4 border-gray-300 text-gray-900 focus:ring-gray-900" />
-    <span className="text-sm text-gray-700">Mentions only</span>
+    <input type="radio" name="notification" value="mentions" className="w-4 h-4 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white bg-white dark:bg-gray-900 focus:ring-gray-900 dark:focus:ring-gray-100" />
+    <span className="text-sm text-gray-700 dark:text-gray-300">Mentions only</span>
   </label>
   <label className="flex items-center gap-3 cursor-pointer">
-    <input type="radio" name="notification" value="none" className="w-4 h-4 border-gray-300 text-gray-900 focus:ring-gray-900" />
-    <span className="text-sm text-gray-700">None</span>
+    <input type="radio" name="notification" value="none" className="w-4 h-4 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white bg-white dark:bg-gray-900 focus:ring-gray-900 dark:focus:ring-gray-100" />
+    <span className="text-sm text-gray-700 dark:text-gray-300">None</span>
   </label>
 </fieldset>`,
         preview: "group"
@@ -449,23 +449,23 @@ export const components: Component[] = [
         code: `<div className="grid grid-cols-3 gap-3">
   <label className="relative cursor-pointer">
     <input type="radio" name="plan" value="starter" className="peer sr-only" />
-    <div className="p-4 bg-white border border-gray-200 rounded-xl peer-checked:border-gray-900 peer-checked:ring-1 peer-checked:ring-gray-900 transition-all">
-      <p className="font-medium text-gray-900">Starter</p>
-      <p className="text-sm text-gray-500">$9/mo</p>
+    <div className="p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl peer-checked:border-gray-900 dark:peer-checked:border-gray-100 peer-checked:ring-1 peer-checked:ring-gray-900 dark:peer-checked:ring-gray-100 transition-all">
+      <p className="font-medium text-gray-900 dark:text-gray-100">Starter</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400">$9/mo</p>
     </div>
   </label>
   <label className="relative cursor-pointer">
     <input type="radio" name="plan" value="pro" className="peer sr-only" checked />
-    <div className="p-4 bg-white border border-gray-200 rounded-xl peer-checked:border-gray-900 peer-checked:ring-1 peer-checked:ring-gray-900 transition-all">
-      <p className="font-medium text-gray-900">Pro</p>
-      <p className="text-sm text-gray-500">$29/mo</p>
+    <div className="p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl peer-checked:border-gray-900 dark:peer-checked:border-gray-100 peer-checked:ring-1 peer-checked:ring-gray-900 dark:peer-checked:ring-gray-100 transition-all">
+      <p className="font-medium text-gray-900 dark:text-gray-100">Pro</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400">$29/mo</p>
     </div>
   </label>
   <label className="relative cursor-pointer">
     <input type="radio" name="plan" value="enterprise" className="peer sr-only" />
-    <div className="p-4 bg-white border border-gray-200 rounded-xl peer-checked:border-gray-900 peer-checked:ring-1 peer-checked:ring-gray-900 transition-all">
-      <p className="font-medium text-gray-900">Enterprise</p>
-      <p className="text-sm text-gray-500">Custom</p>
+    <div className="p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl peer-checked:border-gray-900 dark:peer-checked:border-gray-100 peer-checked:ring-1 peer-checked:ring-gray-900 dark:peer-checked:ring-gray-100 transition-all">
+      <p className="font-medium text-gray-900 dark:text-gray-100">Enterprise</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400">Custom</p>
     </div>
   </label>
 </div>`,
@@ -490,13 +490,13 @@ export const components: Component[] = [
       {
         title: "States",
         code: `<!-- Off -->
-<button className="w-11 h-6 bg-gray-200 rounded-full relative transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">
+<button className="w-11 h-6 bg-gray-200 dark:bg-gray-700 rounded-full relative transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:ring-offset-2 dark:focus:ring-offset-gray-900">
   <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm transition-transform" />
 </button>
 
 <!-- On -->
-<button className="w-11 h-6 bg-gray-900 rounded-full relative transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">
-  <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm transition-transform translate-x-5" />
+<button className="w-11 h-6 bg-gray-900 dark:bg-gray-100 rounded-full relative transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:ring-offset-2 dark:focus:ring-offset-gray-900">
+  <span className="absolute left-1 top-1 w-4 h-4 bg-white dark:bg-gray-900 rounded-full shadow-sm transition-transform translate-x-5" />
 </button>`,
         preview: "states"
       },
@@ -504,11 +504,11 @@ export const components: Component[] = [
         title: "With Label",
         code: `<label className="flex items-center justify-between cursor-pointer">
   <div>
-    <p className="text-sm font-medium text-gray-700">Dark mode</p>
-    <p className="text-sm text-gray-500">Use dark theme across the app</p>
+    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Dark mode</p>
+    <p className="text-sm text-gray-500 dark:text-gray-400">Use dark theme across the app</p>
   </div>
-  <button className="w-11 h-6 bg-gray-900 rounded-full relative transition-colors ml-4">
-    <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow-sm transition-transform translate-x-5" />
+  <button className="w-11 h-6 bg-gray-900 dark:bg-gray-100 rounded-full relative transition-colors ml-4">
+    <span className="absolute left-1 top-1 w-4 h-4 bg-white dark:bg-gray-900 rounded-full shadow-sm transition-transform translate-x-5" />
   </button>
 </label>`,
         preview: "with-label"
@@ -534,23 +534,23 @@ export const components: Component[] = [
         title: "Complete Form",
         code: `<form className="space-y-6">
   <div className="space-y-2">
-    <label className="text-sm font-medium text-gray-700">Full name <span className="text-red-500">*</span></label>
-    <input type="text" className="h-10 w-full px-3 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900" />
+    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Full name <span className="text-red-500">*</span></label>
+    <input type="text" className="h-10 w-full px-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100" />
   </div>
 
   <div className="space-y-2">
-    <label className="text-sm font-medium text-gray-700">Email <span className="text-red-500">*</span></label>
-    <input type="email" className="h-10 w-full px-3 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-900" />
-    <p className="text-sm text-gray-500">We'll use this for account notifications.</p>
+    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email <span className="text-red-500">*</span></label>
+    <input type="email" className="h-10 w-full px-3 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100" />
+    <p className="text-sm text-gray-500 dark:text-gray-400">We'll use this for account notifications.</p>
   </div>
 
   <div className="space-y-2">
-    <label className="text-sm font-medium text-gray-700">Password</label>
-    <input type="password" className="h-10 w-full px-3 bg-white border border-red-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
+    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+    <input type="password" className="h-10 w-full px-3 bg-white dark:bg-gray-900 border border-red-300 dark:border-red-500 rounded-lg text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-red-500" />
     <p className="text-sm text-red-500">Password must be at least 8 characters.</p>
   </div>
 
-  <button type="submit" className="h-10 px-4 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800">
+  <button type="submit" className="h-10 px-4 bg-black dark:bg-white text-white dark:text-black rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-200">
     Create account
   </button>
 </form>`,
@@ -574,19 +574,19 @@ export const components: Component[] = [
     examples: [
       {
         title: "Drop Zone",
-        code: `<div className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center hover:border-gray-300 transition-colors cursor-pointer">
+        code: `<div className="border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl p-8 text-center hover:border-gray-300 dark:hover:border-gray-600 transition-colors cursor-pointer">
   <svg className="w-10 h-10 text-gray-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
-  <p className="mt-4 text-sm text-gray-600">
-    <span className="font-medium text-gray-900">Click to upload</span> or drag and drop
+  <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+    <span className="font-medium text-gray-900 dark:text-gray-100">Click to upload</span> or drag and drop
   </p>
-  <p className="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">PNG, JPG, GIF up to 10MB</p>
   <input type="file" className="hidden" />
 </div>`,
         preview: "dropzone"
       },
       {
         title: "Compact",
-        code: `<label className="inline-flex items-center gap-2 h-10 px-4 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer transition-colors">
+        code: `<label className="inline-flex items-center gap-2 h-10 px-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors">
   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
   Attach file
   <input type="file" className="hidden" />
@@ -614,28 +614,28 @@ export const components: Component[] = [
     examples: [
       {
         title: "Default",
-        code: `<div className="border border-gray-200 rounded-xl overflow-hidden">
+        code: `<div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
   <table className="w-full">
-    <thead className="bg-gray-50 border-b border-gray-200">
+    <thead className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
       <tr>
-        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-        <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Name</th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Role</th>
+        <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
       </tr>
     </thead>
-    <tbody className="divide-y divide-gray-200">
-      <tr className="hover:bg-gray-50">
-        <td className="px-4 py-3 text-sm text-gray-900">John Doe</td>
-        <td className="px-4 py-3"><span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-50 text-emerald-700">Active</span></td>
-        <td className="px-4 py-3 text-sm text-gray-500">Admin</td>
-        <td className="px-4 py-3 text-right text-sm"><button className="text-gray-500 hover:text-gray-900">Edit</button></td>
+    <tbody className="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900">
+      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">John Doe</td>
+        <td className="px-4 py-3"><span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">Active</span></td>
+        <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">Admin</td>
+        <td className="px-4 py-3 text-right text-sm"><button className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Edit</button></td>
       </tr>
-      <tr className="hover:bg-gray-50">
-        <td className="px-4 py-3 text-sm text-gray-900">Jane Smith</td>
-        <td className="px-4 py-3"><span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600">Pending</span></td>
-        <td className="px-4 py-3 text-sm text-gray-500">User</td>
-        <td className="px-4 py-3 text-right text-sm"><button className="text-gray-500 hover:text-gray-900">Edit</button></td>
+      <tr className="hover:bg-gray-50 dark:hover:bg-gray-800">
+        <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Jane Smith</td>
+        <td className="px-4 py-3"><span className="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Pending</span></td>
+        <td className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">User</td>
+        <td className="px-4 py-3 text-right text-sm"><button className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Edit</button></td>
       </tr>
     </tbody>
   </table>
@@ -672,24 +672,24 @@ export const components: Component[] = [
     examples: [
       {
         title: "Variants",
-        code: `<span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-gray-100 text-gray-800">Default</span>
-<span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-emerald-50 text-emerald-700">Success</span>
-<span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-amber-50 text-amber-700">Warning</span>
-<span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-red-50 text-red-700">Error</span>
-<span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-blue-50 text-blue-700">Info</span>`,
+        code: `<span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200">Default</span>
+<span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">Success</span>
+<span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">Warning</span>
+<span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400">Error</span>
+<span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">Info</span>`,
         preview: "variants"
       },
       {
         title: "With Dot",
-        code: `<span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full bg-emerald-50 text-emerald-700">
+        code: `<span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">
   <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
   Online
 </span>
-<span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
+<span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
   Offline
 </span>
-<span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full bg-amber-50 text-amber-700">
+<span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">
   <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse"></span>
   Processing
 </span>`,
@@ -769,41 +769,41 @@ export const components: Component[] = [
     examples: [
       {
         title: "Default",
-        code: `<div className="p-6 bg-white border border-gray-200 rounded-xl">
-  <h3 className="font-semibold text-gray-900">Card Title</h3>
-  <p className="mt-2 text-sm text-gray-500">This is a basic card with default styling.</p>
+        code: `<div className="p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl">
+  <h3 className="font-semibold text-gray-900 dark:text-gray-100">Card Title</h3>
+  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">This is a basic card with default styling.</p>
 </div>`,
         preview: "default"
       },
       {
         title: "Interactive",
-        code: `<div className="p-6 bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-md transition-all cursor-pointer">
-  <h3 className="font-semibold text-gray-900">Interactive Card</h3>
-  <p className="mt-2 text-sm text-gray-500">Hover to see the shadow effect.</p>
+        code: `<div className="p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md dark:hover:shadow-gray-900/50 transition-all cursor-pointer">
+  <h3 className="font-semibold text-gray-900 dark:text-gray-100">Interactive Card</h3>
+  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Hover to see the shadow effect.</p>
 </div>`,
         preview: "interactive"
       },
       {
         title: "With Header & Footer",
-        code: `<div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-  <div className="px-6 py-4 border-b border-gray-200">
-    <h3 className="font-semibold text-gray-900">Card Header</h3>
+        code: `<div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+  <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+    <h3 className="font-semibold text-gray-900 dark:text-gray-100">Card Header</h3>
   </div>
   <div className="px-6 py-4">
-    <p className="text-sm text-gray-500">Card body content goes here. You can put any content inside.</p>
+    <p className="text-sm text-gray-500 dark:text-gray-400">Card body content goes here. You can put any content inside.</p>
   </div>
-  <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
-    <button className="text-sm font-medium text-gray-600 hover:text-gray-900">View details →</button>
+  <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+    <button className="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">View details →</button>
   </div>
 </div>`,
         preview: "with-sections"
       },
       {
         title: "Stats Card",
-        code: `<div className="p-6 bg-white border border-gray-200 rounded-xl">
-  <p className="text-sm font-medium text-gray-500">Total Revenue</p>
-  <p className="mt-2 text-3xl font-semibold text-gray-900">$45,231.89</p>
-  <p className="mt-2 text-sm text-emerald-600">↑ 20.1% from last month</p>
+        code: `<div className="p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl">
+  <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Revenue</p>
+  <p className="mt-2 text-3xl font-semibold text-gray-900 dark:text-gray-100">$45,231.89</p>
+  <p className="mt-2 text-sm text-emerald-600 dark:text-emerald-400">↑ 20.1% from last month</p>
 </div>`,
         preview: "stats"
       }
@@ -828,9 +828,9 @@ export const components: Component[] = [
         title: "Default",
         code: `<div className="text-center py-12">
   <svg className="w-12 h-12 text-gray-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-  <h3 className="mt-4 text-sm font-medium text-gray-900">No documents</h3>
-  <p className="mt-2 text-sm text-gray-500">Get started by creating a new document.</p>
-  <button className="mt-4 h-9 px-4 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800">
+  <h3 className="mt-4 text-sm font-medium text-gray-900 dark:text-gray-100">No documents</h3>
+  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Get started by creating a new document.</p>
+  <button className="mt-4 h-9 px-4 bg-black dark:bg-white text-white dark:text-black rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-200">
     Create document
   </button>
 </div>`,
@@ -867,8 +867,8 @@ console.log(greeting);</code></pre>
       },
       {
         title: "Inline Code",
-        code: `<p className="text-sm text-gray-700">
-  Run <code className="px-1.5 py-0.5 bg-gray-100 rounded text-sm font-mono text-gray-900">npm install</code> to install dependencies.
+        code: `<p className="text-sm text-gray-700 dark:text-gray-300">
+  Run <code className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-sm font-mono text-gray-900 dark:text-gray-100">npm install</code> to install dependencies.
 </p>`,
         preview: "inline"
       }
@@ -892,20 +892,20 @@ console.log(greeting);</code></pre>
     examples: [
       {
         title: "Pills",
-        code: `<div className="inline-flex bg-gray-100 rounded-lg p-1">
-  <button className="px-4 py-2 text-sm font-medium bg-white text-gray-900 rounded-md shadow-sm">Overview</button>
-  <button className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Analytics</button>
-  <button className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Settings</button>
+        code: `<div className="inline-flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
+  <button className="px-4 py-2 text-sm font-medium bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-md shadow-sm">Overview</button>
+  <button className="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Analytics</button>
+  <button className="px-4 py-2 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Settings</button>
 </div>`,
         preview: "pills"
       },
       {
         title: "Underline",
-        code: `<div className="border-b border-gray-200">
+        code: `<div className="border-b border-gray-200 dark:border-gray-700">
   <nav className="flex gap-8">
-    <button className="py-3 text-sm font-medium text-gray-900 border-b-2 border-gray-900">Overview</button>
-    <button className="py-3 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent">Analytics</button>
-    <button className="py-3 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent">Settings</button>
+    <button className="py-3 text-sm font-medium text-gray-900 dark:text-gray-100 border-b-2 border-gray-900 dark:border-gray-100">Overview</button>
+    <button className="py-3 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 border-b-2 border-transparent">Analytics</button>
+    <button className="py-3 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 border-b-2 border-transparent">Settings</button>
   </nav>
 </div>`,
         preview: "underline"
@@ -928,11 +928,11 @@ console.log(greeting);</code></pre>
       {
         title: "Default",
         code: `<nav className="flex items-center gap-2 text-sm">
-  <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors">Home</a>
-  <span className="text-gray-300">/</span>
-  <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors">Products</a>
-  <span className="text-gray-300">/</span>
-  <span className="text-gray-900 font-medium">Headphones</span>
+  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Home</a>
+  <span className="text-gray-300 dark:text-gray-600">/</span>
+  <a href="#" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">Products</a>
+  <span className="text-gray-300 dark:text-gray-600">/</span>
+  <span className="text-gray-900 dark:text-gray-100 font-medium">Headphones</span>
 </nav>`,
         preview: "default"
       }
@@ -955,15 +955,15 @@ console.log(greeting);</code></pre>
       {
         title: "Default",
         code: `<nav className="flex items-center gap-1">
-  <button className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 disabled:opacity-50" disabled>
+  <button className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50" disabled>
     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
   </button>
-  <button className="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium bg-gray-900 text-white">1</button>
-  <button className="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">2</button>
-  <button className="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">3</button>
+  <button className="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900">1</button>
+  <button className="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">2</button>
+  <button className="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">3</button>
   <span className="w-9 h-9 flex items-center justify-center text-gray-400">...</span>
-  <button className="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">10</button>
-  <button className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100">
+  <button className="w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">10</button>
+  <button className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
   </button>
 </nav>`,
@@ -986,20 +986,20 @@ console.log(greeting);</code></pre>
     examples: [
       {
         title: "Default",
-        code: `<aside className="w-64 bg-white border-r border-gray-200 h-screen">
-  <div className="p-4 border-b border-gray-200">
-    <span className="font-semibold text-gray-900">Dashboard</span>
+        code: `<aside className="w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 h-screen">
+  <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+    <span className="font-semibold text-gray-900 dark:text-gray-100">Dashboard</span>
   </div>
   <nav className="p-2 space-y-1">
-    <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-900 bg-gray-100 rounded-lg">
+    <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800 rounded-lg">
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
       Home
     </a>
-    <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg">
+    <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg">
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
       Analytics
     </a>
-    <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg">
+    <a href="#" className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg">
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
       Users
     </a>
@@ -1103,25 +1103,25 @@ console.log(greeting);</code></pre>
       {
         title: "Variants",
         code: `<!-- Default -->
-<div className="max-w-sm p-4 bg-white border border-gray-200 rounded-xl shadow-lg">
+<div className="max-w-sm p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg dark:shadow-gray-900/50">
   <div className="flex items-start gap-3">
     <div className="flex-1">
-      <p className="text-sm font-medium text-gray-900">Scheduled: Meeting</p>
-      <p className="mt-1 text-sm text-gray-500">Friday, February 10 at 5:57 PM</p>
+      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Scheduled: Meeting</p>
+      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Friday, February 10 at 5:57 PM</p>
     </div>
-    <button className="text-gray-400 hover:text-gray-600">
+    <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
     </button>
   </div>
 </div>
 
 <!-- Success -->
-<div className="max-w-sm p-4 bg-white border border-gray-200 rounded-xl shadow-lg">
+<div className="max-w-sm p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg dark:shadow-gray-900/50">
   <div className="flex items-center gap-3">
-    <div className="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
-      <svg className="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+    <div className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center">
+      <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
     </div>
-    <p className="text-sm font-medium text-gray-900">Successfully saved!</p>
+    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Successfully saved!</p>
   </div>
 </div>`,
         preview: "variants"
@@ -1146,25 +1146,25 @@ console.log(greeting);</code></pre>
         title: "Default",
         code: `<div className="space-y-2">
   <div className="flex justify-between text-sm">
-    <span className="text-gray-700">Progress</span>
-    <span className="text-gray-500">75%</span>
+    <span className="text-gray-700 dark:text-gray-300">Progress</span>
+    <span className="text-gray-500 dark:text-gray-400">75%</span>
   </div>
-  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-    <div className="h-full bg-gray-900 rounded-full transition-all duration-300" style="width: 75%"></div>
+  <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+    <div className="h-full bg-gray-900 dark:bg-gray-100 rounded-full transition-all duration-300" style="width: 75%"></div>
   </div>
 </div>`,
         preview: "default"
       },
       {
         title: "Sizes",
-        code: `<div className="h-1 bg-gray-100 rounded-full overflow-hidden">
-  <div className="h-full bg-gray-900 rounded-full" style="width: 60%"></div>
+        code: `<div className="h-1 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+  <div className="h-full bg-gray-900 dark:bg-gray-100 rounded-full" style="width: 60%"></div>
 </div>
-<div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-  <div className="h-full bg-gray-900 rounded-full" style="width: 60%"></div>
+<div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+  <div className="h-full bg-gray-900 dark:bg-gray-100 rounded-full" style="width: 60%"></div>
 </div>
-<div className="h-3 bg-gray-100 rounded-full overflow-hidden">
-  <div className="h-full bg-gray-900 rounded-full" style="width: 60%"></div>
+<div className="h-3 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+  <div className="h-full bg-gray-900 dark:bg-gray-100 rounded-full" style="width: 60%"></div>
 </div>`,
         preview: "sizes"
       }
@@ -1188,28 +1188,28 @@ console.log(greeting);</code></pre>
         title: "Content Loading",
         code: `<div className="space-y-4">
   <div className="flex items-center gap-3">
-    <div className="w-10 h-10 bg-gray-200 rounded-full animate-pulse"></div>
+    <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full animate-pulse"></div>
     <div className="space-y-2">
-      <div className="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
-      <div className="h-3 w-24 bg-gray-200 rounded animate-pulse"></div>
+      <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+      <div className="h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
     </div>
   </div>
   <div className="space-y-2">
-    <div className="h-4 w-full bg-gray-200 rounded animate-pulse"></div>
-    <div className="h-4 w-full bg-gray-200 rounded animate-pulse"></div>
-    <div className="h-4 w-3/4 bg-gray-200 rounded animate-pulse"></div>
+    <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+    <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+    <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
   </div>
 </div>`,
         preview: "content"
       },
       {
         title: "Card Loading",
-        code: `<div className="p-6 bg-white border border-gray-200 rounded-xl">
-  <div className="h-40 bg-gray-200 rounded-lg animate-pulse"></div>
+        code: `<div className="p-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl">
+  <div className="h-40 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
   <div className="mt-4 space-y-2">
-    <div className="h-5 w-2/3 bg-gray-200 rounded animate-pulse"></div>
-    <div className="h-4 w-full bg-gray-200 rounded animate-pulse"></div>
-    <div className="h-4 w-1/2 bg-gray-200 rounded animate-pulse"></div>
+    <div className="h-5 w-2/3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+    <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+    <div className="h-4 w-1/2 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
   </div>
 </div>`,
         preview: "card"
@@ -1298,19 +1298,19 @@ console.log(greeting);</code></pre>
 
 <!-- Modal -->
 <div className="fixed inset-0 flex items-center justify-center p-4">
-  <div className="w-full max-w-md bg-white rounded-2xl shadow-xl">
-    <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-      <h2 className="text-lg font-semibold text-gray-900">Modal Title</h2>
-      <button className="text-gray-400 hover:text-gray-600">
+  <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl dark:shadow-gray-900/50">
+    <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Modal Title</h2>
+      <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
     </div>
     <div className="px-6 py-4">
-      <p className="text-sm text-gray-500">Modal content goes here. You can put any content inside.</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400">Modal content goes here. You can put any content inside.</p>
     </div>
-    <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-200">
-      <button className="h-10 px-4 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg">Cancel</button>
-      <button className="h-10 px-4 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800">Confirm</button>
+    <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-200 dark:border-gray-700">
+      <button className="h-10 px-4 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">Cancel</button>
+      <button className="h-10 px-4 bg-black dark:bg-white text-white dark:text-black rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-200">Confirm</button>
     </div>
   </div>
 </div>`,
@@ -1318,14 +1318,14 @@ console.log(greeting);</code></pre>
       },
       {
         title: "Confirmation",
-        code: `<div className="w-full max-w-sm bg-white rounded-2xl shadow-xl p-6 text-center">
-  <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto">
-    <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+        code: `<div className="w-full max-w-sm bg-white dark:bg-gray-900 rounded-2xl shadow-xl dark:shadow-gray-900/50 p-6 text-center">
+  <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto">
+    <svg className="w-6 h-6 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
   </div>
-  <h3 className="mt-4 text-lg font-semibold text-gray-900">Delete item?</h3>
-  <p className="mt-2 text-sm text-gray-500">This action cannot be undone. This will permanently delete the item.</p>
+  <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-gray-100">Delete item?</h3>
+  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">This action cannot be undone. This will permanently delete the item.</p>
   <div className="mt-6 flex gap-3">
-    <button className="flex-1 h-10 px-4 text-sm font-medium text-gray-600 border border-gray-200 rounded-lg hover:bg-gray-50">Cancel</button>
+    <button className="flex-1 h-10 px-4 text-sm font-medium text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800">Cancel</button>
     <button className="flex-1 h-10 px-4 bg-red-500 text-white rounded-lg text-sm font-medium hover:bg-red-600">Delete</button>
   </div>
 </div>`,
@@ -1350,23 +1350,23 @@ console.log(greeting);</code></pre>
       {
         title: "Default",
         code: `<div className="relative inline-block">
-  <button className="h-10 px-4 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 inline-flex items-center gap-2">
+  <button className="h-10 px-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 inline-flex items-center gap-2">
     Options
     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
   </button>
 
   <!-- Dropdown Menu -->
-  <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-1 z-10">
-    <button className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
+  <div className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg dark:shadow-gray-900/50 py-1 z-10">
+    <button className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3">
       <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
       Edit
     </button>
-    <button className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
+    <button className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3">
       <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
       Duplicate
     </button>
-    <div className="my-1 border-t border-gray-100"></div>
-    <button className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center gap-3">
+    <div className="my-1 border-t border-gray-100 dark:border-gray-800"></div>
+    <button className="w-full px-4 py-2 text-left text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 flex items-center gap-3">
       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
       Delete
     </button>
@@ -1394,10 +1394,10 @@ console.log(greeting);</code></pre>
         title: "Positions",
         code: `<!-- Top (default) -->
 <div className="relative inline-block group">
-  <button className="px-4 py-2 bg-gray-100 rounded-lg text-sm">Hover me</button>
-  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-gray-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+  <button className="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm text-gray-900 dark:text-gray-100">Hover me</button>
+  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
     Tooltip text
-    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900 dark:border-t-gray-100"></div>
   </div>
 </div>`,
         preview: "positions"
@@ -1421,26 +1421,26 @@ console.log(greeting);</code></pre>
     examples: [
       {
         title: "Default",
-        code: `<hr className="border-gray-200" />`,
+        code: `<hr className="border-gray-200 dark:border-gray-700" />`,
         preview: "default"
       },
       {
         title: "With Label",
         code: `<div className="flex items-center gap-4">
-  <hr className="flex-1 border-gray-200" />
-  <span className="text-sm text-gray-500">or</span>
-  <hr className="flex-1 border-gray-200" />
+  <hr className="flex-1 border-gray-200 dark:border-gray-700" />
+  <span className="text-sm text-gray-500 dark:text-gray-400">or</span>
+  <hr className="flex-1 border-gray-200 dark:border-gray-700" />
 </div>`,
         preview: "with-label"
       },
       {
         title: "Vertical",
         code: `<div className="flex items-center gap-4 h-8">
-  <span className="text-sm text-gray-700">Item 1</span>
-  <div className="w-px h-full bg-gray-200"></div>
-  <span className="text-sm text-gray-700">Item 2</span>
-  <div className="w-px h-full bg-gray-200"></div>
-  <span className="text-sm text-gray-700">Item 3</span>
+  <span className="text-sm text-gray-700 dark:text-gray-300">Item 1</span>
+  <div className="w-px h-full bg-gray-200 dark:bg-gray-700"></div>
+  <span className="text-sm text-gray-700 dark:text-gray-300">Item 2</span>
+  <div className="w-px h-full bg-gray-200 dark:bg-gray-700"></div>
+  <span className="text-sm text-gray-700 dark:text-gray-300">Item 3</span>
 </div>`,
         preview: "vertical"
       }
