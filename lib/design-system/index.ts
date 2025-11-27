@@ -11,9 +11,9 @@ export { styleGuide, categories } from './style-guide';
 
 // Main design system object
 export const designSystem: DesignSystem = {
-  name: "Minimal Design System",
-  version: "2.0.0",
-  description: "A comprehensive, Vercel-inspired design system built with Tailwind CSS. Clean, fast, and pixel-perfect.",
+  name: "AI Design System",
+  version: "1.0.0",
+  description: "A comprehensive, AI-first design system optimized for MCP integrations and built with Tailwind CSS.",
   components,
   categories,
   styleGuide,
