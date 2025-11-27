@@ -9,7 +9,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minimal Design System</title>
+  <title>AI Design System (AIDS)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,14 +43,14 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
           </svg>
         </div>
-        <span class="font-semibold tracking-tight">Minimal</span>
-        <span class="text-xs text-gray-400 font-medium ml-1">v1.0</span>
+        <span class="font-semibold tracking-tight">AI Design System</span>
+        <span class="text-xs text-gray-400 font-medium ml-1">AIDS</span>
       </div>
       <nav class="flex items-center gap-1">
+        <a href="#setup" class="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors">Setup</a>
         <a href="#components" class="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors">Components</a>
         <a href="#colors" class="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors">Colors</a>
-        <a href="#setup" class="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors">Setup</a>
-        <a href="https://github.com" target="_blank" class="ml-2 p-2 text-gray-400 hover:text-gray-900 transition-colors">
+        <a href="https://github.com/heyadam/aids-server" target="_blank" class="ml-2 p-2 text-gray-400 hover:text-gray-900 transition-colors">
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
       </nav>
@@ -62,11 +62,11 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     <div class="max-w-6xl mx-auto">
       <div class="max-w-2xl">
         <h1 class="text-5xl font-semibold tracking-tight leading-[1.1]">
-          Build faster with<br/>minimal components
+          Build faster with<br/>AI Design System
         </h1>
         <p class="mt-6 text-lg text-gray-500 leading-relaxed">
-          A comprehensive, Vercel-inspired design system with 30+ components.
-          Accessible via MCP for AI-powered development.
+          A comprehensive design system with 30+ components accessible via MCP.
+          Purpose-built for AI-powered development workflows.
         </p>
         <div class="mt-8 flex items-center gap-3">
           <a href="#components" class="h-10 px-5 bg-black text-white rounded-lg text-sm font-medium inline-flex items-center hover:bg-gray-800 transition-colors">
@@ -80,11 +80,87 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     </div>
   </section>
 
+  <!-- Setup -->
+  <section id="setup" class="py-20 px-6 bg-gray-50/50">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-2xl font-semibold tracking-tight">MCP Setup</h2>
+      <p class="mt-2 text-gray-500">Connect your AI assistant to access the design system.</p>
+
+      <div class="mt-12 grid md:grid-cols-2 gap-6">
+        <div class="p-6 bg-white rounded-2xl border border-gray-200">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm0 22c-5.52 0-10-4.48-10-10S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-semibold">Cursor</h3>
+              <p class="text-sm text-gray-500">Add to ~/.cursor/mcp.json</p>
+            </div>
+          </div>
+          <div class="mt-4 code-block rounded-xl overflow-hidden">
+            <pre class="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>{
+  "mcpServers": {
+    "design-system": {
+      "url": "https://aids-server.vercel.app/sse"
+    }
+  }
+}</code></pre>
+          </div>
+        </div>
+
+        <div class="p-6 bg-white rounded-2xl border border-gray-200">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-orange-400 to-amber-500 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div>
+              <h3 class="font-semibold">Claude</h3>
+              <p class="text-sm text-gray-500">Add to config file</p>
+            </div>
+          </div>
+          <div class="mt-4 code-block rounded-xl overflow-hidden">
+            <pre class="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>{
+  "mcpServers": {
+    "design-system": {
+      "url": "https://aids-server.vercel.app/sse"
+    }
+  }
+}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 p-6 bg-white rounded-2xl border border-gray-200">
+        <h3 class="font-semibold">Available Tools</h3>
+        <div class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div class="p-3 bg-gray-50 rounded-lg">
+            <code class="text-sm font-mono text-gray-700">list_components</code>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-lg">
+            <code class="text-sm font-mono text-gray-700">get_component</code>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-lg">
+            <code class="text-sm font-mono text-gray-700">search_components</code>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-lg">
+            <code class="text-sm font-mono text-gray-700">get_style_guide</code>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-lg">
+            <code class="text-sm font-mono text-gray-700">get_colors</code>
+          </div>
+          <div class="p-3 bg-gray-50 rounded-lg">
+            <code class="text-sm font-mono text-gray-700">get_typography</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Components -->
   <section id="components" class="py-20 px-6 bg-gray-50/50">
     <div class="max-w-6xl mx-auto">
       <h2 class="text-2xl font-semibold tracking-tight">Components</h2>
-      <p class="mt-2 text-gray-500">Minimal, accessible components built with Tailwind CSS.</p>
+      <p class="mt-2 text-gray-500">Accessible components built with Tailwind CSS for AI-assisted development.</p>
 
       <!-- Buttons -->
       <div class="mt-12">
@@ -464,7 +540,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   <section id="colors" class="py-20 px-6">
     <div class="max-w-6xl mx-auto">
       <h2 class="text-2xl font-semibold tracking-tight">Colors</h2>
-      <p class="mt-2 text-gray-500">A minimal grayscale palette with semantic accents.</p>
+      <p class="mt-2 text-gray-500">A clean grayscale palette with semantic accents.</p>
 
       <div class="mt-12">
         <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider">Gray Scale</h3>
@@ -538,82 +614,6 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
             <div class="h-16 rounded-lg bg-red-500"></div>
             <p class="text-sm font-medium">Red</p>
             <p class="text-xs text-gray-500">Error, danger</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Setup -->
-  <section id="setup" class="py-20 px-6 bg-gray-50/50">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-2xl font-semibold tracking-tight">MCP Setup</h2>
-      <p class="mt-2 text-gray-500">Connect your AI assistant to access the design system.</p>
-
-      <div class="mt-12 grid md:grid-cols-2 gap-6">
-        <div class="p-6 bg-white rounded-2xl border border-gray-200">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
-              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm0 22c-5.52 0-10-4.48-10-10S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10z"/></svg>
-            </div>
-            <div>
-              <h3 class="font-semibold">Cursor</h3>
-              <p class="text-sm text-gray-500">Add to ~/.cursor/mcp.json</p>
-            </div>
-          </div>
-          <div class="mt-4 code-block rounded-xl overflow-hidden">
-            <pre class="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>{
-  "mcpServers": {
-    "design-system": {
-      "url": "https://aids-server.vercel.app/sse"
-    }
-  }
-}</code></pre>
-          </div>
-        </div>
-
-        <div class="p-6 bg-white rounded-2xl border border-gray-200">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-gradient-to-br from-orange-400 to-amber-500 rounded-lg flex items-center justify-center">
-              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </div>
-            <div>
-              <h3 class="font-semibold">Claude</h3>
-              <p class="text-sm text-gray-500">Add to config file</p>
-            </div>
-          </div>
-          <div class="mt-4 code-block rounded-xl overflow-hidden">
-            <pre class="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>{
-  "mcpServers": {
-    "design-system": {
-      "url": "https://aids-server.vercel.app/sse"
-    }
-  }
-}</code></pre>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-8 p-6 bg-white rounded-2xl border border-gray-200">
-        <h3 class="font-semibold">Available Tools</h3>
-        <div class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          <div class="p-3 bg-gray-50 rounded-lg">
-            <code class="text-sm font-mono text-gray-700">list_components</code>
-          </div>
-          <div class="p-3 bg-gray-50 rounded-lg">
-            <code class="text-sm font-mono text-gray-700">get_component</code>
-          </div>
-          <div class="p-3 bg-gray-50 rounded-lg">
-            <code class="text-sm font-mono text-gray-700">search_components</code>
-          </div>
-          <div class="p-3 bg-gray-50 rounded-lg">
-            <code class="text-sm font-mono text-gray-700">get_style_guide</code>
-          </div>
-          <div class="p-3 bg-gray-50 rounded-lg">
-            <code class="text-sm font-mono text-gray-700">get_colors</code>
-          </div>
-          <div class="p-3 bg-gray-50 rounded-lg">
-            <code class="text-sm font-mono text-gray-700">get_typography</code>
           </div>
         </div>
       </div>
