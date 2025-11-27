@@ -1,0 +1,55 @@
+import Link from 'next/link';
+import { getNavigationItems, getDesignSystemStats } from '@/lib/design-system';
+
+export const metadata = {
+  title: 'Components - AI Design System',
+  description: 'Browse all components in the AI Design System.',
+};
+
+export default function ComponentsPage() {
+  const navItems = getNavigationItems();
+  const stats = getDesignSystemStats();
+
+  return (
+    <div className="p-6 md:p-10 max-w-4xl">
+      {/* Header */}
+      <div className="mb-10">
+        <h1 className="text-3xl font-semibold text-gray-900">Components</h1>
+        <p className="mt-3 text-gray-500">
+          {stats.totalComponents} components across {stats.totalCategories} categories.
+          Built with Tailwind CSS for consistency and flexibility.
+        </p>
+      </div>
+
+      {/* Categories */}
+      <div className="space-y-12">
+        {navItems.map(({ category, components }) => (
+          <section key={category.slug}>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+              {category.name}
+            </h2>
+            <p className="text-sm text-gray-500 mb-6">
+              {category.description}
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {components.map((component) => (
+                <Link
+                  key={component.slug}
+                  href={`/components/${component.slug}`}
+                  className="group p-5 bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-md transition-all"
+                >
+                  <h3 className="font-medium text-gray-900 group-hover:text-black">
+                    {component.name}
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-500 line-clamp-2">
+                    {component.description}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}

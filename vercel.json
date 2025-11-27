@@ -1,7 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "",
-  "outputDirectory": "",
+  "framework": "nextjs",
   "functions": {
     "api/mcp.ts": {
       "maxDuration": 60
@@ -11,7 +10,6 @@
     }
   },
   "rewrites": [
-    { "source": "/", "destination": "/api/index" },
     { "source": "/sse", "destination": "/api/sse" }
   ],
   "headers": [
