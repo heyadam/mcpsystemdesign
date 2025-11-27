@@ -25,19 +25,18 @@ export function DocsHeader({ onMenuClick }: DocsHeaderProps) {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">DS</span>
+              <span className="text-white font-bold text-sm">AI</span>
             </div>
-            <span className="font-semibold text-gray-900 hidden sm:block">AI Design System</span>
+            <span className="font-semibold text-gray-900 hidden sm:block">AIDS</span>
           </Link>
         </div>
 
         {/* Nav links */}
         <nav className="flex items-center gap-1">
-          <Link href="/docs" className="nav-link hidden sm:block">Docs</Link>
+          <Link href="/docs/getting-started" className="nav-link hidden sm:block">Getting Started</Link>
           <Link href="/components" className="nav-link hidden sm:block">Components</Link>
-          <a href="/sse" className="nav-link hidden sm:block">MCP</a>
           <a
-            href="https://github.com"
+            href="https://github.com/heyadam/aids-server"
             target="_blank"
             rel="noopener noreferrer"
             className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
