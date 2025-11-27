@@ -1,4 +1,4 @@
-# Design System MCP Server
+# AIDS - AI Design System MCP Server
 
 A production-ready MCP (Model Context Protocol) server that exposes design system components and style guides for AI assistants. Deployed on Vercel with SSE transport for remote access.
 
@@ -7,7 +7,7 @@ A production-ready MCP (Model Context Protocol) server that exposes design syste
 ## Features
 
 - **Component Specifications**: Access detailed props, types, and descriptions for UI components
-- **Code Examples**: Get ready-to-use code snippets for each component
+- **Code Examples**: Get ready-to-use Tailwind CSS code snippets for each component
 - **Style Guide**: Retrieve colors, typography, spacing scales, and breakpoints
 - **Search**: Find components by name, description, or category
 - **SSE Transport**: Remote access via Server-Sent Events for web deployment
@@ -22,11 +22,13 @@ npm install
 
 ### 2. Local Development
 
-Run the MCP server locally via stdio:
+Run the Next.js development server:
 
 ```bash
 npm run dev
 ```
+
+The MCP SSE endpoint will be available at `http://localhost:3000/api/sse`
 
 ### 3. Deploy to Vercel
 
@@ -41,16 +43,24 @@ vercel
 ## Project Structure
 
 ```
-├── api/
-│   ├── index.ts      # Landing page with server info
-│   ├── health.ts     # Health check endpoint
-│   └── mcp.ts        # MCP SSE transport endpoint
-├── src/
-│   ├── data/
-│   │   ├── types.ts           # TypeScript type definitions
-│   │   └── design-system.ts   # Design system data
-│   └── server/
-│       └── index.ts           # MCP server implementation
+├── app/                    # Next.js App Router
+│   ├── api/
+│   │   └── sse/
+│   │       └── route.ts    # MCP SSE transport endpoint
+│   ├── components/         # Component documentation pages
+│   ├── docs/               # Documentation pages
+│   └── page.tsx            # Landing page
+├── api/                    # Vercel Serverless Functions
+│   ├── index.ts            # Landing page API
+│   ├── health.ts           # Health check endpoint
+│   └── mcp.ts              # Legacy MCP endpoint (deprecated)
+├── lib/
+│   └── design-system/      # Design system data
+│       ├── index.ts        # Main exports and helpers
+│       ├── components.ts   # Component definitions
+│       ├── style-guide.ts  # Colors, typography, spacing
+│       └── types.ts        # TypeScript types
+├── components/             # React components for the website
 ├── package.json
 ├── tsconfig.json
 ├── vercel.json
@@ -61,10 +71,10 @@ vercel
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `https://aids-server.vercel.app/api/mcp` | GET | Establish SSE connection |
-| `https://aids-server.vercel.app/api/mcp?sessionId=...` | POST | Send MCP messages |
-| `https://aids-server.vercel.app/api/health` | GET | Health check |
-| `https://aids-server.vercel.app/` | GET | Server info page |
+| `/sse` or `/api/sse` | GET | Establish SSE connection |
+| `/sse` or `/api/sse` | POST | Send MCP JSON-RPC messages |
+| `/api/health` | GET | Health check |
+| `/` | GET | Server info page |
 
 ## Available MCP Tools
 
@@ -144,14 +154,16 @@ Add to your `.claude/settings.json`:
 
 ### Modifying Components
 
-Edit `src/data/design-system.ts` to add or modify components. Each component follows this structure:
+Edit `lib/design-system/components.ts` to add or modify components. Each component follows this structure:
 
 ```typescript
 {
   name: "ComponentName",
+  slug: "component-name",
   description: "Component description",
   category: "Category",
   importStatement: "import { ComponentName } from '@your-lib'",
+  tailwind: true,
   props: [
     {
       name: "propName",
@@ -164,8 +176,8 @@ Edit `src/data/design-system.ts` to add or modify components. Each component fol
   examples: [
     {
       title: "Example Title",
-      description: "Optional description",
-      code: `<ComponentName prop="value" />`
+      code: `<div className="...">Example</div>`,
+      preview: "preview-id"
     }
   ],
   relatedComponents: ["OtherComponent"]
@@ -174,16 +186,12 @@ Edit `src/data/design-system.ts` to add or modify components. Each component fol
 
 ### Modifying Style Guide
 
-Update the `styleGuide` object in `src/data/design-system.ts`:
+Update `lib/design-system/style-guide.ts`:
 
-- **Colors**: Organized by category (Primary, Neutral, Semantic, etc.)
+- **Colors**: Organized by category (Gray Scale, Accent, etc.)
 - **Typography**: Font family, size, weight, line-height for each style
 - **Spacing**: Token name, CSS value, and pixel equivalent
 - **Breakpoints**: Responsive breakpoint values and descriptions
-
-### Important: Update API File
-
-When modifying the design system data, also update the inline data in `api/mcp.ts` to match, as Vercel serverless functions bundle dependencies differently.
 
 ## Development
 
@@ -207,12 +215,9 @@ npm run build
 - Check that CORS headers are properly configured for your client origin
 - Vercel has a 60-second timeout for serverless functions; long-running connections may be terminated
 
-### Session Not Found
+### Connection Drops
 
-When receiving "Session not found" errors, ensure you:
-1. First establish an SSE connection via GET to `/api/mcp`
-2. Use the returned `sessionId` for subsequent POST requests
-3. Reconnect if the session expires or connection is lost
+The SSE endpoint sends periodic ping messages to keep the connection alive. If your client disconnects frequently, check your network configuration or proxy settings.
 
 ## License
 
