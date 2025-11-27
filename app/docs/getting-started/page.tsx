@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 const cursorConfig = `{
   "mcpServers": {
-    "design-system": {
+    "aids": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }
@@ -12,7 +12,7 @@ const cursorConfig = `{
 
 const claudeCodeConfig = `{
   "mcpServers": {
-    "design-system": {
+    "aids": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }

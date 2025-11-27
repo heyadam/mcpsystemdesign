@@ -113,7 +113,7 @@ export default function HomePage() {
             <pre className="text-sm text-gray-300 font-mono overflow-x-auto">
 {`{
   "mcpServers": {
-    "design-system": {
+    "aids": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }

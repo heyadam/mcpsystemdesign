@@ -5,7 +5,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 
   res.status(200).json({
     status: "ok",
-    service: "design-system-mcp",
+    service: "aids",
     version: "1.0.0",
     timestamp: new Date().toISOString(),
   });

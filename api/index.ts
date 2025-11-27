@@ -100,7 +100,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
           <div class="mt-4 code-block rounded-xl overflow-hidden">
             <pre class="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>{
   "mcpServers": {
-    "design-system": {
+    "aids": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }
@@ -121,7 +121,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
           <div class="mt-4 code-block rounded-xl overflow-hidden">
             <pre class="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>{
   "mcpServers": {
-    "design-system": {
+    "aids": {
       "url": "https://aids-server.vercel.app/sse"
     }
   }
