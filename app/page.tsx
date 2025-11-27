@@ -60,52 +60,6 @@ export default function HomePage() {
         </div>
       </main>
 
-      {/* Stats */}
-      <section className="py-20 px-6 bg-gray-50/50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-semibold text-gray-900">Design System Overview</h2>
-          <div className="mt-8 grid md:grid-cols-4 gap-6">
-            <div className="p-6 bg-white rounded-xl border border-gray-200">
-              <p className="text-3xl font-semibold text-gray-900">{stats.totalComponents}</p>
-              <p className="mt-1 text-sm text-gray-500">Components</p>
-            </div>
-            <div className="p-6 bg-white rounded-xl border border-gray-200">
-              <p className="text-3xl font-semibold text-gray-900">{stats.totalCategories}</p>
-              <p className="mt-1 text-sm text-gray-500">Categories</p>
-            </div>
-            <div className="p-6 bg-white rounded-xl border border-gray-200">
-              <p className="text-3xl font-semibold text-gray-900">{stats.totalColors}</p>
-              <p className="mt-1 text-sm text-gray-500">Color Tokens</p>
-            </div>
-            <div className="p-6 bg-white rounded-xl border border-gray-200">
-              <p className="text-3xl font-semibold text-gray-900">{stats.totalTypographyStyles}</p>
-              <p className="mt-1 text-sm text-gray-500">Typography Styles</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Categories */}
-      <section className="py-20 px-6">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-semibold text-gray-900">Component Categories</h2>
-          <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {categories.map((category) => (
-              <Link
-                key={category}
-                href={`/components?category=${encodeURIComponent(category)}`}
-                className="p-6 bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all"
-              >
-                <h3 className="font-semibold text-gray-900">{category}</h3>
-                <p className="mt-2 text-sm text-gray-500">
-                  {designSystem.components.filter(c => c.category === category).length} components
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* MCP Setup */}
       <section className="py-20 px-6 bg-gray-50/50">
         <div className="max-w-6xl mx-auto">
@@ -130,22 +84,65 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Stats */}
+      <section className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-semibold text-gray-900">Design System Overview</h2>
+          <div className="mt-8 grid md:grid-cols-4 gap-6">
+            <div className="p-6 bg-white rounded-xl border border-gray-200">
+              <p className="text-3xl font-semibold text-gray-900">{stats.totalComponents}</p>
+              <p className="mt-1 text-sm text-gray-500">Components</p>
+            </div>
+            <div className="p-6 bg-white rounded-xl border border-gray-200">
+              <p className="text-3xl font-semibold text-gray-900">{stats.totalCategories}</p>
+              <p className="mt-1 text-sm text-gray-500">Categories</p>
+            </div>
+            <div className="p-6 bg-white rounded-xl border border-gray-200">
+              <p className="text-3xl font-semibold text-gray-900">{stats.totalColors}</p>
+              <p className="mt-1 text-sm text-gray-500">Color Tokens</p>
+            </div>
+            <div className="p-6 bg-white rounded-xl border border-gray-200">
+              <p className="text-3xl font-semibold text-gray-900">{stats.totalTypographyStyles}</p>
+              <p className="mt-1 text-sm text-gray-500">Typography Styles</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Categories */}
+      <section className="py-20 px-6 bg-gray-50/50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-semibold text-gray-900">Component Categories</h2>
+          <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {categories.map((category) => (
+              <Link
+                key={category}
+                href={`/components?category=${encodeURIComponent(category)}`}
+                className="p-6 bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all"
+              >
+                <h3 className="font-semibold text-gray-900">{category}</h3>
+                <p className="mt-2 text-sm text-gray-500">
+                  {designSystem.components.filter(c => c.category === category).length} components
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-gray-200">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <p className="text-sm text-gray-500">
-            AI Design System v{designSystem.version}
+            AIDS v{designSystem.version}
           </p>
           <div className="flex items-center gap-4">
-            <Link href="/docs" className="text-sm text-gray-500 hover:text-gray-900">
-              Docs
+            <Link href="/docs/getting-started" className="text-sm text-gray-500 hover:text-gray-900">
+              Getting Started
             </Link>
             <Link href="/components" className="text-sm text-gray-500 hover:text-gray-900">
               Components
             </Link>
-            <a href="/sse" className="text-sm text-gray-500 hover:text-gray-900">
-              MCP
-            </a>
           </div>
         </div>
       </footer>
