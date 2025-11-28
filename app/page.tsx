@@ -77,7 +77,7 @@ export default function HomePage() {
 {`{
   "mcpServers": {
     "mcpdesignsystem": {
-      "url": "https://aids-server.vercel.app/sse"
+      "url": "https://www.mcpsystem.design/sse"
     }
   }
 }`}

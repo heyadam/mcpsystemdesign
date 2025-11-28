@@ -100,7 +100,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
             <pre class="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>{
   "mcpServers": {
     "mcpdesignsystem": {
-      "url": "https://aids-server.vercel.app/sse"
+      "url": "https://www.mcpsystem.design/sse"
     }
   }
 }</code></pre>
@@ -121,7 +121,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
             <pre class="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>{
   "mcpServers": {
     "mcpdesignsystem": {
-      "url": "https://aids-server.vercel.app/sse"
+      "url": "https://www.mcpsystem.design/sse"
     }
   }
 }</code></pre>

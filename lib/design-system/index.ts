@@ -13,7 +13,7 @@ export { styleGuide, categories } from './style-guide';
 export const designSystem: DesignSystem = {
   name: "mcpsystem.design",
   version: "1.0.0",
-  description: "An AI-first design system optimized for MCP integrations and built with Tailwind CSS.",
+  description: "An AI-first design system optimized for MCP and Tailwind.",
   components,
   categories,
   styleGuide,
