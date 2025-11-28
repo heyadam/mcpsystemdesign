@@ -53,12 +53,12 @@ function CopyButton({ text }: { text: string }) {
 
 function ConfigBlock({ config, filename }: { config: string; filename: string }) {
   return (
-    <div className="bg-gray-950 rounded-xl overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2 border-b border-gray-800">
-        <span className="text-xs text-gray-500 font-mono">{filename}</span>
+    <div className="bg-surface-raised border border-default rounded-xl overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-default">
+        <span className="text-xs text-muted font-mono">{filename}</span>
         <CopyButton text={config} />
       </div>
-      <pre className="p-4 text-sm text-gray-300 overflow-x-auto font-mono">
+      <pre className="p-4 text-sm text-default overflow-x-auto font-mono">
         <code>{config}</code>
       </pre>
     </div>

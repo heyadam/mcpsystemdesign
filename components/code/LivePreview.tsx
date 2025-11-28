@@ -50,17 +50,17 @@ export function LivePreview({ code }: LivePreviewProps) {
   }
 
   return (
-    <div className="border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden">
+    <div className="border border-default rounded-xl overflow-hidden">
       {/* Toolbar */}
-      <div className="flex items-center justify-between px-4 py-2 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <div className="flex items-center justify-between px-4 py-2 bg-surface-sunken border-b border-default">
         <div className="flex items-center gap-3">
-          <div className="inline-flex bg-white dark:bg-gray-800 rounded-lg p-0.5 border border-gray-200 dark:border-gray-700">
+          <div className="inline-flex bg-surface-raised rounded-lg p-0.5 border border-default">
             <button
               onClick={() => setView('preview')}
               className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
                 view === 'preview'
-                  ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted hover:text-default'
               }`}
             >
               Preview
@@ -69,21 +69,21 @@ export function LivePreview({ code }: LivePreviewProps) {
               onClick={() => setView('code')}
               className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
                 view === 'code'
-                  ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted hover:text-default'
               }`}
             >
               Code
             </button>
           </div>
           {view === 'preview' && (
-            <div className="inline-flex bg-white dark:bg-gray-800 rounded-lg p-0.5 border border-gray-200 dark:border-gray-700">
+            <div className="inline-flex bg-surface-raised rounded-lg p-0.5 border border-default">
               <button
                 onClick={() => setPreviewTheme('light')}
                 className={`px-2 py-1 text-xs font-medium rounded-md transition-all flex items-center gap-1 ${
                   previewTheme === 'light'
-                    ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted hover:text-default'
                 }`}
                 title="Light preview"
               >
@@ -95,8 +95,8 @@ export function LivePreview({ code }: LivePreviewProps) {
                 onClick={() => setPreviewTheme('dark')}
                 className={`px-2 py-1 text-xs font-medium rounded-md transition-all flex items-center gap-1 ${
                   previewTheme === 'dark'
-                    ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted hover:text-default'
                 }`}
                 title="Dark preview"
               >
@@ -109,7 +109,7 @@ export function LivePreview({ code }: LivePreviewProps) {
         </div>
         <button
           onClick={copyToClipboard}
-          className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors flex items-center gap-1"
+          className="text-xs text-muted hover:text-default transition-colors flex items-center gap-1"
         >
           {copied ? (
             <>
@@ -133,8 +133,8 @@ export function LivePreview({ code }: LivePreviewProps) {
       {view === 'preview' ? (
         <div className={`transition-colors ${
           previewTheme === 'dark'
-            ? 'preview-container-dark bg-gray-900'
-            : 'preview-container bg-white'
+            ? 'preview-container-dark bg-surface-dark'
+            : 'preview-container bg-surface-light'
         } ${isOverlay ? 'relative' : 'p-6'}`}>
           {isOverlay ? (
             <div
@@ -149,8 +149,8 @@ export function LivePreview({ code }: LivePreviewProps) {
           )}
         </div>
       ) : (
-        <div className="bg-gray-950">
-          <pre className="p-4 text-sm text-gray-300 overflow-x-auto font-mono">
+        <div className="bg-surface-raised">
+          <pre className="p-4 text-sm text-default overflow-x-auto font-mono">
             <code>{code}</code>
           </pre>
         </div>

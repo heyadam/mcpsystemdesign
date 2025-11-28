@@ -18,12 +18,12 @@ export function CodeBlock({ code, language = 'html', showLineNumbers = false }: 
   };
 
   return (
-    <div className="relative bg-gray-950 rounded-xl overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2 border-b border-gray-800">
-        <span className="text-xs text-gray-500">{language}</span>
+    <div className="relative bg-surface-raised border border-default rounded-xl overflow-hidden">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-default">
+        <span className="text-xs text-muted">{language}</span>
         <button
           onClick={copyToClipboard}
-          className="text-xs text-gray-500 hover:text-white transition-colors flex items-center gap-1"
+          className="text-xs text-muted hover:text-default transition-colors flex items-center gap-1"
         >
           {copied ? (
             <>
@@ -42,7 +42,7 @@ export function CodeBlock({ code, language = 'html', showLineNumbers = false }: 
           )}
         </button>
       </div>
-      <pre className="p-4 text-sm text-gray-300 overflow-x-auto font-mono">
+      <pre className="p-4 text-sm text-default overflow-x-auto font-mono">
         <code>{code}</code>
       </pre>
     </div>
