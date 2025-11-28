@@ -20,6 +20,8 @@ export default function HomePage() {
           <nav className="flex items-center gap-1">
             <Link href="/docs/getting-started" className="nav-link">Getting Started</Link>
             <Link href="/components" className="nav-link">Components</Link>
+            <Link href="/colors" className="nav-link">Colors</Link>
+            <Link href="/typography" className="nav-link">Typography</Link>
             <a
               href="https://github.com/heyadam/aids-server"
               target="_blank"
@@ -144,6 +146,12 @@ export default function HomePage() {
             </Link>
             <Link href="/components" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
               Components
+            </Link>
+            <Link href="/colors" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+              Colors
+            </Link>
+            <Link href="/typography" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+              Typography
             </Link>
           </div>
         </div>

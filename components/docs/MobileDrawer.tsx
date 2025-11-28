@@ -22,6 +22,12 @@ export function MobileDrawer({ isOpen, onClose, variant = 'components' }: Mobile
   const pathname = usePathname();
   const navItems = getNavigationItems();
 
+  // Determine which section we're in
+  const isComponentsSection = pathname.startsWith('/components');
+  const isColorsSection = pathname.startsWith('/colors');
+  const isTypographySection = pathname.startsWith('/typography');
+  const isDocsSection = pathname.startsWith('/docs');
+
   // Close drawer on route change
   useEffect(() => {
     onClose();
@@ -84,97 +90,81 @@ export function MobileDrawer({ isOpen, onClose, variant = 'components' }: Mobile
 
         {/* Navigation */}
         <nav className="p-4 space-y-6">
-          {variant === 'docs' ? (
-            <>
-              {/* Docs navigation */}
-              <div>
-                <Link
-                  href="/"
-                  className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
-                  Back to Home
-                </Link>
-              </div>
-              {docsNavItems.map((item) => (
-                <div key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                      pathname === item.href
-                        ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
-                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
-                    }`}
-                  >
-                    {item.title}
-                  </Link>
-                </div>
-              ))}
-              <div className="pt-4 border-t border-gray-200 dark:border-gray-800">
-                <div className="px-3 py-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
-                  Quick Links
-                </div>
-                <div className="mt-1 space-y-1">
-                  <Link
-                    href="/components"
-                    className="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100 rounded-lg transition-colors"
-                  >
-                    Components
-                  </Link>
-                  <a
-                    href="/sse"
-                    className="block px-3 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100 rounded-lg transition-colors"
-                  >
-                    MCP Server
-                  </a>
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              {/* Components navigation */}
-              <div>
-                <Link
-                  href="/components"
-                  className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                    pathname === '/components'
-                      ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
-                      : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
-                  }`}
-                >
-                  All Components
-                </Link>
-              </div>
+          {/* Main Navigation */}
+          <div>
+            <div className="px-3 py-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+              Navigation
+            </div>
+            <div className="mt-1 space-y-1">
+              <Link
+                href="/docs/getting-started"
+                className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
+                  isDocsSection
+                    ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
+                }`}
+              >
+                Getting Started
+              </Link>
+              <Link
+                href="/components"
+                className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
+                  isComponentsSection
+                    ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
+                }`}
+              >
+                Components
+              </Link>
+              <Link
+                href="/colors"
+                className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
+                  isColorsSection
+                    ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
+                }`}
+              >
+                Colors
+              </Link>
+              <Link
+                href="/typography"
+                className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
+                  isTypographySection
+                    ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
+                }`}
+              >
+                Typography
+              </Link>
+            </div>
+          </div>
 
-              {navItems.map(({ category, components }) => (
-                <div key={category.slug}>
-                  <div className="px-3 py-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
-                    {category.name}
-                  </div>
-                  <div className="mt-1 space-y-1">
-                    {components.map((component) => {
-                      const isActive = pathname === `/components/${component.slug}`;
-                      return (
-                        <Link
-                          key={component.slug}
-                          href={`/components/${component.slug}`}
-                          className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                            isActive
-                              ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
-                              : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
-                          }`}
-                        >
-                          {component.name}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </>
-          )}
+          {/* Component categories - only show in components section */}
+          {isComponentsSection && navItems.map(({ category, components }) => (
+            <div key={category.slug}>
+              <div className="px-3 py-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+                {category.name}
+              </div>
+              <div className="mt-1 space-y-1">
+                {components.map((component) => {
+                  const isActive = pathname === `/components/${component.slug}`;
+                  return (
+                    <Link
+                      key={component.slug}
+                      href={`/components/${component.slug}`}
+                      className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
+                        isActive
+                          ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
+                          : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
+                      }`}
+                    >
+                      {component.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </nav>
       </div>
     </div>
