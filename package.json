@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "npm run validate:tokens && next build",
+    "build": "npm run validate && next build",
     "start": "next start",
     "dev:mcp": "tsx watch server.ts",
     "typecheck": "tsc --noEmit",
-    "validate:tokens": "tsx scripts/validate-css-tokens.ts"
+    "validate": "npm run validate:tokens && npm run validate:component-colors",
+    "validate:tokens": "tsx scripts/validate-css-tokens.ts",
+    "validate:component-colors": "tsx scripts/validate-component-colors.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",

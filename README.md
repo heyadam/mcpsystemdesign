@@ -70,6 +70,9 @@ vercel
 │       ├── host-validator.ts  # Host header validation
 │       └── rate-limiter.ts    # Rate limiting
 ├── components/             # React components for the website
+├── scripts/                # Build and validation scripts
+│   ├── validate-css-tokens.ts       # CSS token validation
+│   └── validate-component-colors.ts # Component color validation
 ├── package.json
 ├── tsconfig.json
 ├── vercel.json
@@ -197,10 +200,52 @@ Edit `lib/design-system/components.ts` to add or modify components. Each compone
 
 Update `lib/design-system/style-guide.ts`:
 
-- **Colors**: Organized by category (Gray Scale, Accent, etc.)
+- **Colors**: Organized by category (Semantic tokens, Gray Scale, Accent)
 - **Typography**: Font family, size, weight, line-height for each style
 - **Spacing**: Token name, CSS value, and pixel equivalent
 - **Breakpoints**: Responsive breakpoint values and descriptions
+
+### Color Token Rules
+
+Component examples must use **semantic color tokens** instead of raw Tailwind colors:
+
+| Instead of | Use |
+|------------|-----|
+| `bg-gray-50`, `bg-gray-100` | `bg-surface`, `bg-surface-raised`, `bg-surface-sunken` |
+| `text-gray-600`, `text-gray-400` | `text-default`, `text-muted`, `text-subtle` |
+| `border-gray-200` | `border-default`, `border-muted`, `border-emphasis` |
+| `bg-red-500`, `text-red-600` | `bg-error-emphasis`, `text-error-foreground` |
+| `bg-green-500`, `text-emerald-600` | `bg-success-emphasis`, `text-success-foreground` |
+| `bg-amber-500` | `bg-warning-emphasis`, `text-warning-foreground` |
+| `bg-blue-500` | `bg-info-emphasis`, `text-info-foreground` |
+
+## Validation
+
+The project includes two validation scripts that run automatically on build:
+
+### CSS Token Validation
+
+Ensures CSS variables in `globals.css` match the design tokens in `style-guide.ts`:
+
+```bash
+npm run validate:tokens
+```
+
+### Component Color Validation
+
+Ensures component examples use semantic color tokens instead of raw Tailwind colors:
+
+```bash
+npm run validate:component-colors
+```
+
+### Run All Validations
+
+```bash
+npm run validate
+```
+
+**Always run `npm run validate` before committing changes to ensure design system consistency.**
 
 ## Development
 
@@ -210,10 +255,18 @@ Update `lib/design-system/style-guide.ts`:
 npm run typecheck
 ```
 
+### Validation
+
+```bash
+npm run validate          # Run all validations (recommended before commits)
+npm run validate:tokens   # CSS token validation only
+npm run validate:component-colors  # Component color validation only
+```
+
 ### Building
 
 ```bash
-npm run build
+npm run build             # Runs validation + production build
 ```
 
 ## Security

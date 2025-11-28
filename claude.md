@@ -51,6 +51,9 @@ This is a production-ready MCP (Model Context Protocol) server that exposes desi
 │       ├── host-validator.ts  # Host header whitelist validation
 │       └── rate-limiter.ts    # In-memory rate limiting
 ├── components/                 # React UI components for website
+├── scripts/                    # Build and validation scripts
+│   ├── validate-css-tokens.ts        # CSS token validation
+│   └── validate-component-colors.ts  # Component color validation
 ├── package.json
 ├── tsconfig.json
 └── vercel.json                # Vercel deployment config
@@ -80,8 +83,11 @@ The server exposes 10 MCP tools organized into two categories:
 
 - **`app/api/sse/route.ts`** - Main MCP SSE endpoint that handles tool calls
 - **`lib/design-system/components.ts`** - Component definitions with props, examples, and metadata
-- **`lib/design-system/style-guide.ts`** - Design tokens (colors, typography, spacing, breakpoints)
+- **`lib/design-system/style-guide.ts`** - Design tokens (colors, typography, spacing, breakpoints) - **Single source of truth**
 - **`lib/design-system/types.ts`** - TypeScript interfaces for the design system
+- **`lib/design-system/generate-css.ts`** - Utility for generating CSS from design tokens (reference implementation)
+- **`scripts/validate-css-tokens.ts`** - Validates CSS variables match design tokens
+- **`scripts/validate-component-colors.ts`** - Validates component examples use semantic color tokens
 - **`lib/mcp/schemas.ts`** - Zod validation schemas for JSON-RPC requests
 - **`lib/mcp/errors.ts`** - JSON-RPC 2.0 error codes and response helpers
 - **`lib/security/host-validator.ts`** - Host header whitelist validation
@@ -100,10 +106,20 @@ The server exposes 10 MCP tools organized into two categories:
    - related components for discoverability
 
 4. **Style Guide Structure:** Organized by:
-   - Colors (by category: Gray Scale, Accent, Feedback, etc.)
+   - Colors (by category: Semantic, Gray Scale, Accent)
    - Typography (font family, sizes, weights, line heights)
    - Spacing (tokens with CSS values and pixel equivalents)
    - Breakpoints (responsive breakpoint values)
+
+5. **Design Token System:**
+   - Design tokens in `lib/design-system/style-guide.ts` are the single source of truth
+   - CSS variables in `app/globals.css` are validated against design tokens
+   - Component examples in `lib/design-system/components.ts` must use semantic color tokens
+   - Semantic tokens include both light and dark mode variants with CSS variable mapping
+   - **Two validation scripts run automatically on build:**
+     - `validate:tokens` - Ensures CSS variables match design tokens
+     - `validate:component-colors` - Ensures component examples use semantic tokens (not raw Tailwind colors)
+   - Run `npm run validate` to run both validations together
 
 ### Adding/Modifying Components
 
@@ -141,17 +157,35 @@ When adding or modifying components in `lib/design-system/components.ts`:
 
 Update `lib/design-system/style-guide.ts` to change design tokens:
 
-- **Colors:** Add to appropriate category, include name, hex value, usage description
+- **Colors:** Add to appropriate category with:
+  - `name`: Token name (e.g., "surface")
+  - `value`: Light mode color value (hex)
+  - `darkValue`: (Optional) Dark mode color value
+  - `cssVar`: (Optional) CSS variable name (e.g., "--color-surface")
+  - `usage`: Description of intended use
 - **Typography:** Define font family, size, weight, line height
 - **Spacing:** Token name, CSS value (e.g., "1rem"), pixel value
 - **Breakpoints:** Name, value, description of typical usage
 
+**IMPORTANT:** After modifying design tokens or component examples:
+1. Update the corresponding CSS variables in `app/globals.css` (@theme block)
+2. Run `npm run validate` to verify both CSS and component colors
+3. Fix any validation errors before committing
+
+**Component Color Rules:**
+- Use semantic tokens (`bg-surface`, `text-muted`, `border-default`, etc.) instead of raw Tailwind colors
+- Avoid raw colors like `bg-gray-500`, `text-red-600` - use `bg-surface-hover`, `text-error-emphasis` instead
+- Exceptions exist for gradients, code highlighting, and specific UI patterns (see `scripts/validate-component-colors.ts`)
+
 ### Testing Changes
 
 1. **Type check:** `npm run typecheck`
-2. **Local dev:** `npm run dev` - Test at http://localhost:3000/api/sse
-3. **Build check:** `npm run build` - Ensure production build succeeds
-4. **Deploy:** `vercel` - Deploy to preview environment
+2. **Validate all:** `npm run validate` - Runs both validation scripts (ALWAYS run this before committing)
+   - `npm run validate:tokens` - Validates CSS variables match design tokens
+   - `npm run validate:component-colors` - Validates component examples use semantic tokens
+3. **Local dev:** `npm run dev` - Test at http://localhost:3000/api/sse
+4. **Build check:** `npm run build` - Runs all validations + production build
+5. **Deploy:** `vercel` - Deploy to preview environment
 
 ## Common Tasks
 
@@ -308,6 +342,7 @@ The SSE endpoint includes comprehensive security hardening:
 
 ### Build Failures
 - Run `npm run typecheck` to catch type errors
+- Run `npm run validate` to check design token and component color validation
 - Check Next.js build output for specific errors
 - Ensure all dependencies are installed: `npm install`
 
