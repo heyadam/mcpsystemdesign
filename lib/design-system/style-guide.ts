@@ -65,6 +65,7 @@ export const styleGuide: StyleGuide = {
 };
 
 export const categories: ComponentCategory[] = [
+  { name: "Base", slug: "base", description: "Foundational design tokens and styles", order: 0 },
   { name: "Actions", slug: "actions", description: "Interactive button and link components", order: 1 },
   { name: "Forms", slug: "forms", description: "Form inputs and controls", order: 2 },
   { name: "Data Display", slug: "data-display", description: "Components for displaying information", order: 3 },

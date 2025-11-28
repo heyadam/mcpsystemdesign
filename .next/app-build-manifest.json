@@ -1,9 +1,14 @@
 {
   "pages": {
-    "/page": [
+    "/components/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+      "static/chunks/app/components/[slug]/page.js"
+    ],
+    "/components/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/components/layout.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -16,15 +21,30 @@
       "static/chunks/main-app.js",
       "static/chunks/app/components/page.js"
     ],
-    "/components/layout": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/components/layout.js"
+      "static/chunks/app/page.js"
     ],
-    "/components/[slug]/page": [
+    "/docs/getting-started/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/components/[slug]/page.js"
+      "static/chunks/app/docs/getting-started/page.js"
+    ],
+    "/docs/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/docs/layout.js"
+    ],
+    "/components/colors/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/components/colors/page.js"
+    ],
+    "/components/typography/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/components/typography/page.js"
     ]
   }
 }

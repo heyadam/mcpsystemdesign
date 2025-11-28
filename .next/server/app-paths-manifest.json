@@ -1,5 +1,7 @@
 {
   "/page": "app/page.js",
   "/components/[slug]/page": "app/components/[slug]/page.js",
-  "/components/page": "app/components/page.js"
+  "/components/page": "app/components/page.js",
+  "/components/colors/page": "app/components/colors/page.js",
+  "/components/typography/page": "app/components/typography/page.js"
 }

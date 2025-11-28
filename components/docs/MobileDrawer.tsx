@@ -22,12 +22,6 @@ export function MobileDrawer({ isOpen, onClose, variant = 'components' }: Mobile
   const pathname = usePathname();
   const navItems = getNavigationItems();
 
-  // Determine which section we're in
-  const isComponentsSection = pathname.startsWith('/components');
-  const isColorsSection = pathname.startsWith('/colors');
-  const isTypographySection = pathname.startsWith('/typography');
-  const isDocsSection = pathname.startsWith('/docs');
-
   // Close drawer on route change
   useEffect(() => {
     onClose();
@@ -90,57 +84,21 @@ export function MobileDrawer({ isOpen, onClose, variant = 'components' }: Mobile
 
         {/* Navigation */}
         <nav className="p-4 space-y-6">
-          {/* Main Navigation */}
+          {/* Components navigation */}
           <div>
-            <div className="px-3 py-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
-              Navigation
-            </div>
-            <div className="mt-1 space-y-1">
-              <Link
-                href="/docs/getting-started"
-                className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                  isDocsSection
-                    ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
-                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
-                }`}
-              >
-                Getting Started
-              </Link>
-              <Link
-                href="/components"
-                className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                  isComponentsSection
-                    ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
-                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
-                }`}
-              >
-                Components
-              </Link>
-              <Link
-                href="/colors"
-                className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                  isColorsSection
-                    ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
-                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
-                }`}
-              >
-                Colors
-              </Link>
-              <Link
-                href="/typography"
-                className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                  isTypographySection
-                    ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
-                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
-                }`}
-              >
-                Typography
-              </Link>
-            </div>
+            <Link
+              href="/components"
+              className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
+                pathname === '/components'
+                  ? 'text-gray-900 dark:text-gray-100 font-medium bg-gray-100 dark:bg-gray-800'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'
+              }`}
+            >
+              All Components
+            </Link>
           </div>
 
-          {/* Component categories - only show in components section */}
-          {isComponentsSection && navItems.map(({ category, components }) => (
+          {navItems.map(({ category, components }) => (
             <div key={category.slug}>
               <div className="px-3 py-2 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
                 {category.name}

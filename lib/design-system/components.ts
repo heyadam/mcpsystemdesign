@@ -1,6 +1,59 @@
 import type { Component } from './types';
 
 export const components: Component[] = [
+  // ============ BASE ============
+  {
+    name: "Colors",
+    slug: "colors",
+    description: "Color palette and design tokens for the design system.",
+    category: "Base",
+    importStatement: "// Use Tailwind color classes: bg-gray-900, text-blue-500, etc.",
+    tailwind: true,
+    overview: {
+      introduction: "Our color system includes neutral grays and semantic accent colors. All colors are designed to work in both light and dark modes with sufficient contrast ratios.",
+      whenToUse: [
+        "Gray scale for text hierarchy and UI surfaces",
+        "Accent colors for semantic states and branding",
+        "Maintain WCAG AA contrast standards",
+        "Consider dark mode when choosing combinations"
+      ]
+    },
+    props: [],
+    examples: [
+      {
+        title: "Color Tokens",
+        code: `<!-- This page has a custom layout - visit /components/colors to see the full color palette -->`,
+        description: "Interactive color swatches with click-to-copy functionality"
+      }
+    ],
+    relatedComponents: ["Typography"]
+  },
+  {
+    name: "Typography",
+    slug: "typography",
+    description: "Typography scale and text styles for the design system.",
+    category: "Base",
+    importStatement: "// Use Tailwind typography classes: text-3xl, font-semibold, etc.",
+    tailwind: true,
+    overview: {
+      introduction: "Our typography system uses Inter for interface text and JetBrains Mono for code. The scale includes 8 predefined styles from Display to Caption.",
+      whenToUse: [
+        "Display for hero headlines",
+        "H1-H3 for content hierarchy",
+        "Body for paragraphs and general text",
+        "Small and Caption for metadata"
+      ]
+    },
+    props: [],
+    examples: [
+      {
+        title: "Typography Styles",
+        code: `<!-- This page has a custom layout - visit /components/typography to see all typography styles -->`,
+        description: "Complete typography scale with live examples and specifications"
+      }
+    ],
+    relatedComponents: ["Colors"]
+  },
   // ============ ACTIONS ============
   {
     name: "Button",
