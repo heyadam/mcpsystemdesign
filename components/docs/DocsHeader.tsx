@@ -35,8 +35,6 @@ export function DocsHeader({ onMenuClick }: DocsHeaderProps) {
 
         {/* Nav links */}
         <nav className="flex items-center gap-1">
-          <Link href="/docs/getting-started" className="nav-link hidden sm:block">Getting Started</Link>
-          <Link href="/components" className="nav-link hidden sm:block">Components</Link>
           <a
             href="https://github.com/heyadam/aids-server"
             target="_blank"
