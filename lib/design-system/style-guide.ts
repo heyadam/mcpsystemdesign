@@ -3,6 +3,22 @@ import type { StyleGuide, ComponentCategory } from './types';
 export const styleGuide: StyleGuide = {
   colors: [
     {
+      name: "Semantic",
+      description: "Theme-adaptive colors that automatically switch between light and dark modes",
+      colors: [
+        { name: "surface", value: "#ffffff", darkValue: "#030712", cssVar: "--color-surface", usage: "Primary background" },
+        { name: "surface-raised", value: "#ffffff", darkValue: "#111827", cssVar: "--color-surface-raised", usage: "Elevated surfaces" },
+        { name: "surface-sunken", value: "#f9fafb", darkValue: "#030712", cssVar: "--color-surface-sunken", usage: "Recessed backgrounds" },
+        { name: "border", value: "#e5e7eb", darkValue: "#1f2937", cssVar: "--color-border", usage: "Default borders" },
+        { name: "border-muted", value: "#f3f4f6", darkValue: "#111827", cssVar: "--color-border-muted", usage: "Subtle borders" },
+        { name: "text", value: "#111827", darkValue: "#f9fafb", cssVar: "--color-text", usage: "Primary text" },
+        { name: "text-muted", value: "#6b7280", darkValue: "#9ca3af", cssVar: "--color-text-muted", usage: "Secondary text" },
+        { name: "text-subtle", value: "#9ca3af", darkValue: "#6b7280", cssVar: "--color-text-subtle", usage: "Tertiary text" },
+        { name: "primary", value: "#000000", darkValue: "#ffffff", cssVar: "--color-primary", usage: "Primary action color" },
+        { name: "primary-hover", value: "#1f2937", darkValue: "#e5e7eb", cssVar: "--color-primary-hover", usage: "Primary hover state" }
+      ]
+    },
+    {
       name: "Gray Scale",
       description: "Neutral palette for text, backgrounds, and borders",
       colors: [

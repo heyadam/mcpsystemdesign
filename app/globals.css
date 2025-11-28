@@ -54,75 +54,61 @@
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Menlo", monospace;
 
-  /* Semantic color tokens - these auto-switch via CSS */
-  --color-surface: var(--color-surface-light);
-  --color-surface-raised: var(--color-surface-raised-light);
-  --color-surface-overlay: var(--color-surface-overlay-light);
-  --color-surface-sunken: var(--color-surface-sunken-light);
+  /* ===================================
+   * COLOR TOKENS FROM DESIGN SYSTEM
+   * Source: lib/design-system/style-guide.ts
+   * These are generated from the documented design tokens
+   * =================================== */
 
-  --color-border: var(--color-border-light);
-  --color-border-muted: var(--color-border-muted-light);
-
-  --color-text: var(--color-text-light);
-  --color-text-muted: var(--color-text-muted-light);
-  --color-text-subtle: var(--color-text-subtle-light);
-
-  --color-primary: var(--color-primary-light);
-  --color-primary-hover: var(--color-primary-hover-light);
-  --color-primary-text: var(--color-primary-text-light);
-
-  /* Light mode values */
+  /* Light mode color tokens from design system */
   --color-surface-light: #ffffff;
   --color-surface-raised-light: #ffffff;
-  --color-surface-overlay-light: rgba(255, 255, 255, 0.8);
   --color-surface-sunken-light: #f9fafb;
-
   --color-border-light: #e5e7eb;
   --color-border-muted-light: #f3f4f6;
-
   --color-text-light: #111827;
   --color-text-muted-light: #6b7280;
   --color-text-subtle-light: #9ca3af;
-
   --color-primary-light: #000000;
   --color-primary-hover-light: #1f2937;
-  --color-primary-text-light: #ffffff;
 
-  /* Dark mode values */
+  /* Dark mode color tokens from design system */
   --color-surface-dark: #030712;
   --color-surface-raised-dark: #111827;
-  --color-surface-overlay-dark: rgba(3, 7, 18, 0.8);
   --color-surface-sunken-dark: #030712;
-
   --color-border-dark: #1f2937;
   --color-border-muted-dark: #111827;
-
   --color-text-dark: #f9fafb;
   --color-text-muted-dark: #9ca3af;
   --color-text-subtle-dark: #6b7280;
-
   --color-primary-dark: #ffffff;
   --color-primary-hover-dark: #e5e7eb;
-  --color-primary-text-dark: #000000;
+
+  /* Default color variables (light mode) */
+  --color-surface: var(--color-surface-light);
+  --color-surface-raised: var(--color-surface-raised-light);
+  --color-surface-sunken: var(--color-surface-sunken-light);
+  --color-border: var(--color-border-light);
+  --color-border-muted: var(--color-border-muted-light);
+  --color-text: var(--color-text-light);
+  --color-text-muted: var(--color-text-muted-light);
+  --color-text-subtle: var(--color-text-subtle-light);
+  --color-primary: var(--color-primary-light);
+  --color-primary-hover: var(--color-primary-hover-light);
 }
 
 /* Apply dark mode variables */
 .dark {
   --color-surface: var(--color-surface-dark);
   --color-surface-raised: var(--color-surface-raised-dark);
-  --color-surface-overlay: var(--color-surface-overlay-dark);
   --color-surface-sunken: var(--color-surface-sunken-dark);
-
   --color-border: var(--color-border-dark);
   --color-border-muted: var(--color-border-muted-dark);
-
   --color-text: var(--color-text-dark);
   --color-text-muted: var(--color-text-muted-dark);
   --color-text-subtle: var(--color-text-subtle-dark);
-
   --color-primary: var(--color-primary-dark);
   --color-primary-hover: var(--color-primary-hover-dark);
-  --color-primary-text: var(--color-primary-text-dark);
 }
 
 /* Custom base styles */

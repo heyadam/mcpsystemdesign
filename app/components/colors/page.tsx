@@ -37,46 +37,117 @@ export default function ColorsPage() {
             </p>
             <div className="space-y-3">
               {category.colors.map((color) => (
-                <button
-                  key={color.name}
-                  onClick={() => copyToClipboard(color.value, color.name)}
-                  className="w-full group"
-                >
-                  <div className="flex items-center gap-4 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-md dark:hover:shadow-gray-900/50 transition-all">
-                    {/* Color Swatch */}
-                    <div
-                      className="w-16 h-16 rounded-lg border border-gray-200 dark:border-gray-700 flex-shrink-0"
-                      style={{ backgroundColor: color.value }}
-                    />
-
-                    {/* Color Info */}
-                    <div className="flex-1 text-left">
-                      <div className="flex items-center gap-2">
-                        <h3 className="font-medium text-gray-900 dark:text-gray-100">
-                          {color.name}
-                        </h3>
-                        {copiedColor === color.name && (
-                          <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-                            Copied!
-                          </span>
-                        )}
+                <div key={color.name}>
+                  {color.darkValue ? (
+                    // Semantic color with light/dark variants
+                    <div className="p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl">
+                      <div className="flex items-start gap-4 mb-3">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="font-medium text-gray-900 dark:text-gray-100">
+                              {color.name}
+                            </h3>
+                            {color.cssVar && (
+                              <code className="text-xs font-mono text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded">
+                                {color.cssVar}
+                              </code>
+                            )}
+                          </div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {color.usage}
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        {color.usage}
-                      </p>
-                    </div>
 
-                    {/* Color Value */}
-                    <div className="text-right">
-                      <code className="text-sm font-mono text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
-                        {color.value}
-                      </code>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                        Click to copy
-                      </p>
+                      <div className="grid grid-cols-2 gap-3">
+                        {/* Light mode variant */}
+                        <button
+                          onClick={() => copyToClipboard(color.value, `${color.name}-light`)}
+                          className="group flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        >
+                          <div
+                            className="w-12 h-12 rounded-md border border-gray-300 dark:border-gray-600 flex-shrink-0"
+                            style={{ backgroundColor: color.value }}
+                          />
+                          <div className="flex-1 text-left min-w-0">
+                            <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Light mode</p>
+                            <code className="text-xs font-mono text-gray-900 dark:text-gray-100 block truncate">
+                              {color.value}
+                            </code>
+                            {copiedColor === `${color.name}-light` && (
+                              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                                Copied!
+                              </span>
+                            )}
+                          </div>
+                        </button>
+
+                        {/* Dark mode variant */}
+                        <button
+                          onClick={() => copyToClipboard(color.darkValue, `${color.name}-dark`)}
+                          className="group flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        >
+                          <div
+                            className="w-12 h-12 rounded-md border border-gray-300 dark:border-gray-600 flex-shrink-0"
+                            style={{ backgroundColor: color.darkValue }}
+                          />
+                          <div className="flex-1 text-left min-w-0">
+                            <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Dark mode</p>
+                            <code className="text-xs font-mono text-gray-900 dark:text-gray-100 block truncate">
+                              {color.darkValue}
+                            </code>
+                            {copiedColor === `${color.name}-dark` && (
+                              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                                Copied!
+                              </span>
+                            )}
+                          </div>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </button>
+                  ) : (
+                    // Regular color (no dark variant)
+                    <button
+                      onClick={() => copyToClipboard(color.value, color.name)}
+                      className="w-full group"
+                    >
+                      <div className="flex items-center gap-4 p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-md dark:hover:shadow-gray-900/50 transition-all">
+                        {/* Color Swatch */}
+                        <div
+                          className="w-16 h-16 rounded-lg border border-gray-200 dark:border-gray-700 flex-shrink-0"
+                          style={{ backgroundColor: color.value }}
+                        />
+
+                        {/* Color Info */}
+                        <div className="flex-1 text-left">
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-medium text-gray-900 dark:text-gray-100">
+                              {color.name}
+                            </h3>
+                            {copiedColor === color.name && (
+                              <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                                Copied!
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                            {color.usage}
+                          </p>
+                        </div>
+
+                        {/* Color Value */}
+                        <div className="text-right">
+                          <code className="text-sm font-mono text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                            {color.value}
+                          </code>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                            Click to copy
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  )}
+                </div>
               ))}
             </div>
 
@@ -85,18 +156,32 @@ export default function ColorsPage() {
               <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">
                 Using {category.name} Colors
               </h3>
-              <CodeBlock
-                code={`<!-- Tailwind CSS -->
-<div class="${category.colors[0].name.replace('-', '-')}">${category.name} background</div>
-<p class="text-${category.colors[0].name.replace('-', '-')}">${category.name} text</p>
-
-/* CSS Custom Properties */
+              {category.colors[0].cssVar ? (
+                <CodeBlock
+                  code={`/* CSS Custom Properties (Recommended) */
 .element {
-  background-color: var(--${category.colors[0].name});
-  color: ${category.colors[0].value};
+  background-color: var(${category.colors[0].cssVar});
+  color: var(${category.colors.find(c => c.name.includes('text'))?.cssVar || category.colors[0].cssVar});
+}
+
+/* Automatically switches between light/dark modes */
+/* Light: ${category.colors[0].value} */
+/* Dark: ${category.colors[0].darkValue} */`}
+                  language="css"
+                />
+              ) : (
+                <CodeBlock
+                  code={`<!-- Tailwind CSS -->
+<div class="bg-${category.colors[0].name}">${category.name} background</div>
+<p class="text-${category.colors[0].name}">${category.name} text</p>
+
+/* CSS */
+.element {
+  background-color: ${category.colors[0].value};
 }`}
-                language="html"
-              />
+                  language="html"
+                />
+              )}
             </div>
           </section>
         ))}
@@ -108,10 +193,11 @@ export default function ColorsPage() {
           Color Usage Guidelines
         </h2>
         <ul className="space-y-2 text-sm text-blue-800 dark:text-blue-200">
-          <li>• Use gray scale for text hierarchy, backgrounds, and borders</li>
-          <li>• Apply accent colors for interactive elements and semantic states</li>
+          <li>• <strong>Semantic tokens (recommended):</strong> Use CSS variables like <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">var(--color-surface)</code> that automatically adapt to light/dark mode</li>
+          <li>• <strong>Gray scale:</strong> Use for text hierarchy, backgrounds, and borders when fixed colors are needed</li>
+          <li>• <strong>Accent colors:</strong> Apply for interactive elements and semantic states (success, warning, error)</li>
           <li>• Maintain sufficient contrast ratios (WCAG AA minimum: 4.5:1 for text)</li>
-          <li>• Consider dark mode when choosing color combinations</li>
+          <li>• Test color combinations in both light and dark modes</li>
           <li>• Use color consistently across similar UI patterns</li>
         </ul>
       </section>

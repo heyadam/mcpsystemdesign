@@ -54,7 +54,9 @@ export interface Component {
 export interface ColorToken {
   name: string;
   value: string;
+  darkValue?: string; // Optional dark mode variant
   usage?: string;
+  cssVar?: string; // CSS variable name (e.g., --color-surface)
 }
 
 export interface ColorCategory {
