@@ -51,6 +51,11 @@ This is a production-ready MCP (Model Context Protocol) server that exposes desi
 │       ├── host-validator.ts  # Host header whitelist validation
 │       └── rate-limiter.ts    # In-memory rate limiting
 ├── components/                 # React UI components for website
+│   └── docs/                   # Documentation/navigation components
+│       ├── Sidebar.tsx         # Unified sidebar with accordion navigation
+│       ├── MobileDrawer.tsx    # Mobile navigation drawer
+│       ├── DocsHeader.tsx      # Site header/navbar
+│       └── ThemeToggle.tsx     # Dark mode toggle
 ├── scripts/                    # Build and validation scripts
 │   ├── validate-css-tokens.ts        # CSS token validation
 │   └── validate-component-colors.ts  # Component color validation
@@ -81,17 +86,28 @@ The server exposes 10 MCP tools organized into two categories:
 
 ### Key Files
 
+#### MCP Server
 - **`app/api/sse/route.ts`** - Main MCP SSE endpoint that handles tool calls
-- **`lib/design-system/components.ts`** - Component definitions with props, examples, and metadata
-- **`lib/design-system/style-guide.ts`** - Design tokens (colors, typography, spacing, breakpoints) - **Single source of truth**
-- **`lib/design-system/types.ts`** - TypeScript interfaces for the design system
-- **`lib/design-system/generate-css.ts`** - Utility for generating CSS from design tokens (reference implementation)
-- **`scripts/validate-css-tokens.ts`** - Validates CSS variables match design tokens
-- **`scripts/validate-component-colors.ts`** - Validates component examples use semantic color tokens
 - **`lib/mcp/schemas.ts`** - Zod validation schemas for JSON-RPC requests
 - **`lib/mcp/errors.ts`** - JSON-RPC 2.0 error codes and response helpers
 - **`lib/security/host-validator.ts`** - Host header whitelist validation
 - **`lib/security/rate-limiter.ts`** - In-memory rate limiting (100 req/min/IP)
+
+#### Design System
+- **`lib/design-system/components.ts`** - Component definitions with props, examples, and metadata
+- **`lib/design-system/style-guide.ts`** - Design tokens (colors, typography, spacing, breakpoints) - **Single source of truth**
+- **`lib/design-system/types.ts`** - TypeScript interfaces for the design system
+- **`lib/design-system/index.ts`** - Main exports, helpers, and **navigation data** (`getAllNavigation()`)
+- **`lib/design-system/generate-css.ts`** - Utility for generating CSS from design tokens (reference implementation)
+
+#### Navigation Components
+- **`components/docs/Sidebar.tsx`** - Unified sidebar with accordion navigation for all pages
+- **`components/docs/MobileDrawer.tsx`** - Mobile navigation drawer (reuses Sidebar)
+- **`components/docs/DocsHeader.tsx`** - Site header/navbar
+
+#### Validation Scripts
+- **`scripts/validate-css-tokens.ts`** - Validates CSS variables match design tokens
+- **`scripts/validate-component-colors.ts`** - Validates component examples use semantic color tokens
 
 ## Development Guidelines
 
@@ -120,6 +136,17 @@ The server exposes 10 MCP tools organized into two categories:
      - `validate:tokens` - Ensures CSS variables match design tokens
      - `validate:component-colors` - Ensures component examples use semantic tokens (not raw Tailwind colors)
    - Run `npm run validate` to run both validations together
+
+6. **Navigation Architecture:**
+   - **Single Source of Truth:** `getAllNavigation()` in `lib/design-system/index.ts` returns complete site navigation
+   - **Structure:** 3 main sections (Home, Docs, Components) - all expanded by default
+   - **Unified Sidebar:** `components/docs/Sidebar.tsx` with accordion functionality used across all pages
+   - **Mobile Support:** `MobileDrawer.tsx` reuses Sidebar component with `isMobile` prop
+   - **Auto-expand:** Active section automatically expands based on current route
+   - **Navigation Types:**
+     - `NavItem` - Single link in sidebar
+     - `NavCategory` - Group of items under a section (e.g., "Actions" under "Components")
+     - `NavSection` - Top-level collapsible accordion group
 
 ### Adding/Modifying Components
 
@@ -176,6 +203,50 @@ Update `lib/design-system/style-guide.ts` to change design tokens:
 - Use semantic tokens (`bg-surface`, `text-muted`, `border-default`, etc.) instead of raw Tailwind colors
 - Avoid raw colors like `bg-gray-500`, `text-red-600` - use `bg-surface-hover`, `text-error-emphasis` instead
 - Exceptions exist for gradients, code highlighting, and specific UI patterns (see `scripts/validate-component-colors.ts`)
+
+### Modifying Navigation
+
+To add or modify site navigation, update `getAllNavigation()` in `lib/design-system/index.ts`:
+
+**Adding a new docs page:**
+```typescript
+{
+  id: 'docs',
+  title: 'Docs',
+  items: [
+    {
+      title: 'Getting Started',
+      href: '/docs/getting-started',
+    },
+    {
+      title: 'New Doc Page',  // Add here
+      href: '/docs/new-page',
+    },
+  ],
+}
+```
+
+**Adding a new top-level section:**
+```typescript
+export function getAllNavigation(): NavSection[] {
+  return [
+    // ... existing sections
+    {
+      id: 'new-section',
+      title: 'New Section',
+      items: [
+        { title: 'Page 1', href: '/new-section/page1' },
+        { title: 'Page 2', href: '/new-section/page2' },
+      ],
+    },
+  ];
+}
+```
+
+**Notes:**
+- Component categories are auto-generated from `categories` in `lib/design-system/style-guide.ts`
+- Sidebar automatically shows all sections expanded by default
+- Active section/item is highlighted based on current route
 
 ### Testing Changes
 
