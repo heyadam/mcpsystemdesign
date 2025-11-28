@@ -38,8 +38,6 @@ export default function HomePage() {
             </Link>
           </div>
           <nav className="flex items-center gap-1">
-            <Link href="/docs/getting-started" className="nav-link hidden sm:block">Getting Started</Link>
-            <Link href="/components" className="nav-link hidden sm:block">Components</Link>
             <a
               href="https://github.com/heyadam/aids-server"
               target="_blank"
@@ -65,10 +63,10 @@ export default function HomePage() {
       {/* Main layout with sidebar */}
       <div className="flex pt-16">
         <Sidebar />
-        <main className="flex-1">
+        <main className="flex-1 p-6 md:p-10">
           {/* Hero */}
-          <section className="pt-16 pb-20">
-            <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <section className="pb-10">
+            <div className="max-w-6xl">
               <h1 className="text-5xl font-semibold tracking-tight max-w-3xl">
                 <span className="gradient-text">{designSystem.name}</span>
               </h1>
@@ -93,8 +91,8 @@ export default function HomePage() {
           </section>
 
           {/* MCP Setup */}
-          <section className="py-20 bg-surface-sunken">
-            <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <section className="py-10 bg-surface-sunken -mx-6 md:-mx-10 px-6 md:px-10">
+            <div className="max-w-6xl">
               <h2 className="text-2xl font-semibold text-default">MCP Server Setup</h2>
               <p className="mt-4 text-muted max-w-2xl">
                 Connect this design system to your AI assistant (Claude, Cursor) via the Model Context Protocol.
@@ -117,8 +115,8 @@ export default function HomePage() {
           </section>
 
           {/* Stats */}
-          <section className="py-20">
-            <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <section className="py-10">
+            <div className="max-w-6xl">
               <h2 className="text-2xl font-semibold text-default">Design System Overview</h2>
               <div className="mt-8 grid md:grid-cols-4 gap-6">
                 <div className="p-6 bg-surface-raised rounded-xl border border-default">
@@ -142,8 +140,8 @@ export default function HomePage() {
           </section>
 
           {/* Categories */}
-          <section className="py-20 bg-surface-sunken">
-            <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <section className="py-10 bg-surface-sunken -mx-6 md:-mx-10 px-6 md:px-10">
+            <div className="max-w-6xl">
               <h2 className="text-2xl font-semibold text-default">Component Categories</h2>
               <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {categories.map((category) => (
@@ -163,8 +161,8 @@ export default function HomePage() {
           </section>
 
           {/* Footer */}
-          <footer className="py-12 border-t border-default">
-            <div className="max-w-6xl mx-auto px-4 md:px-6 flex items-center justify-between">
+          <footer className="py-8 border-t border-default">
+            <div className="max-w-6xl flex items-center justify-between">
               <p className="text-sm text-muted">
                 mcpsystem.design v{designSystem.version}
               </p>
