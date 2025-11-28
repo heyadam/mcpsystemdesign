@@ -29,6 +29,7 @@ function CopyButton({ text }: { text: string }) {
 
   return (
     <button
+      type="button"
       onClick={handleCopy}
       className="text-xs text-gray-500 hover:text-white transition-colors flex items-center gap-1"
     >

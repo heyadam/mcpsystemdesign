@@ -57,6 +57,7 @@ export interface ColorToken {
   darkValue?: string; // Optional dark mode variant
   usage?: string;
   cssVar?: string; // CSS variable name (e.g., --color-surface)
+  role?: 'background' | 'foreground' | 'border' | 'emphasis'; // Token role for categorization
 }
 
 export interface ColorCategory {

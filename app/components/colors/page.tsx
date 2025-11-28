@@ -62,6 +62,7 @@ export default function ColorsPage() {
                       <div className="grid grid-cols-2 gap-3">
                         {/* Light mode variant */}
                         <button
+                          type="button"
                           onClick={() => copyToClipboard(color.value, `${color.name}-light`)}
                           className="group flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                         >
@@ -84,6 +85,7 @@ export default function ColorsPage() {
 
                         {/* Dark mode variant */}
                         <button
+                          type="button"
                           onClick={() => copyToClipboard(color.darkValue!, `${color.name}-dark`)}
                           className="group flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                         >
@@ -108,6 +110,7 @@ export default function ColorsPage() {
                   ) : (
                     // Regular color (no dark variant)
                     <button
+                      type="button"
                       onClick={() => copyToClipboard(color.value, color.name)}
                       className="w-full group"
                     >

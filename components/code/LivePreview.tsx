@@ -56,6 +56,7 @@ export function LivePreview({ code }: LivePreviewProps) {
         <div className="flex items-center gap-3">
           <div className="inline-flex bg-surface-raised rounded-lg p-0.5 border border-default">
             <button
+              type="button"
               onClick={() => setView('preview')}
               className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
                 view === 'preview'
@@ -66,6 +67,7 @@ export function LivePreview({ code }: LivePreviewProps) {
               Preview
             </button>
             <button
+              type="button"
               onClick={() => setView('code')}
               className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
                 view === 'code'
@@ -79,6 +81,7 @@ export function LivePreview({ code }: LivePreviewProps) {
           {view === 'preview' && (
             <div className="inline-flex bg-surface-raised rounded-lg p-0.5 border border-default">
               <button
+                type="button"
                 onClick={() => setPreviewTheme('light')}
                 className={`px-2 py-1 text-xs font-medium rounded-md transition-all flex items-center gap-1 ${
                   previewTheme === 'light'
@@ -92,6 +95,7 @@ export function LivePreview({ code }: LivePreviewProps) {
                 </svg>
               </button>
               <button
+                type="button"
                 onClick={() => setPreviewTheme('dark')}
                 className={`px-2 py-1 text-xs font-medium rounded-md transition-all flex items-center gap-1 ${
                   previewTheme === 'dark'
@@ -108,6 +112,7 @@ export function LivePreview({ code }: LivePreviewProps) {
           )}
         </div>
         <button
+          type="button"
           onClick={copyToClipboard}
           className="text-xs text-muted hover:text-default transition-colors flex items-center gap-1"
         >

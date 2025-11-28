@@ -2,25 +2,96 @@ import type { StyleGuide, ComponentCategory } from './types';
 
 export const styleGuide: StyleGuide = {
   colors: [
+    // ===================================
+    // SEMANTIC TOKENS - Theme-adaptive
+    // ===================================
     {
-      name: "Semantic",
-      description: "Theme-adaptive colors that automatically switch between light and dark modes",
+      name: "Surfaces",
+      description: "Theme-adaptive background colors",
       colors: [
-        { name: "surface", value: "#ffffff", darkValue: "#030712", cssVar: "--color-surface", usage: "Primary background" },
-        { name: "surface-raised", value: "#ffffff", darkValue: "#111827", cssVar: "--color-surface-raised", usage: "Elevated surfaces" },
-        { name: "surface-sunken", value: "#f9fafb", darkValue: "#030712", cssVar: "--color-surface-sunken", usage: "Recessed backgrounds" },
-        { name: "border", value: "#e5e7eb", darkValue: "#1f2937", cssVar: "--color-border", usage: "Default borders" },
-        { name: "border-muted", value: "#f3f4f6", darkValue: "#111827", cssVar: "--color-border-muted", usage: "Subtle borders" },
-        { name: "text", value: "#111827", darkValue: "#f9fafb", cssVar: "--color-text", usage: "Primary text" },
-        { name: "text-muted", value: "#6b7280", darkValue: "#9ca3af", cssVar: "--color-text-muted", usage: "Secondary text" },
-        { name: "text-subtle", value: "#9ca3af", darkValue: "#6b7280", cssVar: "--color-text-subtle", usage: "Tertiary text" },
-        { name: "primary", value: "#000000", darkValue: "#ffffff", cssVar: "--color-primary", usage: "Primary action color" },
-        { name: "primary-hover", value: "#1f2937", darkValue: "#e5e7eb", cssVar: "--color-primary-hover", usage: "Primary hover state" }
+        { name: "surface", value: "#ffffff", darkValue: "#030712", cssVar: "--color-surface", role: "background", usage: "Primary background" },
+        { name: "surface-raised", value: "#ffffff", darkValue: "#111827", cssVar: "--color-surface-raised", role: "background", usage: "Elevated surfaces (cards, modals)" },
+        { name: "surface-sunken", value: "#f9fafb", darkValue: "#030712", cssVar: "--color-surface-sunken", role: "background", usage: "Recessed backgrounds" },
+        { name: "surface-overlay", value: "rgba(0, 0, 0, 0.5)", darkValue: "rgba(0, 0, 0, 0.7)", cssVar: "--color-surface-overlay", role: "background", usage: "Modal/dialog backdrops" },
+        { name: "surface-hover", value: "#f9fafb", darkValue: "#1f2937", cssVar: "--color-surface-hover", role: "background", usage: "Hover state backgrounds" }
       ]
     },
     {
+      name: "Text",
+      description: "Theme-adaptive text colors",
+      colors: [
+        { name: "text", value: "#111827", darkValue: "#f9fafb", cssVar: "--color-text", role: "foreground", usage: "Primary text" },
+        { name: "text-muted", value: "#6b7280", darkValue: "#9ca3af", cssVar: "--color-text-muted", role: "foreground", usage: "Secondary text" },
+        { name: "text-subtle", value: "#9ca3af", darkValue: "#6b7280", cssVar: "--color-text-subtle", role: "foreground", usage: "Tertiary/placeholder text" }
+      ]
+    },
+    {
+      name: "Borders",
+      description: "Theme-adaptive border colors",
+      colors: [
+        { name: "border", value: "#e5e7eb", darkValue: "#1f2937", cssVar: "--color-border", role: "border", usage: "Default borders" },
+        { name: "border-muted", value: "#f3f4f6", darkValue: "#111827", cssVar: "--color-border-muted", role: "border", usage: "Subtle borders" },
+        { name: "border-emphasis", value: "#d1d5db", darkValue: "#374151", cssVar: "--color-border-emphasis", role: "border", usage: "Emphasized borders (focus rings)" }
+      ]
+    },
+    {
+      name: "Primary",
+      description: "Primary action and brand colors",
+      colors: [
+        { name: "primary", value: "#000000", darkValue: "#ffffff", cssVar: "--color-primary", role: "emphasis", usage: "Primary buttons, links" },
+        { name: "primary-hover", value: "#1f2937", darkValue: "#e5e7eb", cssVar: "--color-primary-hover", role: "emphasis", usage: "Primary hover state" },
+        { name: "primary-foreground", value: "#ffffff", darkValue: "#000000", cssVar: "--color-primary-foreground", role: "foreground", usage: "Text on primary background" }
+      ]
+    },
+    // ===================================
+    // STATE TOKENS - Theme-adaptive
+    // ===================================
+    {
+      name: "Success",
+      description: "Success and positive state colors",
+      colors: [
+        { name: "success", value: "#ecfdf5", darkValue: "rgba(16, 185, 129, 0.15)", cssVar: "--color-success", role: "background", usage: "Success background" },
+        { name: "success-emphasis", value: "#10b981", darkValue: "#10b981", cssVar: "--color-success-emphasis", role: "emphasis", usage: "Success icons, badges" },
+        { name: "success-foreground", value: "#065f46", darkValue: "#6ee7b7", cssVar: "--color-success-foreground", role: "foreground", usage: "Success text" },
+        { name: "success-border", value: "#a7f3d0", darkValue: "#065f46", cssVar: "--color-success-border", role: "border", usage: "Success border" }
+      ]
+    },
+    {
+      name: "Error",
+      description: "Error and destructive state colors",
+      colors: [
+        { name: "error", value: "#fef2f2", darkValue: "rgba(239, 68, 68, 0.15)", cssVar: "--color-error", role: "background", usage: "Error background" },
+        { name: "error-emphasis", value: "#ef4444", darkValue: "#ef4444", cssVar: "--color-error-emphasis", role: "emphasis", usage: "Error icons, badges" },
+        { name: "error-foreground", value: "#991b1b", darkValue: "#fca5a5", cssVar: "--color-error-foreground", role: "foreground", usage: "Error text" },
+        { name: "error-border", value: "#fecaca", darkValue: "#991b1b", cssVar: "--color-error-border", role: "border", usage: "Error border" }
+      ]
+    },
+    {
+      name: "Warning",
+      description: "Warning and caution state colors",
+      colors: [
+        { name: "warning", value: "#fffbeb", darkValue: "rgba(245, 158, 11, 0.15)", cssVar: "--color-warning", role: "background", usage: "Warning background" },
+        { name: "warning-emphasis", value: "#f59e0b", darkValue: "#f59e0b", cssVar: "--color-warning-emphasis", role: "emphasis", usage: "Warning icons, badges" },
+        { name: "warning-foreground", value: "#92400e", darkValue: "#fcd34d", cssVar: "--color-warning-foreground", role: "foreground", usage: "Warning text" },
+        { name: "warning-border", value: "#fde68a", darkValue: "#92400e", cssVar: "--color-warning-border", role: "border", usage: "Warning border" }
+      ]
+    },
+    {
+      name: "Info",
+      description: "Informational state colors",
+      colors: [
+        { name: "info", value: "#eff6ff", darkValue: "rgba(59, 130, 246, 0.15)", cssVar: "--color-info", role: "background", usage: "Info background" },
+        { name: "info-emphasis", value: "#3b82f6", darkValue: "#3b82f6", cssVar: "--color-info-emphasis", role: "emphasis", usage: "Info icons, badges" },
+        { name: "info-foreground", value: "#1e40af", darkValue: "#93c5fd", cssVar: "--color-info-foreground", role: "foreground", usage: "Info text" },
+        { name: "info-border", value: "#bfdbfe", darkValue: "#1e40af", cssVar: "--color-info-border", role: "border", usage: "Info border" }
+      ]
+    },
+    // ===================================
+    // REFERENCE PALETTES
+    // ===================================
+    {
       name: "Gray Scale",
-      description: "Neutral palette for text, backgrounds, and borders",
+      description: "Neutral reference palette (prefer semantic tokens above)",
       colors: [
         { name: "gray-50", value: "#FAFAFA", usage: "Subtle backgrounds" },
         { name: "gray-100", value: "#F4F4F5", usage: "Secondary backgrounds" },
@@ -33,16 +104,6 @@ export const styleGuide: StyleGuide = {
         { name: "gray-800", value: "#27272A", usage: "Headings" },
         { name: "gray-900", value: "#18181B", usage: "Primary text" },
         { name: "gray-950", value: "#09090B", usage: "High contrast" }
-      ]
-    },
-    {
-      name: "Accent",
-      description: "Semantic colors for states and actions",
-      colors: [
-        { name: "blue-500", value: "#3B82F6", usage: "Links, focus rings" },
-        { name: "emerald-500", value: "#10B981", usage: "Success states" },
-        { name: "amber-500", value: "#F59E0B", usage: "Warning states" },
-        { name: "red-500", value: "#EF4444", usage: "Error states, destructive" }
       ]
     }
   ],

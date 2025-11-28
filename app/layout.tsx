@@ -36,7 +36,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans transition-colors">
+      <body className="bg-surface text-default font-sans transition-colors">
         <ThemeProvider>
           {children}
         </ThemeProvider>

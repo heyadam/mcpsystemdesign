@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { designSystem, getDesignSystemStats, getAllCategories } from '@/lib/design-system';
 import { ThemeToggle } from '@/components/ThemeToggle';
@@ -5,21 +8,60 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 export default function HomePage() {
   const stats = getDesignSystemStats();
   const categories = getAllCategories();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  // Close on escape key
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMobileMenuOpen(false);
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isMobileMenuOpen]);
 
   return (
     <div className="min-h-screen">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-sm border-b border-muted">
         <div className="max-w-screen-2xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">M</span>
-            </div>
-            <span className="font-semibold text-default">mcpsystem.design</span>
-          </Link>
+          <div className="flex items-center gap-4">
+            {/* Mobile menu button */}
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-hover transition-colors sm:hidden"
+              aria-label="Open menu"
+            >
+              <svg className="w-5 h-5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+
+            <Link href="/" className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <span className="text-primary-foreground font-bold text-sm">M</span>
+              </div>
+              <span className="font-semibold text-default hidden sm:block">mcpsystem.design</span>
+            </Link>
+          </div>
           <nav className="flex items-center gap-1">
-            <Link href="/docs/getting-started" className="nav-link">Getting Started</Link>
-            <Link href="/components" className="nav-link">Components</Link>
+            <Link href="/docs/getting-started" className="nav-link hidden sm:block">Getting Started</Link>
+            <Link href="/components" className="nav-link hidden sm:block">Components</Link>
             <a
               href="https://github.com/heyadam/aids-server"
               target="_blank"
@@ -35,6 +77,59 @@ export default function HomePage() {
           </nav>
         </div>
       </header>
+
+      {/* Mobile Menu Drawer */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[60] sm:hidden">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-surface-overlay backdrop-blur-sm"
+            onClick={() => setIsMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+
+          {/* Drawer */}
+          <div className="fixed inset-y-0 left-0 w-72 bg-surface shadow-xl overflow-y-auto z-10">
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-default">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                  <span className="text-primary-foreground font-bold text-sm">M</span>
+                </div>
+                <span className="font-semibold text-default">mcpsystem.design</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-hover transition-colors"
+                aria-label="Close menu"
+              >
+                <svg className="w-5 h-5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Navigation */}
+            <nav className="p-4 space-y-2">
+              <Link
+                href="/docs/getting-started"
+                className="block px-3 py-2 text-sm rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-default"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Getting Started
+              </Link>
+              <Link
+                href="/components"
+                className="block px-3 py-2 text-sm rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-default"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Components
+              </Link>
+            </nav>
+          </div>
+        </div>
+      )}
 
       {/* Hero */}
       <main className="pt-32 pb-20">

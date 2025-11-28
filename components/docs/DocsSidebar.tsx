@@ -66,6 +66,7 @@ export function DocsSidebar() {
                 {item.sections.map((section) => (
                   <button
                     key={section.id}
+                    type="button"
                     onClick={() => scrollToSection(section.id)}
                     className="block w-full text-left px-3 py-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
                   >

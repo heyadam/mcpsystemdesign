@@ -22,6 +22,7 @@ export function CodeBlock({ code, language = 'html', showLineNumbers = false }: 
       <div className="flex items-center justify-between px-4 py-2 border-b border-default">
         <span className="text-xs text-muted">{language}</span>
         <button
+          type="button"
           onClick={copyToClipboard}
           className="text-xs text-muted hover:text-default transition-colors flex items-center gap-1"
         >

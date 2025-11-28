@@ -6,35 +6,35 @@ interface PropsTableProps {
 
 export function PropsTable({ props }: PropsTableProps) {
   if (props.length === 0) {
-    return <p className="text-sm text-gray-500 dark:text-gray-400">No props defined for this component.</p>;
+    return <p className="text-sm text-muted">No props defined for this component.</p>;
   }
 
   return (
-    <div className="border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden">
+    <div className="border border-default rounded-xl overflow-hidden">
       <table className="w-full">
-        <thead className="bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+        <thead className="bg-surface-sunken border-b border-default">
           <tr>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            <th className="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">
               Name
             </th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            <th className="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider">
               Type
             </th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider hidden sm:table-cell">
+            <th className="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider hidden sm:table-cell">
               Default
             </th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider hidden md:table-cell">
+            <th className="px-4 py-3 text-left text-xs font-medium text-muted uppercase tracking-wider hidden md:table-cell">
               Description
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
+        <tbody className="divide-y divide-default">
           {props.map((prop) => (
-            <tr key={prop.name} className="hover:bg-gray-50 dark:hover:bg-gray-900">
+            <tr key={prop.name} className="hover:bg-surface-hover">
               <td className="px-4 py-3">
-                <code className="text-sm font-mono text-gray-900 dark:text-gray-100">{prop.name}</code>
+                <code className="text-sm font-mono text-default">{prop.name}</code>
                 {prop.required && (
-                  <span className="ml-1 text-red-500 text-xs">*</span>
+                  <span className="ml-1 text-error-emphasis text-xs">*</span>
                 )}
               </td>
               <td className="px-4 py-3">
@@ -44,12 +44,12 @@ export function PropsTable({ props }: PropsTableProps) {
               </td>
               <td className="px-4 py-3 hidden sm:table-cell">
                 {prop.default ? (
-                  <code className="text-sm font-mono text-gray-600 dark:text-gray-400">{prop.default}</code>
+                  <code className="text-sm font-mono text-muted">{prop.default}</code>
                 ) : (
-                  <span className="text-gray-400 dark:text-gray-500 text-sm">—</span>
+                  <span className="text-subtle text-sm">—</span>
                 )}
               </td>
-              <td className="px-4 py-3 text-sm text-gray-600 dark:text-gray-400 hidden md:table-cell">
+              <td className="px-4 py-3 text-sm text-muted hidden md:table-cell">
                 {prop.description}
               </td>
             </tr>
