@@ -10,7 +10,7 @@ export default function HomePage() {
     <div className="min-h-screen">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-sm border-b border-muted">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="max-w-screen-2xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-sm">M</span>
@@ -38,7 +38,7 @@ export default function HomePage() {
 
       {/* Hero */}
       <main className="pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-screen-2xl mx-auto px-4 md:px-6">
           <h1 className="text-5xl font-semibold tracking-tight text-default max-w-3xl">
             {designSystem.name}
           </h1>
@@ -64,7 +64,7 @@ export default function HomePage() {
 
       {/* MCP Setup */}
       <section className="py-20 bg-surface-sunken">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-screen-2xl mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-semibold text-default">MCP Server Setup</h2>
           <p className="mt-4 text-muted max-w-2xl">
             Connect this design system to your AI assistant (Claude, Cursor) via the Model Context Protocol.
@@ -88,7 +88,7 @@ export default function HomePage() {
 
       {/* Stats */}
       <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-screen-2xl mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-semibold text-default">Design System Overview</h2>
           <div className="mt-8 grid md:grid-cols-4 gap-6">
             <div className="p-6 bg-surface-raised rounded-xl border border-default">
@@ -113,7 +113,7 @@ export default function HomePage() {
 
       {/* Categories */}
       <section className="py-20 bg-surface-sunken">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-screen-2xl mx-auto px-4 md:px-6">
           <h2 className="text-2xl font-semibold text-default">Component Categories</h2>
           <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {categories.map((category) => (
@@ -134,7 +134,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="py-12 border-t border-default">
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-screen-2xl mx-auto px-4 md:px-6 flex items-center justify-between">
           <p className="text-sm text-muted">
             mcpsystem.design v{designSystem.version}
           </p>
