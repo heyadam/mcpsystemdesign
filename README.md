@@ -2,7 +2,7 @@
 
 A production-ready MCP (Model Context Protocol) server that exposes design system components and style guides for AI assistants. Deployed on Vercel with SSE transport for remote access.
 
-**Live Server:** https://www.mcpsystem.design/sse
+**Live Server:** https://www.mcpsystem.design/
 
 ## Features
 
