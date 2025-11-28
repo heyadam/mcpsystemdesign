@@ -13,7 +13,7 @@ export default function DocsLayout({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-surface">
       <DocsHeader onMenuClick={() => setMobileMenuOpen(true)} />
       <MobileDrawer
         isOpen={mobileMenuOpen}
