@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { DocsHeader } from '@/components/docs/DocsHeader';
-import { DocsSidebar } from '@/components/docs/DocsSidebar';
+import { Sidebar } from '@/components/docs/Sidebar';
 import { MobileDrawer } from '@/components/docs/MobileDrawer';
 
 export default function DocsLayout({
@@ -18,10 +18,9 @@ export default function DocsLayout({
       <MobileDrawer
         isOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
-        variant="docs"
       />
       <div className="flex pt-16">
-        <DocsSidebar />
+        <Sidebar />
         <main className="flex-1 p-6 md:p-10">
           {children}
         </main>

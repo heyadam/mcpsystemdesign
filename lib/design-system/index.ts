@@ -94,7 +94,7 @@ export function getRelatedComponents(component: Component): Component[] {
 // ============ NAVIGATION HELPERS ============
 
 /**
- * Get navigation structure for sidebar
+ * Get navigation structure for sidebar (legacy - for backwards compatibility)
  */
 export function getNavigationItems(): Array<{ category: ComponentCategory; components: Component[] }> {
   return categories
@@ -103,6 +103,93 @@ export function getNavigationItems(): Array<{ category: ComponentCategory; compo
       category,
       components: getComponentsByCategory(category.name)
     }));
+}
+
+// ============ UNIFIED NAVIGATION ============
+
+/**
+ * Navigation item - a single link in the sidebar
+ */
+export interface NavItem {
+  title: string;
+  href: string;
+  anchors?: { id: string; label: string }[]; // For in-page sections
+}
+
+/**
+ * Navigation category - a group of items under a section (e.g., "Actions" under "Components")
+ */
+export interface NavCategory {
+  id: string;
+  title: string;
+  items: NavItem[];
+}
+
+/**
+ * Navigation section - a top-level collapsible group in the sidebar accordion
+ */
+export interface NavSection {
+  id: string;
+  title: string;
+  items?: NavItem[];           // Direct items (for Docs)
+  categories?: NavCategory[];  // Nested categories (for Components)
+}
+
+/**
+ * Get complete site navigation structure for unified sidebar
+ * This is the single source of truth for all navigation
+ * Returns 3 main sections: Home, Docs, and Components (all expanded by default)
+ */
+export function getAllNavigation(): NavSection[] {
+  return [
+    // Home section
+    {
+      id: 'home',
+      title: 'Home',
+      items: [
+        {
+          title: 'Home',
+          href: '/',
+        },
+      ],
+    },
+    // Documentation section
+    {
+      id: 'docs',
+      title: 'Docs',
+      items: [
+        {
+          title: 'Getting Started',
+          href: '/docs/getting-started',
+          anchors: [
+            { id: 'cursor', label: 'Cursor' },
+            { id: 'claude-code', label: 'Claude Code' },
+            { id: 'verification', label: 'Verification' },
+            { id: 'tools', label: 'Available Tools' },
+          ],
+        },
+      ],
+    },
+    // Components section with nested categories
+    {
+      id: 'components',
+      title: 'Components',
+      items: [
+        {
+          title: 'All Components',
+          href: '/components',
+        },
+      ],
+      categories: categories.sort((a, b) => a.order - b.order).map(category => ({
+        id: category.slug,
+        title: category.name,
+        items: getComponentsByCategory(category.name).map(c => ({
+          title: c.name,
+          href: `/components/${c.slug}`,
+        })),
+      })),
+    },
+  ];
 }
 
 // ============ STYLE GUIDE HELPERS ============

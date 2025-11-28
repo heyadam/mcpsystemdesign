@@ -1,26 +1,16 @@
 'use client';
 
 import { useEffect } from 'react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getNavigationItems } from '@/lib/design-system';
+import { Sidebar } from './Sidebar';
 
 interface MobileDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  variant?: 'components' | 'docs';
 }
 
-const docsNavItems = [
-  {
-    title: 'Getting Started',
-    href: '/docs/getting-started',
-  },
-];
-
-export function MobileDrawer({ isOpen, onClose, variant = 'components' }: MobileDrawerProps) {
+export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
   const pathname = usePathname();
-  const navItems = getNavigationItems();
 
   // Close drawer on route change
   useEffect(() => {
@@ -88,48 +78,8 @@ export function MobileDrawer({ isOpen, onClose, variant = 'components' }: Mobile
           </button>
         </div>
 
-        {/* Navigation */}
-        <nav className="p-4 space-y-6">
-          {/* Components navigation */}
-          <div>
-            <Link
-              href="/components"
-              className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                pathname === '/components'
-                  ? 'text-default font-medium bg-surface-hover'
-                  : 'text-muted hover:bg-surface-hover hover:text-default'
-              }`}
-            >
-              All Components
-            </Link>
-          </div>
-
-          {navItems.map(({ category, components }) => (
-            <div key={category.slug}>
-              <div className="px-3 py-2 text-xs font-semibold text-subtle uppercase tracking-wider">
-                {category.name}
-              </div>
-              <div className="mt-1 space-y-1">
-                {components.map((component) => {
-                  const isActive = pathname === `/components/${component.slug}`;
-                  return (
-                    <Link
-                      key={component.slug}
-                      href={`/components/${component.slug}`}
-                      className={`block px-3 py-2 text-sm rounded-lg transition-colors ${
-                        isActive
-                          ? 'text-default font-medium bg-surface-hover'
-                          : 'text-muted hover:bg-surface-hover hover:text-default'
-                      }`}
-                    >
-                      {component.name}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </nav>
+        {/* Unified Navigation - reuses Sidebar component */}
+        <Sidebar isMobile onLinkClick={onClose} />
       </div>
     </div>
   );

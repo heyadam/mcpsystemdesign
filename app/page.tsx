@@ -1,38 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { designSystem, getDesignSystemStats, getAllCategories } from '@/lib/design-system';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { Sidebar } from '@/components/docs/Sidebar';
+import { MobileDrawer } from '@/components/docs/MobileDrawer';
 
 export default function HomePage() {
   const stats = getDesignSystemStats();
   const categories = getAllCategories();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMobileMenuOpen]);
-
-  // Close on escape key
-  useEffect(() => {
-    if (!isMobileMenuOpen) return;
-
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMobileMenuOpen(false);
-    };
-
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [isMobileMenuOpen]);
 
   return (
     <div className="min-h-screen">
@@ -44,7 +22,7 @@ export default function HomePage() {
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(true)}
-              className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-hover transition-colors sm:hidden"
+              className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-hover transition-colors md:hidden"
               aria-label="Open menu"
             >
               <svg className="w-5 h-5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -79,96 +57,53 @@ export default function HomePage() {
       </header>
 
       {/* Mobile Menu Drawer */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[60] sm:hidden">
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 bg-surface-overlay backdrop-blur-sm"
-            onClick={() => setIsMobileMenuOpen(false)}
-            aria-hidden="true"
-          />
+      <MobileDrawer
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+      />
 
-          {/* Drawer */}
-          <div className="fixed inset-y-0 left-0 w-72 bg-surface shadow-xl overflow-y-auto z-10">
-            {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-default">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-sm">M</span>
-                </div>
-                <span className="font-semibold text-default">mcpsystem.design</span>
+      {/* Main layout with sidebar */}
+      <div className="flex pt-16">
+        <Sidebar />
+        <main className="flex-1">
+          {/* Hero */}
+          <section className="pt-16 pb-20">
+            <div className="max-w-6xl mx-auto px-4 md:px-6">
+              <h1 className="text-5xl font-semibold tracking-tight max-w-3xl">
+                <span className="gradient-text">{designSystem.name}</span>
+              </h1>
+              <p className="mt-6 text-xl text-muted max-w-2xl">
+                {designSystem.description}
+              </p>
+              <div className="mt-8 flex items-center gap-4">
+                <Link
+                  href="/components"
+                  className="h-12 px-6 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary-hover transition-colors inline-flex items-center"
+                >
+                  Browse Components
+                </Link>
+                <Link
+                  href="/docs/getting-started"
+                  className="h-12 px-6 bg-surface-raised text-default border border-default rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors inline-flex items-center"
+                >
+                  Get Started
+                </Link>
               </div>
-              <button
-                type="button"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-hover transition-colors"
-                aria-label="Close menu"
-              >
-                <svg className="w-5 h-5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
             </div>
+          </section>
 
-            {/* Navigation */}
-            <nav className="p-4 space-y-2">
-              <Link
-                href="/docs/getting-started"
-                className="block px-3 py-2 text-sm rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-default"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Getting Started
-              </Link>
-              <Link
-                href="/components"
-                className="block px-3 py-2 text-sm rounded-lg transition-colors text-muted hover:bg-surface-hover hover:text-default"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Components
-              </Link>
-            </nav>
-          </div>
-        </div>
-      )}
-
-      {/* Hero */}
-      <main className="pt-32 pb-20">
-        <div className="max-w-6xl mx-auto px-4 md:px-6">
-          <h1 className="text-5xl font-semibold tracking-tight text-default max-w-3xl">
-            {designSystem.name}
-          </h1>
-          <p className="mt-6 text-xl text-muted max-w-2xl">
-            {designSystem.description}
-          </p>
-          <div className="mt-8 flex items-center gap-4">
-            <Link
-              href="/components"
-              className="h-12 px-6 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary-hover transition-colors inline-flex items-center"
-            >
-              Browse Components
-            </Link>
-            <Link
-              href="/docs/getting-started"
-              className="h-12 px-6 bg-surface-raised text-default border border-default rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors inline-flex items-center"
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </main>
-
-      {/* MCP Setup */}
-      <section className="py-20 bg-surface-sunken">
-        <div className="max-w-6xl mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-semibold text-default">MCP Server Setup</h2>
-          <p className="mt-4 text-muted max-w-2xl">
-            Connect this design system to your AI assistant (Claude, Cursor) via the Model Context Protocol.
-          </p>
-          <div className="mt-8 p-6 bg-surface-raised border border-default rounded-xl">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs text-muted">MCP Configuration</span>
-            </div>
-            <pre className="text-sm text-default font-mono overflow-x-auto">
+          {/* MCP Setup */}
+          <section className="py-20 bg-surface-sunken">
+            <div className="max-w-6xl mx-auto px-4 md:px-6">
+              <h2 className="text-2xl font-semibold text-default">MCP Server Setup</h2>
+              <p className="mt-4 text-muted max-w-2xl">
+                Connect this design system to your AI assistant (Claude, Cursor) via the Model Context Protocol.
+              </p>
+              <div className="mt-8 p-6 bg-surface-raised border border-default rounded-xl">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs text-muted">MCP Configuration</span>
+                </div>
+                <pre className="text-sm text-default font-mono overflow-x-auto">
 {`{
   "mcpServers": {
     "mcpdesignsystem": {
@@ -176,73 +111,75 @@ export default function HomePage() {
     }
   }
 }`}
-            </pre>
-          </div>
-        </div>
-      </section>
+                </pre>
+              </div>
+            </div>
+          </section>
 
-      {/* Stats */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-semibold text-default">Design System Overview</h2>
-          <div className="mt-8 grid md:grid-cols-4 gap-6">
-            <div className="p-6 bg-surface-raised rounded-xl border border-default">
-              <p className="text-3xl font-semibold text-default">{stats.totalComponents}</p>
-              <p className="mt-1 text-sm text-muted">Components</p>
+          {/* Stats */}
+          <section className="py-20">
+            <div className="max-w-6xl mx-auto px-4 md:px-6">
+              <h2 className="text-2xl font-semibold text-default">Design System Overview</h2>
+              <div className="mt-8 grid md:grid-cols-4 gap-6">
+                <div className="p-6 bg-surface-raised rounded-xl border border-default">
+                  <p className="text-3xl font-semibold text-default">{stats.totalComponents}</p>
+                  <p className="mt-1 text-sm text-muted">Components</p>
+                </div>
+                <div className="p-6 bg-surface-raised rounded-xl border border-default">
+                  <p className="text-3xl font-semibold text-default">{stats.totalCategories}</p>
+                  <p className="mt-1 text-sm text-muted">Categories</p>
+                </div>
+                <div className="p-6 bg-surface-raised rounded-xl border border-default">
+                  <p className="text-3xl font-semibold text-default">{stats.totalColors}</p>
+                  <p className="mt-1 text-sm text-muted">Color Tokens</p>
+                </div>
+                <div className="p-6 bg-surface-raised rounded-xl border border-default">
+                  <p className="text-3xl font-semibold text-default">{stats.totalTypographyStyles}</p>
+                  <p className="mt-1 text-sm text-muted">Typography Styles</p>
+                </div>
+              </div>
             </div>
-            <div className="p-6 bg-surface-raised rounded-xl border border-default">
-              <p className="text-3xl font-semibold text-default">{stats.totalCategories}</p>
-              <p className="mt-1 text-sm text-muted">Categories</p>
-            </div>
-            <div className="p-6 bg-surface-raised rounded-xl border border-default">
-              <p className="text-3xl font-semibold text-default">{stats.totalColors}</p>
-              <p className="mt-1 text-sm text-muted">Color Tokens</p>
-            </div>
-            <div className="p-6 bg-surface-raised rounded-xl border border-default">
-              <p className="text-3xl font-semibold text-default">{stats.totalTypographyStyles}</p>
-              <p className="mt-1 text-sm text-muted">Typography Styles</p>
-            </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* Categories */}
-      <section className="py-20 bg-surface-sunken">
-        <div className="max-w-6xl mx-auto px-4 md:px-6">
-          <h2 className="text-2xl font-semibold text-default">Component Categories</h2>
-          <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {categories.map((category) => (
-              <Link
-                key={category}
-                href={`/components?category=${encodeURIComponent(category)}`}
-                className="p-6 bg-surface-raised rounded-xl border border-default hover:border-emphasis hover:shadow-md transition-all"
-              >
-                <h3 className="font-semibold text-default">{category}</h3>
-                <p className="mt-2 text-sm text-muted">
-                  {designSystem.components.filter(c => c.category === category).length} components
-                </p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+          {/* Categories */}
+          <section className="py-20 bg-surface-sunken">
+            <div className="max-w-6xl mx-auto px-4 md:px-6">
+              <h2 className="text-2xl font-semibold text-default">Component Categories</h2>
+              <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {categories.map((category) => (
+                  <Link
+                    key={category}
+                    href={`/components?category=${encodeURIComponent(category)}`}
+                    className="p-6 bg-surface-raised rounded-xl border border-default hover:border-emphasis hover:shadow-md transition-all"
+                  >
+                    <h3 className="font-semibold text-default">{category}</h3>
+                    <p className="mt-2 text-sm text-muted">
+                      {designSystem.components.filter(c => c.category === category).length} components
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
 
-      {/* Footer */}
-      <footer className="py-12 border-t border-default">
-        <div className="max-w-6xl mx-auto px-4 md:px-6 flex items-center justify-between">
-          <p className="text-sm text-muted">
-            mcpsystem.design v{designSystem.version}
-          </p>
-          <div className="flex items-center gap-4">
-            <Link href="/docs/getting-started" className="text-sm text-muted hover:text-default">
-              Getting Started
-            </Link>
-            <Link href="/components" className="text-sm text-muted hover:text-default">
-              Components
-            </Link>
-          </div>
-        </div>
-      </footer>
+          {/* Footer */}
+          <footer className="py-12 border-t border-default">
+            <div className="max-w-6xl mx-auto px-4 md:px-6 flex items-center justify-between">
+              <p className="text-sm text-muted">
+                mcpsystem.design v{designSystem.version}
+              </p>
+              <div className="flex items-center gap-4">
+                <Link href="/docs/getting-started" className="text-sm text-muted hover:text-default">
+                  Getting Started
+                </Link>
+                <Link href="/components" className="text-sm text-muted hover:text-default">
+                  Components
+                </Link>
+              </div>
+            </div>
+          </footer>
+        </main>
+      </div>
     </div>
   );
 }
