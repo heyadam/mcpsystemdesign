@@ -24,8 +24,11 @@ export function LivePreview({ code }: LivePreviewProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Detect if this is an overlay component (modal, dropdown, etc.) that uses fixed positioning
+  const isOverlay = /className="[^"]*\bfixed\b/.test(code);
+
   // Clean up HTML comments and convert JSX to HTML
-  const cleanCode = code
+  let cleanCode = code
     .replace(/<!--[\s\S]*?-->/g, '') // Remove HTML comments
     .replace(/className=/g, 'class=') // Convert JSX className to HTML class
     .replace(/strokeLinecap=/g, 'stroke-linecap=') // Convert JSX stroke attributes
@@ -35,6 +38,16 @@ export function LivePreview({ code }: LivePreviewProps) {
     .replace(/fillOpacity=/g, 'fill-opacity=') // Convert fillOpacity
     .replace(/strokeOpacity=/g, 'stroke-opacity=') // Convert strokeOpacity
     .trim();
+
+  // For overlay components, replace 'fixed' with 'absolute' so they're contained in the preview
+  // This prevents modals and other overlays from taking over the entire viewport
+  if (isOverlay) {
+    cleanCode = cleanCode.replace(/class="([^"]*)"/g, (match, classes) => {
+      // Replace 'fixed' as a standalone word in the class list
+      const updatedClasses = classes.replace(/\bfixed\b/g, 'absolute');
+      return `class="${updatedClasses}"`;
+    });
+  }
 
   return (
     <div className="border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden">
@@ -118,15 +131,22 @@ export function LivePreview({ code }: LivePreviewProps) {
 
       {/* Content */}
       {view === 'preview' ? (
-        <div className={`p-6 transition-colors ${
+        <div className={`transition-colors ${
           previewTheme === 'dark'
             ? 'preview-container-dark bg-gray-900'
             : 'preview-container bg-white'
-        }`}>
-          <div
-            className={`flex flex-wrap items-center gap-4 ${previewTheme === 'dark' ? 'dark' : ''}`}
-            dangerouslySetInnerHTML={{ __html: cleanCode }}
-          />
+        } ${isOverlay ? 'relative' : 'p-6'}`}>
+          {isOverlay ? (
+            <div
+              className={`relative min-h-[500px] ${previewTheme === 'dark' ? 'dark' : ''}`}
+              dangerouslySetInnerHTML={{ __html: cleanCode }}
+            />
+          ) : (
+            <div
+              className={`flex flex-wrap items-center gap-4 ${previewTheme === 'dark' ? 'dark' : ''}`}
+              dangerouslySetInnerHTML={{ __html: cleanCode }}
+            />
+          )}
         </div>
       ) : (
         <div className="bg-gray-950">
