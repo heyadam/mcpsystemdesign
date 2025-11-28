@@ -11,7 +11,7 @@ export default function ComponentsPage() {
   const stats = getDesignSystemStats();
 
   return (
-    <div className="p-6 md:p-10 max-w-4xl">
+    <div className="p-6 md:p-10 max-w-5xl">
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-3xl font-semibold text-gray-900 dark:text-gray-100">Components</h1>

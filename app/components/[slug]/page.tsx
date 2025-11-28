@@ -41,7 +41,7 @@ export default function ComponentPage({ params }: { params: { slug: string } }) 
   const category = categories.find(c => c.name === component.category);
 
   return (
-    <div className="p-6 md:p-10 max-w-4xl">
+    <div className="p-6 md:p-10 max-w-5xl">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm mb-6">
         <Link href="/components" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
