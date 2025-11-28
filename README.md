@@ -2,7 +2,7 @@
 
 A production-ready MCP (Model Context Protocol) server that exposes design system components and style guides for AI assistants. Deployed on Vercel with SSE transport for remote access.
 
-**Live Server:** https://aids-server.vercel.app/
+**Live Server:** https://www.mcpsystem.design/sse
 
 ## Features
 
@@ -11,6 +11,7 @@ A production-ready MCP (Model Context Protocol) server that exposes design syste
 - **Style Guide**: Retrieve colors, typography, spacing scales, and breakpoints
 - **Search**: Find components by name, description, or category
 - **SSE Transport**: Remote access via Server-Sent Events for web deployment
+- **Security Hardened**: Input validation, rate limiting, and structured logging
 
 ## Quick Start
 
@@ -50,16 +51,24 @@ vercel
 │   ├── components/         # Component documentation pages
 │   ├── docs/               # Documentation pages
 │   └── page.tsx            # Landing page
-├── api/                    # Vercel Serverless Functions
+├── api/                    # Vercel Serverless Functions (legacy)
 │   ├── index.ts            # Landing page API
 │   ├── health.ts           # Health check endpoint
 │   └── mcp.ts              # Legacy MCP endpoint (deprecated)
 ├── lib/
-│   └── design-system/      # Design system data
-│       ├── index.ts        # Main exports and helpers
-│       ├── components.ts   # Component definitions
-│       ├── style-guide.ts  # Colors, typography, spacing
-│       └── types.ts        # TypeScript types
+│   ├── design-system/      # Design system data
+│   │   ├── index.ts        # Main exports and helpers
+│   │   ├── components.ts   # Component definitions
+│   │   ├── style-guide.ts  # Colors, typography, spacing
+│   │   └── types.ts        # TypeScript types
+│   ├── mcp/                # MCP protocol utilities
+│   │   ├── schemas.ts      # Zod validation schemas
+│   │   ├── errors.ts       # JSON-RPC error codes
+│   │   ├── logger.ts       # Structured logging
+│   │   └── types.ts        # TypeScript types
+│   └── security/           # Security utilities
+│       ├── host-validator.ts  # Host header validation
+│       └── rate-limiter.ts    # Rate limiting
 ├── components/             # React components for the website
 ├── package.json
 ├── tsconfig.json
@@ -108,7 +117,7 @@ vercel
 4. Configure with:
    - **Name:** `mcpdesignsystem`
    - **Type:** `sse`
-   - **URL:** `https://aids-server.vercel.app/sse`
+   - **URL:** `https://www.mcpsystem.design/sse`
 
 Alternatively, add to your `.cursor/mcp.json` file:
 
@@ -116,7 +125,7 @@ Alternatively, add to your `.cursor/mcp.json` file:
 {
   "mcpServers": {
     "mcpdesignsystem": {
-      "url": "https://aids-server.vercel.app/sse"
+      "url": "https://www.mcpsystem.design/sse"
     }
   }
 }
@@ -130,7 +139,7 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 {
   "mcpServers": {
     "mcpdesignsystem": {
-      "url": "https://aids-server.vercel.app/sse"
+      "url": "https://www.mcpsystem.design/sse"
     }
   }
 }
@@ -144,7 +153,7 @@ Add to your `.claude/settings.json`:
 {
   "mcpServers": {
     "mcpdesignsystem": {
-      "url": "https://aids-server.vercel.app/sse"
+      "url": "https://www.mcpsystem.design/sse"
     }
   }
 }
@@ -207,6 +216,30 @@ npm run typecheck
 npm run build
 ```
 
+## Security
+
+The SSE endpoint includes several security hardening measures:
+
+### Input Validation
+- All JSON-RPC requests are validated using Zod schemas
+- Tool arguments are type-checked before execution
+- Batch requests limited to 100 items maximum
+
+### Rate Limiting
+- 100 requests per minute per IP address
+- Returns HTTP 429 with `Retry-After` header when exceeded
+- In-memory rate limiting (resets on cold starts)
+
+### Host Header Validation
+- Whitelist-based validation prevents host header injection
+- Allowed hosts: `www.mcpsystem.design`, `mcpsystem.design`, `localhost`
+- Invalid hosts default to `www.mcpsystem.design`
+
+### Structured Logging
+- All requests include unique request IDs (`X-Request-Id` header)
+- JSON-formatted logs for Vercel log aggregation
+- Request tracing for debugging and auditing
+
 ## Troubleshooting
 
 ### SSE Connection Issues
@@ -218,6 +251,10 @@ npm run build
 ### Connection Drops
 
 The SSE endpoint sends periodic ping messages to keep the connection alive. If your client disconnects frequently, check your network configuration or proxy settings.
+
+### Rate Limit Errors (HTTP 429)
+
+If you receive a 429 status code, you've exceeded the rate limit (100 requests/minute). Wait for the duration specified in the `Retry-After` header before retrying.
 
 ## License
 

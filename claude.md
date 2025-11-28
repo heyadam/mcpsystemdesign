@@ -4,7 +4,7 @@
 
 This is a production-ready MCP (Model Context Protocol) server that exposes design system components and style guides to AI assistants. The project is built with Next.js and deployed on Vercel, using SSE (Server-Sent Events) transport for remote access.
 
-**Live Server:** https://aids-server.vercel.app/
+**Live Server:** https://www.mcpsystem.design/sse
 
 ## Architecture
 
@@ -36,11 +36,20 @@ This is a production-ready MCP (Model Context Protocol) server that exposes desi
 │   ├── index.ts               # Landing page API
 │   ├── health.ts              # Health check endpoint
 │   └── mcp.ts                 # Deprecated MCP endpoint
-├── lib/design-system/          # Core design system data
-│   ├── index.ts               # Main exports and helpers
-│   ├── components.ts          # Component definitions
-│   ├── style-guide.ts         # Colors, typography, spacing
-│   └── types.ts               # TypeScript type definitions
+├── lib/
+│   ├── design-system/         # Core design system data
+│   │   ├── index.ts           # Main exports and helpers
+│   │   ├── components.ts      # Component definitions
+│   │   ├── style-guide.ts     # Colors, typography, spacing
+│   │   └── types.ts           # TypeScript type definitions
+│   ├── mcp/                   # MCP protocol utilities
+│   │   ├── schemas.ts         # Zod validation schemas for JSON-RPC
+│   │   ├── errors.ts          # JSON-RPC error codes and helpers
+│   │   ├── logger.ts          # Structured logging with request IDs
+│   │   └── types.ts           # TypeScript types derived from Zod
+│   └── security/              # Security utilities
+│       ├── host-validator.ts  # Host header whitelist validation
+│       └── rate-limiter.ts    # In-memory rate limiting
 ├── components/                 # React UI components for website
 ├── package.json
 ├── tsconfig.json
@@ -73,6 +82,10 @@ The server exposes 10 MCP tools organized into two categories:
 - **`lib/design-system/components.ts`** - Component definitions with props, examples, and metadata
 - **`lib/design-system/style-guide.ts`** - Design tokens (colors, typography, spacing, breakpoints)
 - **`lib/design-system/types.ts`** - TypeScript interfaces for the design system
+- **`lib/mcp/schemas.ts`** - Zod validation schemas for JSON-RPC requests
+- **`lib/mcp/errors.ts`** - JSON-RPC 2.0 error codes and response helpers
+- **`lib/security/host-validator.ts`** - Host header whitelist validation
+- **`lib/security/rate-limiter.ts`** - In-memory rate limiting (100 req/min/IP)
 
 ## Development Guidelines
 
@@ -188,7 +201,7 @@ Add to `.cursor/mcp.json`:
 {
   "mcpServers": {
     "mcpdesignsystem": {
-      "url": "https://aids-server.vercel.app/sse"
+      "url": "https://www.mcpsystem.design/sse"
     }
   }
 }
@@ -200,7 +213,7 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 {
   "mcpServers": {
     "mcpdesignsystem": {
-      "url": "https://aids-server.vercel.app/sse"
+      "url": "https://www.mcpsystem.design/sse"
     }
   }
 }
@@ -212,11 +225,40 @@ Add to `.claude/settings.json`:
 {
   "mcpServers": {
     "mcpdesignsystem": {
-      "url": "https://aids-server.vercel.app/sse"
+      "url": "https://www.mcpsystem.design/sse"
     }
   }
 }
 ```
+
+## Security
+
+The SSE endpoint includes comprehensive security hardening:
+
+### Input Validation
+- All JSON-RPC requests validated with Zod schemas (`lib/mcp/schemas.ts`)
+- Tool arguments type-checked before execution
+- Batch requests limited to 100 items maximum
+
+### Rate Limiting
+- 100 requests per minute per IP address
+- Returns HTTP 429 with `Retry-After` header when exceeded
+- In-memory rate limiting (resets on serverless cold starts)
+
+### Host Header Validation
+- Whitelist-based validation prevents host header injection attacks
+- Allowed hosts: `www.mcpsystem.design`, `mcpsystem.design`, `localhost:3000`
+- Invalid hosts default to `www.mcpsystem.design`
+
+### Error Handling
+- Standard JSON-RPC 2.0 error codes (-32700, -32600, -32601, -32602)
+- Structured error responses with request IDs
+- All errors logged with context for debugging
+
+### Structured Logging
+- Unique request IDs for all requests (`X-Request-Id` header)
+- JSON-formatted logs compatible with Vercel log aggregation
+- Request tracing for debugging and security auditing
 
 ## Important Notes
 
@@ -224,10 +266,11 @@ Add to `.claude/settings.json`:
 - **Timeout:** 60 seconds for serverless functions
 - **SSE Keep-Alive:** Periodic ping messages sent to maintain connection
 - **Cold Starts:** First request may be slower due to cold start
+- **Rate Limiting:** In-memory rate limits reset on cold starts
 
 ### CORS Configuration
 - CORS headers are configured in `app/api/sse/route.ts`
-- Adjust as needed for different client origins
+- Currently allows all origins (`*`) for public API access
 
 ### Dark Mode Support
 - The website includes dark mode toggle functionality
