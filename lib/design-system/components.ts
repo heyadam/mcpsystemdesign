@@ -1532,5 +1532,618 @@ console.log(greeting);</code></pre>
       }
     ],
     relatedComponents: ["Card", "Divider"]
+  },
+
+  // ============ AI ============
+  {
+    name: "Typing Indicator",
+    slug: "typing-indicator",
+    description: "Animated indicator showing the AI assistant is generating a response.",
+    category: "AI",
+    importStatement: "import { TypingIndicator } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "variant", type: "'dots' | 'text' | 'skeleton'", required: false, default: "'dots'", description: "Indicator style" },
+      { name: "label", type: "string", required: false, description: "Optional text label (e.g., 'Claude is thinking...')" },
+      { name: "showAvatar", type: "boolean", required: false, default: "true", description: "Show assistant avatar" },
+      { name: "size", type: "'sm' | 'md'", required: false, default: "'md'", description: "Indicator size" }
+    ],
+    examples: [
+      {
+        title: "Dots",
+        code: `<div className="flex items-start gap-3">
+  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-xs font-medium shrink-0">AI</div>
+  <div className="px-4 py-3 bg-surface-raised border border-default rounded-2xl rounded-bl-md">
+    <div className="flex items-center gap-1">
+      <span className="w-2 h-2 bg-text-subtle rounded-full animate-bounce" style="animation-delay: 0ms"></span>
+      <span className="w-2 h-2 bg-text-subtle rounded-full animate-bounce" style="animation-delay: 150ms"></span>
+      <span className="w-2 h-2 bg-text-subtle rounded-full animate-bounce" style="animation-delay: 300ms"></span>
+    </div>
+  </div>
+</div>`,
+        preview: "dots"
+      },
+      {
+        title: "With Text",
+        code: `<div className="flex items-start gap-3">
+  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-xs font-medium shrink-0">AI</div>
+  <div className="px-4 py-3 bg-surface-raised border border-default rounded-2xl rounded-bl-md">
+    <div className="flex items-center gap-2">
+      <span className="text-sm text-muted">Thinking</span>
+      <div className="flex items-center gap-1">
+        <span className="w-1.5 h-1.5 bg-text-subtle rounded-full animate-bounce" style="animation-delay: 0ms"></span>
+        <span className="w-1.5 h-1.5 bg-text-subtle rounded-full animate-bounce" style="animation-delay: 150ms"></span>
+        <span className="w-1.5 h-1.5 bg-text-subtle rounded-full animate-bounce" style="animation-delay: 300ms"></span>
+      </div>
+    </div>
+  </div>
+</div>`,
+        preview: "with-text"
+      },
+      {
+        title: "Skeleton",
+        code: `<div className="flex items-start gap-3">
+  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-xs font-medium shrink-0">AI</div>
+  <div className="px-4 py-3 bg-surface-raised border border-default rounded-2xl rounded-bl-md space-y-2 min-w-[200px]">
+    <div className="h-3 w-full bg-surface-hover rounded animate-pulse"></div>
+    <div className="h-3 w-3/4 bg-surface-hover rounded animate-pulse"></div>
+  </div>
+</div>`,
+        preview: "skeleton"
+      }
+    ],
+    relatedComponents: ["ChatMessage", "Avatar", "Skeleton"]
+  },
+  {
+    name: "File Attachment",
+    slug: "file-attachment",
+    description: "Display attached files with preview, upload progress, and status indicators.",
+    category: "AI",
+    importStatement: "import { FileAttachment } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "filename", type: "string", required: true, description: "File name to display" },
+      { name: "size", type: "number", required: false, description: "File size in bytes" },
+      { name: "type", type: "string", required: false, description: "MIME type or file extension" },
+      { name: "status", type: "'uploading' | 'complete' | 'error'", required: false, default: "'complete'", description: "Upload status" },
+      { name: "progress", type: "number", required: false, description: "Upload progress (0-100)" },
+      { name: "previewUrl", type: "string", required: false, description: "Image preview URL" },
+      { name: "removable", type: "boolean", required: false, default: "true", description: "Show remove button" },
+      { name: "onRemove", type: "() => void", required: false, description: "Remove button click handler" }
+    ],
+    examples: [
+      {
+        title: "Complete",
+        code: `<div className="inline-flex items-center gap-3 px-3 py-2 bg-surface-hover border border-default rounded-lg max-w-xs">
+  <div className="w-10 h-10 bg-info rounded-lg flex items-center justify-center shrink-0">
+    <svg className="w-5 h-5 text-info-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+  </div>
+  <div className="flex-1 min-w-0">
+    <p className="text-sm font-medium text-default truncate">document.pdf</p>
+    <p className="text-xs text-muted">245 KB</p>
+  </div>
+  <button className="p-1 text-subtle hover:text-default hover:bg-surface-hover rounded transition-colors" aria-label="Remove">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+  </button>
+</div>`,
+        preview: "complete"
+      },
+      {
+        title: "Uploading",
+        code: `<div className="inline-flex items-center gap-3 px-3 py-2 bg-surface-hover border border-default rounded-lg max-w-xs">
+  <div className="w-10 h-10 bg-surface-raised border border-default rounded-lg flex items-center justify-center shrink-0">
+    <svg className="w-5 h-5 text-muted animate-spin" viewBox="0 0 24 24" fill="none">
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+    </svg>
+  </div>
+  <div className="flex-1 min-w-0">
+    <p className="text-sm font-medium text-default truncate">image.png</p>
+    <div className="mt-1 h-1.5 bg-surface-raised rounded-full overflow-hidden">
+      <div className="h-full bg-primary rounded-full transition-all" style="width: 65%"></div>
+    </div>
+  </div>
+  <button className="p-1 text-subtle hover:text-default hover:bg-surface-hover rounded transition-colors" aria-label="Cancel">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+  </button>
+</div>`,
+        preview: "uploading"
+      },
+      {
+        title: "Image Preview",
+        code: `<div className="inline-flex items-center gap-3 px-3 py-2 bg-surface-hover border border-default rounded-lg max-w-xs">
+  <div className="w-10 h-10 rounded-lg overflow-hidden shrink-0 bg-surface-raised">
+    <div className="w-full h-full bg-gradient-to-br from-cyan-400 to-blue-500"></div>
+  </div>
+  <div className="flex-1 min-w-0">
+    <p className="text-sm font-medium text-default truncate">screenshot.png</p>
+    <p className="text-xs text-muted">1.2 MB</p>
+  </div>
+  <button className="p-1 text-subtle hover:text-default hover:bg-surface-hover rounded transition-colors" aria-label="Remove">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+  </button>
+</div>`,
+        preview: "image-preview"
+      }
+    ],
+    relatedComponents: ["MessageInput", "ChatMessage", "Progress", "Badge"]
+  },
+  {
+    name: "AI Code Block",
+    slug: "ai-code-block",
+    description: "Syntax-highlighted code block optimized for AI chat with copy button, language indicator, and streaming support.",
+    category: "AI",
+    importStatement: "import { AICodeBlock } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "code", type: "string", required: true, description: "Code content to display" },
+      { name: "language", type: "string", required: false, default: "'plaintext'", description: "Programming language for syntax highlighting" },
+      { name: "filename", type: "string", required: false, description: "Optional filename to display in header" },
+      { name: "showLineNumbers", type: "boolean", required: false, default: "false", description: "Show line numbers" },
+      { name: "copyable", type: "boolean", required: false, default: "true", description: "Show copy button" },
+      { name: "collapsible", type: "boolean", required: false, default: "true", description: "Allow collapse for long code" },
+      { name: "maxLines", type: "number", required: false, default: "20", description: "Lines before showing collapse" },
+      { name: "isStreaming", type: "boolean", required: false, default: "false", description: "Show streaming cursor" }
+    ],
+    examples: [
+      {
+        title: "Default",
+        code: `<div className="bg-gray-950 rounded-xl overflow-hidden">
+  <div className="flex items-center justify-between px-4 py-2 border-b border-gray-800">
+    <span className="text-xs text-gray-500">typescript</span>
+    <button className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-white transition-colors">
+      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+      Copy
+    </button>
+  </div>
+  <pre className="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>function greet(name: string): string {
+  return \`Hello, \${name}!\`;
+}
+
+console.log(greet("World"));</code></pre>
+</div>`,
+        preview: "default"
+      },
+      {
+        title: "With Filename",
+        code: `<div className="bg-gray-950 rounded-xl overflow-hidden">
+  <div className="flex items-center justify-between px-4 py-2 border-b border-gray-800">
+    <div className="flex items-center gap-2">
+      <svg className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+      <span className="text-xs text-gray-500">utils/helpers.ts</span>
+    </div>
+    <button className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-white transition-colors">
+      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+      Copy
+    </button>
+  </div>
+  <pre className="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>export const formatDate = (date: Date) => {
+  return date.toLocaleDateString();
+};</code></pre>
+</div>`,
+        preview: "with-filename"
+      },
+      {
+        title: "Copied State",
+        code: `<div className="bg-gray-950 rounded-xl overflow-hidden">
+  <div className="flex items-center justify-between px-4 py-2 border-b border-gray-800">
+    <span className="text-xs text-gray-500">javascript</span>
+    <span className="inline-flex items-center gap-1.5 text-xs text-success-emphasis">
+      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+      Copied!
+    </span>
+  </div>
+  <pre className="p-4 text-sm text-gray-300 overflow-x-auto font-mono"><code>const data = await fetch('/api/data');</code></pre>
+</div>`,
+        preview: "copied"
+      }
+    ],
+    relatedComponents: ["ChatMessage", "ArtifactPanel", "MessageActions", "CodeBlock"]
+  },
+  {
+    name: "Message Actions",
+    slug: "message-actions",
+    description: "Action buttons for chat messages including copy, regenerate, edit, and feedback.",
+    category: "AI",
+    importStatement: "import { MessageActions } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "role", type: "'user' | 'assistant'", required: true, description: "Message role determines available actions" },
+      { name: "variant", type: "'inline' | 'hover'", required: false, default: "'inline'", description: "Display variant" },
+      { name: "showLabels", type: "boolean", required: false, default: "false", description: "Show text labels with icons" },
+      { name: "onCopy", type: "() => void", required: false, description: "Copy button click handler" },
+      { name: "onRegenerate", type: "() => void", required: false, description: "Regenerate button click handler (assistant only)" },
+      { name: "onEdit", type: "() => void", required: false, description: "Edit button click handler (user only)" },
+      { name: "onFeedback", type: "(type: 'positive' | 'negative') => void", required: false, description: "Feedback button click handler" },
+      { name: "feedbackState", type: "'none' | 'positive' | 'negative'", required: false, default: "'none'", description: "Current feedback state" }
+    ],
+    examples: [
+      {
+        title: "Assistant Actions",
+        code: `<div className="flex items-center gap-1">
+  <button className="p-1.5 text-subtle hover:text-default hover:bg-surface-hover rounded-md transition-colors" aria-label="Copy">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+  </button>
+  <button className="p-1.5 text-subtle hover:text-default hover:bg-surface-hover rounded-md transition-colors" aria-label="Regenerate">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+  </button>
+  <div className="w-px h-4 bg-surface-hover mx-1"></div>
+  <button className="p-1.5 text-subtle hover:text-success-emphasis hover:bg-success rounded-md transition-colors" aria-label="Good response">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" /></svg>
+  </button>
+  <button className="p-1.5 text-subtle hover:text-error-emphasis hover:bg-error rounded-md transition-colors" aria-label="Bad response">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" /></svg>
+  </button>
+</div>`,
+        preview: "assistant"
+      },
+      {
+        title: "User Actions",
+        code: `<div className="flex items-center gap-1">
+  <button className="p-1.5 text-subtle hover:text-default hover:bg-surface-hover rounded-md transition-colors" aria-label="Copy">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+  </button>
+  <button className="p-1.5 text-subtle hover:text-default hover:bg-surface-hover rounded-md transition-colors" aria-label="Edit">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+  </button>
+</div>`,
+        preview: "user"
+      },
+      {
+        title: "With Feedback Given",
+        code: `<div className="flex items-center gap-1">
+  <button className="p-1.5 text-subtle hover:text-default hover:bg-surface-hover rounded-md transition-colors" aria-label="Copy">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+  </button>
+  <button className="p-1.5 text-subtle hover:text-default hover:bg-surface-hover rounded-md transition-colors" aria-label="Regenerate">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+  </button>
+  <div className="w-px h-4 bg-surface-hover mx-1"></div>
+  <button className="p-1.5 bg-success text-success-emphasis rounded-md" aria-label="Good response">
+    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" /></svg>
+  </button>
+  <button className="p-1.5 text-subtle hover:text-error-emphasis hover:bg-error rounded-md transition-colors" aria-label="Bad response">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" /></svg>
+  </button>
+</div>`,
+        preview: "feedback-given"
+      }
+    ],
+    relatedComponents: ["ChatMessage", "IconButton", "Dropdown", "Tooltip"]
+  },
+  {
+    name: "Chat Message",
+    slug: "chat-message",
+    description: "Individual message bubble for AI chat interfaces with support for user and assistant roles.",
+    category: "AI",
+    importStatement: "import { ChatMessage } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "role", type: "'user' | 'assistant' | 'system'", required: true, description: "Message sender role" },
+      { name: "content", type: "string", required: true, description: "Message content (supports markdown)" },
+      { name: "avatar", type: "ReactNode | string", required: false, description: "Avatar element or image URL" },
+      { name: "timestamp", type: "string", required: false, description: "Message timestamp" },
+      { name: "isStreaming", type: "boolean", required: false, default: "false", description: "Show streaming indicator" },
+      { name: "showAvatar", type: "boolean", required: false, default: "true", description: "Display sender avatar" },
+      { name: "showTimestamp", type: "boolean", required: false, default: "false", description: "Display timestamp" },
+      { name: "actions", type: "ReactNode", required: false, description: "Custom action buttons" }
+    ],
+    examples: [
+      {
+        title: "User Message",
+        code: `<div className="flex justify-end">
+  <div className="max-w-[80%] flex flex-col items-end gap-1">
+    <div className="px-4 py-3 bg-primary text-primary-foreground rounded-2xl rounded-br-md">
+      <p className="text-sm">Can you help me write a function to sort an array?</p>
+    </div>
+    <span className="text-xs text-subtle px-2">2:34 PM</span>
+  </div>
+</div>`,
+        preview: "user"
+      },
+      {
+        title: "Assistant Message",
+        code: `<div className="flex items-start gap-3">
+  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-xs font-medium shrink-0">AI</div>
+  <div className="max-w-[80%] flex flex-col gap-1">
+    <div className="px-4 py-3 bg-surface-raised border border-default rounded-2xl rounded-bl-md">
+      <p className="text-sm text-default">Sure! Here's a simple function to sort an array in JavaScript:</p>
+    </div>
+    <div className="flex items-center gap-2 px-2">
+      <span className="text-xs text-subtle">2:34 PM</span>
+      <div className="flex items-center gap-1">
+        <button className="p-1 text-subtle hover:text-default rounded" aria-label="Copy">
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+        </button>
+        <button className="p-1 text-subtle hover:text-default rounded" aria-label="Regenerate">
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>`,
+        preview: "assistant"
+      },
+      {
+        title: "With Code Block",
+        code: `<div className="flex items-start gap-3">
+  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white text-xs font-medium shrink-0">AI</div>
+  <div className="max-w-[80%] flex flex-col gap-2">
+    <div className="px-4 py-3 bg-surface-raised border border-default rounded-2xl rounded-bl-md">
+      <p className="text-sm text-default mb-3">Here's the sorting function:</p>
+      <div className="bg-gray-950 rounded-lg overflow-hidden">
+        <div className="flex items-center justify-between px-3 py-1.5 border-b border-gray-800">
+          <span className="text-xs text-gray-500">javascript</span>
+          <button className="text-xs text-gray-500 hover:text-white">Copy</button>
+        </div>
+        <pre className="p-3 text-sm text-gray-300 font-mono"><code>function sortArray(arr) {
+  return arr.sort((a, b) => a - b);
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</div>`,
+        preview: "with-code"
+      }
+    ],
+    relatedComponents: ["AICodeBlock", "FileAttachment", "MessageActions", "TypingIndicator", "Avatar"]
+  },
+  {
+    name: "Message Input",
+    slug: "message-input",
+    description: "Compose and send messages with auto-resizing textarea, attachments, and send button.",
+    category: "AI",
+    importStatement: "import { MessageInput } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "value", type: "string", required: false, description: "Controlled input value" },
+      { name: "placeholder", type: "string", required: false, default: "'Send a message...'", description: "Placeholder text" },
+      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disable input" },
+      { name: "loading", type: "boolean", required: false, default: "false", description: "Show loading state on send" },
+      { name: "maxRows", type: "number", required: false, default: "6", description: "Maximum rows before scrolling" },
+      { name: "showAttachments", type: "boolean", required: false, default: "true", description: "Show attachment button" },
+      { name: "onSend", type: "(content: string) => void", required: false, description: "Send button click handler" },
+      { name: "onChange", type: "(value: string) => void", required: false, description: "Input change handler" },
+      { name: "onAttach", type: "() => void", required: false, description: "Attachment button click handler" }
+    ],
+    examples: [
+      {
+        title: "Default",
+        code: `<div className="bg-surface-raised border border-default rounded-xl p-2 focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-shadow">
+  <div className="flex items-end gap-2">
+    <button className="p-2 text-subtle hover:text-default hover:bg-surface-hover rounded-lg transition-colors shrink-0" aria-label="Attach file">
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
+    </button>
+    <textarea
+      placeholder="Send a message..."
+      rows="1"
+      className="flex-1 bg-transparent text-sm text-default placeholder:text-subtle resize-none focus:outline-none py-2"
+    ></textarea>
+    <button className="p-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary-hover transition-colors shrink-0" aria-label="Send">
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+    </button>
+  </div>
+</div>`,
+        preview: "default"
+      },
+      {
+        title: "With Attachments",
+        code: `<div className="bg-surface-raised border border-default rounded-xl p-2 focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-shadow">
+  <div className="flex gap-2 mb-2 px-2">
+    <div className="inline-flex items-center gap-2 px-2 py-1 bg-surface-hover border border-default rounded-lg">
+      <svg className="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+      <span className="text-xs text-default">document.pdf</span>
+      <button className="text-subtle hover:text-default" aria-label="Remove">
+        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+    </div>
+  </div>
+  <div className="flex items-end gap-2">
+    <button className="p-2 text-subtle hover:text-default hover:bg-surface-hover rounded-lg transition-colors shrink-0" aria-label="Attach file">
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
+    </button>
+    <textarea
+      placeholder="Send a message..."
+      rows="1"
+      className="flex-1 bg-transparent text-sm text-default placeholder:text-subtle resize-none focus:outline-none py-2"
+    >Analyze this document for key insights</textarea>
+    <button className="p-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary-hover transition-colors shrink-0" aria-label="Send">
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+    </button>
+  </div>
+</div>`,
+        preview: "with-attachments"
+      },
+      {
+        title: "Loading",
+        code: `<div className="bg-surface-raised border border-default rounded-xl p-2">
+  <div className="flex items-end gap-2">
+    <button className="p-2 text-subtle rounded-lg shrink-0 opacity-50 cursor-not-allowed" aria-label="Attach file" disabled>
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
+    </button>
+    <textarea
+      placeholder="Send a message..."
+      rows="1"
+      disabled
+      className="flex-1 bg-transparent text-sm text-muted placeholder:text-subtle resize-none focus:outline-none py-2 cursor-not-allowed"
+    ></textarea>
+    <button className="p-2 bg-primary text-primary-foreground rounded-lg shrink-0 opacity-70 cursor-not-allowed" disabled aria-label="Sending">
+      <svg className="w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+      </svg>
+    </button>
+  </div>
+</div>`,
+        preview: "loading"
+      }
+    ],
+    relatedComponents: ["FileAttachment", "ChatMessage", "Button", "Textarea"]
+  },
+  {
+    name: "Conversation List",
+    slug: "conversation-list",
+    description: "Sidebar list of conversation threads with active state, previews, and timestamps.",
+    category: "AI",
+    importStatement: "import { ConversationList } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "conversations", type: "Array<{ id: string; title: string; preview?: string; timestamp?: string }>", required: true, description: "Array of conversation items" },
+      { name: "activeId", type: "string", required: false, description: "Currently active conversation ID" },
+      { name: "onSelect", type: "(id: string) => void", required: true, description: "Conversation click handler" },
+      { name: "showPreviews", type: "boolean", required: false, default: "true", description: "Show message previews" },
+      { name: "showTimestamps", type: "boolean", required: false, default: "true", description: "Show timestamps" },
+      { name: "variant", type: "'default' | 'compact'", required: false, default: "'default'", description: "List density" }
+    ],
+    examples: [
+      {
+        title: "Default",
+        code: `<div className="w-72 bg-surface-raised border-r border-default h-full">
+  <div className="p-4 border-b border-default">
+    <button className="w-full h-10 px-4 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary-hover transition-colors inline-flex items-center justify-center gap-2">
+      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+      New chat
+    </button>
+  </div>
+  <nav className="p-2 space-y-1">
+    <button className="w-full text-left px-3 py-3 bg-surface-hover rounded-lg">
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-sm font-medium text-default truncate">React component help</span>
+        <span className="text-xs text-subtle shrink-0 ml-2">2m</span>
+      </div>
+      <p className="text-xs text-muted truncate">Can you help me write a function to...</p>
+    </button>
+    <button className="w-full text-left px-3 py-3 hover:bg-surface-hover rounded-lg transition-colors">
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-sm font-medium text-default truncate">API design review</span>
+        <span className="text-xs text-subtle shrink-0 ml-2">1h</span>
+      </div>
+      <p className="text-xs text-muted truncate">I'd like you to review this REST API...</p>
+    </button>
+    <button className="w-full text-left px-3 py-3 hover:bg-surface-hover rounded-lg transition-colors">
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-sm font-medium text-default truncate">Database optimization</span>
+        <span className="text-xs text-subtle shrink-0 ml-2">2d</span>
+      </div>
+      <p className="text-xs text-muted truncate">My queries are running slowly...</p>
+    </button>
+  </nav>
+</div>`,
+        preview: "default"
+      },
+      {
+        title: "Compact",
+        code: `<div className="w-64 bg-surface-raised border-r border-default">
+  <nav className="p-2 space-y-0.5">
+    <button className="w-full text-left px-3 py-2 bg-surface-hover rounded-lg flex items-center justify-between">
+      <span className="text-sm text-default truncate">React component help</span>
+      <span className="text-xs text-subtle shrink-0 ml-2">2m</span>
+    </button>
+    <button className="w-full text-left px-3 py-2 hover:bg-surface-hover rounded-lg transition-colors flex items-center justify-between">
+      <span className="text-sm text-default truncate">API design review</span>
+      <span className="text-xs text-subtle shrink-0 ml-2">1h</span>
+    </button>
+    <button className="w-full text-left px-3 py-2 hover:bg-surface-hover rounded-lg transition-colors flex items-center justify-between">
+      <span className="text-sm text-default truncate">Database optimization</span>
+      <span className="text-xs text-subtle shrink-0 ml-2">2d</span>
+    </button>
+  </nav>
+</div>`,
+        preview: "compact"
+      }
+    ],
+    relatedComponents: ["ChatMessage", "Avatar", "Badge", "Sidebar"]
+  },
+  {
+    name: "Artifact Panel",
+    slug: "artifact-panel",
+    description: "Side panel for viewing and interacting with AI-generated artifacts like code, documents, and previews.",
+    category: "AI",
+    importStatement: "import { ArtifactPanel } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "open", type: "boolean", required: true, description: "Panel visibility" },
+      { name: "onClose", type: "() => void", required: true, description: "Close button click handler" },
+      { name: "title", type: "string", required: true, description: "Artifact title" },
+      { name: "type", type: "'code' | 'document' | 'diagram' | 'preview'", required: false, default: "'code'", description: "Artifact type" },
+      { name: "code", type: "string", required: false, description: "Code content" },
+      { name: "language", type: "string", required: false, description: "Code language" },
+      { name: "preview", type: "ReactNode", required: false, description: "Preview content" },
+      { name: "defaultView", type: "'preview' | 'code'", required: false, default: "'preview'", description: "Initial view" },
+      { name: "onDownload", type: "() => void", required: false, description: "Download button click handler" },
+      { name: "onCopy", type: "() => void", required: false, description: "Copy button click handler" }
+    ],
+    examples: [
+      {
+        title: "Code Artifact",
+        code: `<div className="fixed right-0 top-0 h-full w-[500px] bg-surface-raised border-l border-default shadow-xl dark:shadow-black/50 flex flex-col">
+  <div className="flex items-center justify-between px-4 py-3 border-b border-default bg-surface-sunken">
+    <div className="flex items-center gap-3">
+      <div className="w-8 h-8 bg-info rounded-lg flex items-center justify-center">
+        <svg className="w-4 h-4 text-info-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+      </div>
+      <div>
+        <h3 className="text-sm font-medium text-default">sortArray.ts</h3>
+        <p className="text-xs text-muted">TypeScript</p>
+      </div>
+    </div>
+    <div className="flex items-center gap-1">
+      <button className="p-2 text-subtle hover:text-default hover:bg-surface-hover rounded-lg transition-colors" aria-label="Copy">
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+      </button>
+      <button className="p-2 text-subtle hover:text-default hover:bg-surface-hover rounded-lg transition-colors" aria-label="Download">
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+      </button>
+      <button className="p-2 text-subtle hover:text-default hover:bg-surface-hover rounded-lg transition-colors" aria-label="Close">
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+    </div>
+  </div>
+  <div className="flex-1 overflow-auto bg-gray-950">
+    <pre className="p-4 text-sm text-gray-300 font-mono"><code>function sortArray&lt;T&gt;(
+  arr: T[],
+  compareFn?: (a: T, b: T) =&gt; number
+): T[] {
+  return [...arr].sort(compareFn);
+}
+
+// Usage
+const numbers = [3, 1, 4, 1, 5];
+const sorted = sortArray(numbers);
+console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
+  </div>
+</div>`,
+        preview: "code"
+      },
+      {
+        title: "With View Toggle",
+        code: `<div className="fixed right-0 top-0 h-full w-[500px] bg-surface-raised border-l border-default shadow-xl dark:shadow-black/50 flex flex-col">
+  <div className="flex items-center justify-between px-4 py-3 border-b border-default bg-surface-sunken">
+    <div className="flex items-center gap-3">
+      <div className="w-8 h-8 bg-success rounded-lg flex items-center justify-center">
+        <svg className="w-4 h-4 text-success-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+      </div>
+      <h3 className="text-sm font-medium text-default">Interactive Chart</h3>
+    </div>
+    <button className="p-2 text-subtle hover:text-default hover:bg-surface-hover rounded-lg transition-colors" aria-label="Close">
+      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+  </div>
+  <div className="px-4 py-2 border-b border-default">
+    <div className="inline-flex bg-surface-hover rounded-lg p-1">
+      <button className="px-3 py-1.5 text-xs font-medium bg-surface-raised text-default rounded-md shadow-sm">Preview</button>
+      <button className="px-3 py-1.5 text-xs font-medium text-muted hover:text-default transition-colors">Code</button>
+    </div>
+  </div>
+  <div className="flex-1 overflow-auto p-4">
+    <div className="w-full h-64 bg-surface-hover rounded-lg flex items-center justify-center text-muted text-sm">
+      [Chart Preview]
+    </div>
+  </div>
+</div>`,
+        preview: "with-toggle"
+      }
+    ],
+    relatedComponents: ["AICodeBlock", "ChatMessage", "Tabs", "Modal"]
   }
 ];

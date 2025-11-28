@@ -43,10 +43,35 @@ export default function ColorsPage() {
                     <div className="p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl">
                       <div className="flex items-start gap-4 mb-3">
                         <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
                             <h3 className="font-medium text-gray-900 dark:text-gray-100">
                               {color.name}
                             </h3>
+                            {color.role === 'background' && (
+                              <code className="text-xs font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2 py-0.5 rounded">
+                                bg-{color.name}
+                              </code>
+                            )}
+                            {color.role === 'foreground' && (
+                              <code className="text-xs font-mono text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded">
+                                text-{color.name}
+                              </code>
+                            )}
+                            {color.role === 'border' && (
+                              <code className="text-xs font-mono text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/30 px-2 py-0.5 rounded">
+                                border-{color.name}
+                              </code>
+                            )}
+                            {color.role === 'emphasis' && (
+                              <>
+                                <code className="text-xs font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2 py-0.5 rounded">
+                                  bg-{color.name}
+                                </code>
+                                <code className="text-xs font-mono text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded">
+                                  text-{color.name}
+                                </code>
+                              </>
+                            )}
                             {color.cssVar && (
                               <code className="text-xs font-mono text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded">
                                 {color.cssVar}
@@ -161,16 +186,18 @@ export default function ColorsPage() {
               </h3>
               {category.colors[0].cssVar ? (
                 <CodeBlock
-                  code={`/* CSS Custom Properties (Recommended) */
+                  code={`<!-- Tailwind CSS (Recommended) -->
+${category.colors.filter(c => c.role === 'background').slice(0, 2).map(c => `<div class="bg-${c.name}">...</div>`).join('\n')}
+${category.colors.filter(c => c.role === 'foreground').slice(0, 2).map(c => `<p class="text-${c.name}">...</p>`).join('\n')}
+${category.colors.filter(c => c.role === 'border').slice(0, 1).map(c => `<div class="border border-${c.name}">...</div>`).join('\n')}
+
+/* CSS Custom Properties */
 .element {
   background-color: var(${category.colors[0].cssVar});
-  color: var(${category.colors.find(c => c.name.includes('text'))?.cssVar || category.colors[0].cssVar});
 }
 
-/* Automatically switches between light/dark modes */
-/* Light: ${category.colors[0].value} */
-/* Dark: ${category.colors[0].darkValue || category.colors[0].value} */`}
-                  language="css"
+/* Colors automatically adapt to light/dark mode */`}
+                  language="html"
                 />
               ) : (
                 <CodeBlock
@@ -193,15 +220,15 @@ export default function ColorsPage() {
       {/* Usage Guidelines */}
       <section className="mt-12 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
         <h2 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3">
-          Color Usage Guidelines
+          Tailwind Class Reference
         </h2>
         <ul className="space-y-2 text-sm text-blue-800 dark:text-blue-200">
-          <li>• <strong>Semantic tokens (recommended):</strong> Use CSS variables like <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">var(--color-surface)</code> that automatically adapt to light/dark mode</li>
-          <li>• <strong>Gray scale:</strong> Use for text hierarchy, backgrounds, and borders when fixed colors are needed</li>
-          <li>• <strong>Accent colors:</strong> Apply for interactive elements and semantic states (success, warning, error)</li>
+          <li>• <strong>Backgrounds:</strong> <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">bg-surface</code>, <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">bg-surface-raised</code>, <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">bg-primary</code>, <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">bg-success</code>, etc.</li>
+          <li>• <strong>Text:</strong> <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">text-default</code>, <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">text-muted</code>, <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">text-subtle</code>, <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">text-primary-foreground</code></li>
+          <li>• <strong>Borders:</strong> <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">border-default</code>, <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">border-muted</code>, <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">border-emphasis</code></li>
+          <li>• <strong>States:</strong> <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">bg-success</code> / <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">text-success-foreground</code>, <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">bg-error</code> / <code className="bg-blue-100 dark:bg-blue-900 px-1 rounded">text-error-foreground</code></li>
+          <li>• All semantic tokens automatically adapt to light/dark mode</li>
           <li>• Maintain sufficient contrast ratios (WCAG AA minimum: 4.5:1 for text)</li>
-          <li>• Test color combinations in both light and dark modes</li>
-          <li>• Use color consistently across similar UI patterns</li>
         </ul>
       </section>
 

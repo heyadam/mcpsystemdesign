@@ -142,12 +142,13 @@ export const styleGuide: StyleGuide = {
 };
 
 export const categories: ComponentCategory[] = [
-  { name: "Base", slug: "base", description: "Foundational design tokens and styles", order: 0 },
-  { name: "Actions", slug: "actions", description: "Interactive button and link components", order: 1 },
-  { name: "Forms", slug: "forms", description: "Form inputs and controls", order: 2 },
+  { name: "Actions", slug: "actions", description: "Interactive button and link components", order: 0 },
+  { name: "AI", slug: "ai", description: "AI chat and assistant interface components", order: 1 },
+  { name: "Base", slug: "base", description: "Foundational design tokens and styles", order: 2 },
   { name: "Data Display", slug: "data-display", description: "Components for displaying information", order: 3 },
   { name: "Feedback", slug: "feedback", description: "User feedback and notification components", order: 4 },
-  { name: "Overlays", slug: "overlays", description: "Modal, dialog, and overlay components", order: 5 },
-  { name: "Navigation", slug: "navigation", description: "Navigation and wayfinding components", order: 6 },
-  { name: "Layout", slug: "layout", description: "Layout and structure components", order: 7 }
+  { name: "Forms", slug: "forms", description: "Form inputs and controls", order: 5 },
+  { name: "Layout", slug: "layout", description: "Layout and structure components", order: 6 },
+  { name: "Navigation", slug: "navigation", description: "Navigation and wayfinding components", order: 7 },
+  { name: "Overlays", slug: "overlays", description: "Modal, dialog, and overlay components", order: 8 }
 ];
