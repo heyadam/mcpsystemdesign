@@ -6,6 +6,22 @@ import {
   getAllCategories,
   styleGuide
 } from '@/lib/design-system';
+import {
+  JsonRpcRequestSchema,
+  BatchRequestSchema,
+  ComponentNameArgsSchema,
+  SearchArgsSchema,
+  StyleGuideSectionSchema,
+} from '@/lib/mcp/schemas';
+import {
+  JsonRpcErrorCodes,
+  createErrorResponse,
+  formatZodError,
+} from '@/lib/mcp/errors';
+import { generateRequestId, createLogger } from '@/lib/mcp/logger';
+import type { ToolResult, JsonRpcRequest } from '@/lib/mcp/types';
+import { validateHost, buildEndpointUrl } from '@/lib/security/host-validator';
+import { checkRateLimit, getClientIp } from '@/lib/security/rate-limiter';
 
 // Tool definitions for MCP
 const tools = [
@@ -21,8 +37,8 @@ const tools = [
   { name: "get_design_system_info", description: "Get design system overview", inputSchema: { type: "object", properties: {}, required: [] } }
 ];
 
-// Execute tool and return result
-function executeTool(name: string, args: Record<string, unknown>): { content: Array<{ type: string; text: string }>; isError?: boolean } {
+// Execute tool with validated arguments
+function executeTool(name: string, args: Record<string, unknown>): ToolResult {
   switch (name) {
     case "list_components": {
       const byCategory = designSystem.components.reduce((acc, c) => {
@@ -32,59 +48,126 @@ function executeTool(name: string, args: Record<string, unknown>): { content: Ar
       }, {} as Record<string, { name: string; description: string }[]>);
       return { content: [{ type: "text", text: JSON.stringify({ designSystem: designSystem.name, version: designSystem.version, componentsByCategory: byCategory }, null, 2) }] };
     }
+
     case "get_component": {
-      const comp = getComponentByName(args.componentName as string);
-      if (!comp) return { content: [{ type: "text", text: `Component not found. Available: ${designSystem.components.map(c => c.name).join(", ")}` }], isError: true };
+      const parsed = ComponentNameArgsSchema.safeParse(args);
+      if (!parsed.success) {
+        return { content: [{ type: "text", text: `Invalid arguments: ${formatZodError(parsed.error)}` }], isError: true };
+      }
+      const comp = getComponentByName(parsed.data.componentName);
+      if (!comp) {
+        return { content: [{ type: "text", text: `Component not found. Available: ${designSystem.components.map(c => c.name).join(", ")}` }], isError: true };
+      }
       return { content: [{ type: "text", text: JSON.stringify(comp, null, 2) }] };
     }
+
     case "search_components": {
-      const results = searchComponents(args.query as string);
-      return { content: [{ type: "text", text: JSON.stringify({ query: args.query, results: results.map(c => ({ name: c.name, category: c.category, description: c.description })) }, null, 2) }] };
+      const parsed = SearchArgsSchema.safeParse(args);
+      if (!parsed.success) {
+        return { content: [{ type: "text", text: `Invalid arguments: ${formatZodError(parsed.error)}` }], isError: true };
+      }
+      const results = searchComponents(parsed.data.query);
+      return { content: [{ type: "text", text: JSON.stringify({ query: parsed.data.query, results: results.map(c => ({ name: c.name, category: c.category, description: c.description })) }, null, 2) }] };
     }
+
     case "get_component_examples": {
-      const comp = getComponentByName(args.componentName as string);
-      if (!comp) return { content: [{ type: "text", text: "Component not found" }], isError: true };
+      const parsed = ComponentNameArgsSchema.safeParse(args);
+      if (!parsed.success) {
+        return { content: [{ type: "text", text: `Invalid arguments: ${formatZodError(parsed.error)}` }], isError: true };
+      }
+      const comp = getComponentByName(parsed.data.componentName);
+      if (!comp) {
+        return { content: [{ type: "text", text: "Component not found" }], isError: true };
+      }
       return { content: [{ type: "text", text: `# ${comp.name}\n\n${comp.description}\n\nImport: \`${comp.importStatement}\`\n\n${comp.examples.map(e => `## ${e.title}\n\`\`\`html\n${e.code}\n\`\`\``).join("\n\n")}` }] };
     }
+
     case "get_style_guide": {
-      const section = (args.section as string) || "all";
+      const parsed = StyleGuideSectionSchema.safeParse(args);
+      const section = parsed.success ? (parsed.data.section || "all") : "all";
       const sg = styleGuide as unknown as Record<string, unknown>;
       const data = section === "all" ? styleGuide : { [section]: sg[section] };
       return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
     }
+
     case "get_colors":
       return { content: [{ type: "text", text: JSON.stringify({ colors: styleGuide.colors }, null, 2) }] };
+
     case "get_typography":
       return { content: [{ type: "text", text: JSON.stringify({ typography: styleGuide.typography }, null, 2) }] };
+
     case "get_spacing":
       return { content: [{ type: "text", text: JSON.stringify({ spacing: styleGuide.spacing }, null, 2) }] };
+
     case "get_breakpoints":
       return { content: [{ type: "text", text: JSON.stringify({ breakpoints: styleGuide.breakpoints }, null, 2) }] };
+
     case "get_design_system_info":
       return { content: [{ type: "text", text: JSON.stringify({ name: designSystem.name, version: designSystem.version, description: designSystem.description, stats: { components: designSystem.components.length, categories: getAllCategories() } }, null, 2) }] };
+
     default:
       return { content: [{ type: "text", text: `Unknown tool: ${name}` }], isError: true };
   }
 }
 
-// Handle JSON-RPC requests
-function handleJsonRpc(req: { jsonrpc: string; id?: string | number; method: string; params?: Record<string, unknown> }): Record<string, unknown> | null {
+// Handle validated JSON-RPC requests
+function handleJsonRpc(
+  req: JsonRpcRequest,
+  requestId: string
+): { response: Record<string, unknown> | null } {
   const { method, params, id } = req;
 
   switch (method) {
     case "initialize":
-      return { jsonrpc: "2.0", id, result: { protocolVersion: "2024-11-05", capabilities: { tools: {} }, serverInfo: { name: "mcpdesignsystem", version: "1.0.0" } } };
+      return {
+        response: {
+          jsonrpc: "2.0",
+          id,
+          result: {
+            protocolVersion: "2024-11-05",
+            capabilities: { tools: {} },
+            serverInfo: { name: "mcpdesignsystem", version: "1.0.0" }
+          }
+        }
+      };
+
     case "notifications/initialized":
-      return null;
+      return { response: null };
+
     case "tools/list":
-      return { jsonrpc: "2.0", id, result: { tools } };
-    case "tools/call":
-      const result = executeTool((params as Record<string, unknown>)?.name as string, ((params as Record<string, unknown>)?.arguments as Record<string, unknown>) || {});
-      return { jsonrpc: "2.0", id, result };
+      return { response: { jsonrpc: "2.0", id, result: { tools } } };
+
+    case "tools/call": {
+      const toolName = typeof params?.name === 'string' ? params.name : '';
+      const toolArgs = (typeof params?.arguments === 'object' && params.arguments !== null)
+        ? params.arguments as Record<string, unknown>
+        : {};
+
+      if (!toolName) {
+        return {
+          response: createErrorResponse(
+            id ?? null,
+            JsonRpcErrorCodes.INVALID_PARAMS,
+            'Missing tool name'
+          )
+        };
+      }
+
+      const result = executeTool(toolName, toolArgs);
+      return { response: { jsonrpc: "2.0", id, result } };
+    }
+
     case "ping":
-      return { jsonrpc: "2.0", id, result: {} };
+      return { response: { jsonrpc: "2.0", id, result: {} } };
+
     default:
-      return { jsonrpc: "2.0", id, error: { code: -32601, message: `Method not found: ${method}` } };
+      return {
+        response: createErrorResponse(
+          id ?? null,
+          JsonRpcErrorCodes.METHOD_NOT_FOUND,
+          `Method not found: ${method}`
+        )
+      };
   }
 }
 
@@ -104,10 +187,9 @@ export async function OPTIONS() {
 export async function GET(request: NextRequest) {
   const encoder = new TextEncoder();
 
-  // Get the host for the endpoint URL
-  const host = request.headers.get('host') || 'aids-server.vercel.app';
-  const protocol = host.includes('localhost') ? 'http' : 'https';
-  const endpointUrl = `${protocol}://${host}/api/sse`;
+  // Validate host header to prevent injection
+  const validatedHost = validateHost(request.headers.get('host'));
+  const endpointUrl = buildEndpointUrl(validatedHost);
 
   const stream = new ReadableStream({
     start(controller) {
@@ -144,28 +226,84 @@ export async function GET(request: NextRequest) {
 
 // POST handler for JSON-RPC
 export async function POST(request: NextRequest) {
+  const requestId = generateRequestId();
+  const clientIp = getClientIp(request);
+
+  const logger = createLogger({
+    requestId,
+    ip: clientIp,
+    timestamp: new Date().toISOString(),
+  });
+
+  // Add request ID to all response headers
+  const responseHeaders = {
+    ...corsHeaders,
+    'X-Request-Id': requestId,
+  };
+
+  // Check rate limit
+  const rateLimit = checkRateLimit(clientIp);
+  if (!rateLimit.allowed) {
+    logger.warn('Rate limit exceeded');
+    return NextResponse.json(
+      createErrorResponse(null, JsonRpcErrorCodes.RATE_LIMITED, 'Rate limit exceeded'),
+      {
+        status: 429,
+        headers: {
+          ...responseHeaders,
+          'Retry-After': String(Math.ceil((rateLimit.resetAt - Date.now()) / 1000)),
+        },
+      }
+    );
+  }
+
   try {
     const body = await request.json();
 
     // Handle batch requests
     if (Array.isArray(body)) {
-      const responses = body
-        .map((req: { jsonrpc: string; id?: string | number; method: string; params?: Record<string, unknown> }) => handleJsonRpc(req))
+      const batchResult = BatchRequestSchema.safeParse(body);
+      if (!batchResult.success) {
+        logger.warn('Invalid batch request', { error: formatZodError(batchResult.error) });
+        return NextResponse.json(
+          createErrorResponse(null, JsonRpcErrorCodes.INVALID_REQUEST, formatZodError(batchResult.error)),
+          { status: 400, headers: responseHeaders }
+        );
+      }
+
+      const responses = batchResult.data
+        .map((req) => {
+          logger.info('Processing batch request', { method: req.method });
+          return handleJsonRpc(req, requestId).response;
+        })
         .filter((response): response is Record<string, unknown> => response !== null);
-      return NextResponse.json(responses, { headers: corsHeaders });
+
+      return NextResponse.json(responses, { headers: responseHeaders });
     }
 
     // Handle single request
-    const response = handleJsonRpc(body);
-    if (response === null) {
-      return new NextResponse(null, { status: 202, headers: corsHeaders });
+    const parseResult = JsonRpcRequestSchema.safeParse(body);
+    if (!parseResult.success) {
+      logger.warn('Invalid request', { error: formatZodError(parseResult.error) });
+      return NextResponse.json(
+        createErrorResponse(null, JsonRpcErrorCodes.INVALID_REQUEST, formatZodError(parseResult.error)),
+        { status: 400, headers: responseHeaders }
+      );
     }
 
-    return NextResponse.json(response, { headers: corsHeaders });
+    logger.info('Processing request', { method: parseResult.data.method });
+    const { response } = handleJsonRpc(parseResult.data, requestId);
+
+    if (response === null) {
+      return new NextResponse(null, { status: 202, headers: responseHeaders });
+    }
+
+    return NextResponse.json(response, { headers: responseHeaders });
   } catch (error) {
+    logger.error('Parse error', error instanceof Error ? error : undefined);
     return NextResponse.json(
-      { jsonrpc: "2.0", id: null, error: { code: -32700, message: "Parse error" } },
-      { status: 500, headers: corsHeaders }
+      createErrorResponse(null, JsonRpcErrorCodes.PARSE_ERROR, 'Invalid JSON'),
+      { status: 400, headers: responseHeaders }
     );
   }
 }
