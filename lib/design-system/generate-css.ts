@@ -2,7 +2,12 @@ import { styleGuide } from './style-guide';
 
 /**
  * Generates CSS custom properties from design tokens
- * This ensures the documented design tokens are the single source of truth
+ *
+ * NOTE: This utility demonstrates how CSS can be generated from design tokens.
+ * Currently, the CSS in app/globals.css is manually maintained and validated
+ * against design tokens using scripts/validate-css-tokens.ts
+ *
+ * Future enhancement: Integrate this into build process to auto-generate CSS
  */
 export function generateColorCSS(): string {
   let css = '';
@@ -59,12 +64,4 @@ export function generateDarkModeCSS(): string {
   });
 
   return css;
-}
-
-// For development: log the generated CSS
-if (process.env.NODE_ENV === 'development') {
-  console.log('\n=== Generated CSS Variables ===\n');
-  console.log(generateColorCSS());
-  console.log('\n=== Dark Mode Overrides ===\n');
-  console.log(generateDarkModeCSS());
 }

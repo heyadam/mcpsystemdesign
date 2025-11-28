@@ -84,17 +84,17 @@ export default function ColorsPage() {
 
                         {/* Dark mode variant */}
                         <button
-                          onClick={() => copyToClipboard(color.darkValue, `${color.name}-dark`)}
+                          onClick={() => copyToClipboard(color.darkValue!, `${color.name}-dark`)}
                           className="group flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                         >
                           <div
                             className="w-12 h-12 rounded-md border border-gray-300 dark:border-gray-600 flex-shrink-0"
-                            style={{ backgroundColor: color.darkValue }}
+                            style={{ backgroundColor: color.darkValue! }}
                           />
                           <div className="flex-1 text-left min-w-0">
                             <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Dark mode</p>
                             <code className="text-xs font-mono text-gray-900 dark:text-gray-100 block truncate">
-                              {color.darkValue}
+                              {color.darkValue!}
                             </code>
                             {copiedColor === `${color.name}-dark` && (
                               <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium">
@@ -166,7 +166,7 @@ export default function ColorsPage() {
 
 /* Automatically switches between light/dark modes */
 /* Light: ${category.colors[0].value} */
-/* Dark: ${category.colors[0].darkValue} */`}
+/* Dark: ${category.colors[0].darkValue || category.colors[0].value} */`}
                   language="css"
                 />
               ) : (
