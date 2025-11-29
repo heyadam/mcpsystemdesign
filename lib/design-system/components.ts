@@ -2145,5 +2145,810 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
       }
     ],
     relatedComponents: ["AICodeBlock", "ChatMessage", "Tabs", "Modal"]
+  },
+  {
+    name: "Model Selector",
+    slug: "model-selector",
+    description: "Dropdown to switch between AI models with capability indicators.",
+    category: "AI",
+    importStatement: "import { ModelSelector } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "models", type: "Array<{ id: string; name: string; description?: string; capabilities?: string[] }>", required: true, description: "Available models" },
+      { name: "value", type: "string", required: true, description: "Selected model ID" },
+      { name: "onChange", type: "(modelId: string) => void", required: true, description: "Model change handler" },
+      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disable selector" },
+      { name: "showCapabilities", type: "boolean", required: false, default: "true", description: "Show model capabilities" }
+    ],
+    examples: [
+      {
+        title: "Default",
+        code: `<div className="relative inline-block">
+  <button className="h-10 px-4 bg-surface-raised border border-default rounded-lg text-sm font-medium text-default hover:bg-surface-hover inline-flex items-center gap-2 transition-colors">
+    <svg className="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+    Claude 3.5 Sonnet
+    <svg className="w-4 h-4 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+  </button>
+</div>`,
+        preview: "default"
+      },
+      {
+        title: "Dropdown Open",
+        code: `<div className="relative inline-block">
+  <button className="h-10 px-4 bg-surface-raised border border-primary rounded-lg text-sm font-medium text-default inline-flex items-center gap-2 ring-2 ring-primary">
+    <svg className="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+    Claude 3.5 Sonnet
+    <svg className="w-4 h-4 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" /></svg>
+  </button>
+  <div className="absolute top-full left-0 mt-1 w-72 bg-surface-raised border border-default rounded-xl shadow-lg dark:shadow-black/50 py-1 z-10">
+    <button className="w-full px-4 py-3 text-left hover:bg-surface-hover transition-colors bg-surface-hover">
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-medium text-default">Claude 3.5 Sonnet</span>
+        <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" /></svg>
+      </div>
+      <p className="text-xs text-muted mt-0.5">Best for most tasks, fast and capable</p>
+    </button>
+    <button className="w-full px-4 py-3 text-left hover:bg-surface-hover transition-colors">
+      <span className="text-sm font-medium text-default">Claude 3 Opus</span>
+      <p className="text-xs text-muted mt-0.5">Most powerful, best for complex reasoning</p>
+    </button>
+    <button className="w-full px-4 py-3 text-left hover:bg-surface-hover transition-colors">
+      <span className="text-sm font-medium text-default">Claude 3 Haiku</span>
+      <p className="text-xs text-muted mt-0.5">Fastest, best for simple tasks</p>
+    </button>
+  </div>
+</div>`,
+        preview: "dropdown-open"
+      }
+    ],
+    relatedComponents: ["Dropdown", "Select", "MessageInput"]
+  },
+  {
+    name: "Token Counter",
+    slug: "token-counter",
+    description: "Display token usage and remaining capacity with visual progress indicator.",
+    category: "AI",
+    importStatement: "import { TokenCounter } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "used", type: "number", required: true, description: "Tokens used" },
+      { name: "limit", type: "number", required: true, description: "Token limit" },
+      { name: "variant", type: "'compact' | 'detailed'", required: false, default: "'compact'", description: "Display variant" },
+      { name: "showProgress", type: "boolean", required: false, default: "true", description: "Show progress bar" },
+      { name: "warningThreshold", type: "number", required: false, default: "80", description: "Percentage to show warning" }
+    ],
+    examples: [
+      {
+        title: "Compact",
+        code: `<div className="inline-flex items-center gap-2 px-3 py-1.5 bg-surface-hover rounded-lg">
+  <svg className="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>
+  <span className="text-xs text-muted">2,450 / 4,096 tokens</span>
+</div>`,
+        preview: "compact"
+      },
+      {
+        title: "With Progress",
+        code: `<div className="w-48 p-3 bg-surface-raised border border-default rounded-lg">
+  <div className="flex items-center justify-between mb-2">
+    <span className="text-xs font-medium text-default">Token Usage</span>
+    <span className="text-xs text-muted">60%</span>
+  </div>
+  <div className="h-1.5 bg-surface-hover rounded-full overflow-hidden">
+    <div className="h-full bg-primary rounded-full transition-all" style="width: 60%"></div>
+  </div>
+  <p className="text-xs text-muted mt-2">2,450 / 4,096 tokens</p>
+</div>`,
+        preview: "with-progress"
+      },
+      {
+        title: "Warning State",
+        code: `<div className="w-48 p-3 bg-surface-raised border border-warning-border rounded-lg">
+  <div className="flex items-center justify-between mb-2">
+    <span className="text-xs font-medium text-warning-foreground">Token Usage</span>
+    <span className="text-xs text-warning-foreground">92%</span>
+  </div>
+  <div className="h-1.5 bg-surface-hover rounded-full overflow-hidden">
+    <div className="h-full bg-warning-emphasis rounded-full transition-all" style="width: 92%"></div>
+  </div>
+  <p className="text-xs text-warning-foreground mt-2">3,768 / 4,096 tokens</p>
+</div>`,
+        preview: "warning"
+      }
+    ],
+    relatedComponents: ["Progress", "Badge", "MessageInput"]
+  },
+  {
+    name: "Regenerate Button",
+    slug: "regenerate-button",
+    description: "Button to retry generating an AI response with loading state.",
+    category: "AI",
+    importStatement: "import { RegenerateButton } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "onClick", type: "() => void", required: true, description: "Click handler" },
+      { name: "loading", type: "boolean", required: false, default: "false", description: "Loading state" },
+      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disabled state" },
+      { name: "variant", type: "'icon' | 'text' | 'both'", required: false, default: "'icon'", description: "Display variant" },
+      { name: "size", type: "'sm' | 'md'", required: false, default: "'md'", description: "Button size" }
+    ],
+    examples: [
+      {
+        title: "Icon Only",
+        code: `<button className="p-2 text-subtle hover:text-default hover:bg-surface-hover rounded-lg transition-colors" aria-label="Regenerate response">
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+</button>`,
+        preview: "icon"
+      },
+      {
+        title: "With Text",
+        code: `<button className="h-9 px-3 text-sm text-muted hover:text-default hover:bg-surface-hover rounded-lg transition-colors inline-flex items-center gap-2">
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+  Regenerate
+</button>`,
+        preview: "with-text"
+      },
+      {
+        title: "Loading",
+        code: `<button className="h-9 px-3 text-sm text-muted rounded-lg inline-flex items-center gap-2 opacity-70 cursor-not-allowed" disabled>
+  <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
+    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+  </svg>
+  Regenerating...
+</button>`,
+        preview: "loading"
+      }
+    ],
+    relatedComponents: ["MessageActions", "IconButton", "ChatMessage"]
+  },
+  {
+    name: "Stop Generation",
+    slug: "stop-generation",
+    description: "Button to halt AI response generation mid-stream.",
+    category: "AI",
+    importStatement: "import { StopGeneration } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "onClick", type: "() => void", required: true, description: "Click handler" },
+      { name: "visible", type: "boolean", required: false, default: "true", description: "Button visibility" },
+      { name: "variant", type: "'icon' | 'text' | 'both'", required: false, default: "'both'", description: "Display variant" }
+    ],
+    examples: [
+      {
+        title: "Default",
+        code: `<button className="h-10 px-4 bg-surface-raised border border-default rounded-lg text-sm font-medium text-default hover:bg-surface-hover transition-colors inline-flex items-center gap-2">
+  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" /></svg>
+  Stop generating
+</button>`,
+        preview: "default"
+      },
+      {
+        title: "Icon Only",
+        code: `<button className="w-10 h-10 bg-surface-raised border border-default rounded-full flex items-center justify-center hover:bg-surface-hover transition-colors" aria-label="Stop generating">
+  <svg className="w-4 h-4 text-default" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" /></svg>
+</button>`,
+        preview: "icon"
+      },
+      {
+        title: "Inline with Typing",
+        code: `<div className="flex items-center gap-3">
+  <div className="flex items-center gap-1">
+    <span className="w-2 h-2 bg-text-subtle rounded-full animate-bounce" style="animation-delay: 0ms"></span>
+    <span className="w-2 h-2 bg-text-subtle rounded-full animate-bounce" style="animation-delay: 150ms"></span>
+    <span className="w-2 h-2 bg-text-subtle rounded-full animate-bounce" style="animation-delay: 300ms"></span>
+  </div>
+  <button className="text-xs text-muted hover:text-default transition-colors">Stop</button>
+</div>`,
+        preview: "inline"
+      }
+    ],
+    relatedComponents: ["TypingIndicator", "MessageInput", "Button"]
+  },
+  {
+    name: "Streaming Cursor",
+    slug: "streaming-cursor",
+    description: "Animated cursor indicator showing AI is actively writing text.",
+    category: "AI",
+    importStatement: "import { StreamingCursor } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "variant", type: "'block' | 'line' | 'underscore'", required: false, default: "'block'", description: "Cursor style" },
+      { name: "blinkSpeed", type: "'slow' | 'normal' | 'fast'", required: false, default: "'normal'", description: "Blink animation speed" },
+      { name: "color", type: "string", required: false, description: "Custom cursor color" }
+    ],
+    examples: [
+      {
+        title: "Block Cursor",
+        code: `<div className="text-sm text-default">
+  The quick brown fox jumps over the lazy<span className="inline-block w-2 h-4 bg-primary ml-0.5 animate-pulse"></span>
+</div>`,
+        preview: "block"
+      },
+      {
+        title: "Line Cursor",
+        code: `<div className="text-sm text-default">
+  The quick brown fox jumps over the lazy<span className="inline-block w-0.5 h-4 bg-primary ml-0.5 animate-pulse"></span>
+</div>`,
+        preview: "line"
+      },
+      {
+        title: "In Message",
+        code: `<div className="px-4 py-3 bg-surface-raised border border-default rounded-2xl rounded-bl-md max-w-md">
+  <p className="text-sm text-default">Here's a simple function to sort an array in JavaScript. You can use the built-in sort method<span className="inline-block w-2 h-4 bg-primary ml-0.5 animate-pulse"></span></p>
+</div>`,
+        preview: "in-message"
+      }
+    ],
+    relatedComponents: ["ChatMessage", "TypingIndicator", "AICodeBlock"]
+  },
+  {
+    name: "Suggested Prompts",
+    slug: "suggested-prompts",
+    description: "Starter questions and prompt chips to help users begin conversations.",
+    category: "AI",
+    importStatement: "import { SuggestedPrompts } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "prompts", type: "Array<{ label: string; prompt: string; icon?: ReactNode }>", required: true, description: "Prompt suggestions" },
+      { name: "onSelect", type: "(prompt: string) => void", required: true, description: "Prompt selection handler" },
+      { name: "variant", type: "'chips' | 'cards' | 'list'", required: false, default: "'chips'", description: "Display variant" },
+      { name: "columns", type: "number", required: false, default: "2", description: "Grid columns for cards" }
+    ],
+    examples: [
+      {
+        title: "Chips",
+        code: `<div className="flex flex-wrap gap-2">
+  <button className="px-4 py-2 bg-surface-hover border border-default rounded-full text-sm text-default hover:bg-surface-raised hover:border-emphasis transition-colors">
+    Write a poem about coding
+  </button>
+  <button className="px-4 py-2 bg-surface-hover border border-default rounded-full text-sm text-default hover:bg-surface-raised hover:border-emphasis transition-colors">
+    Explain quantum computing
+  </button>
+  <button className="px-4 py-2 bg-surface-hover border border-default rounded-full text-sm text-default hover:bg-surface-raised hover:border-emphasis transition-colors">
+    Debug my code
+  </button>
+  <button className="px-4 py-2 bg-surface-hover border border-default rounded-full text-sm text-default hover:bg-surface-raised hover:border-emphasis transition-colors">
+    Plan a trip to Japan
+  </button>
+</div>`,
+        preview: "chips"
+      },
+      {
+        title: "Cards",
+        code: `<div className="grid grid-cols-2 gap-3">
+  <button className="p-4 bg-surface-raised border border-default rounded-xl text-left hover:border-emphasis hover:shadow-md dark:hover:shadow-black/30 transition-all">
+    <div className="w-8 h-8 bg-info rounded-lg flex items-center justify-center mb-3">
+      <svg className="w-4 h-4 text-info-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+    </div>
+    <p className="text-sm font-medium text-default">Brainstorm ideas</p>
+    <p className="text-xs text-muted mt-1">Generate creative concepts</p>
+  </button>
+  <button className="p-4 bg-surface-raised border border-default rounded-xl text-left hover:border-emphasis hover:shadow-md dark:hover:shadow-black/30 transition-all">
+    <div className="w-8 h-8 bg-success rounded-lg flex items-center justify-center mb-3">
+      <svg className="w-4 h-4 text-success-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    </div>
+    <p className="text-sm font-medium text-default">Review my work</p>
+    <p className="text-xs text-muted mt-1">Get feedback on documents</p>
+  </button>
+</div>`,
+        preview: "cards"
+      }
+    ],
+    relatedComponents: ["MessageInput", "ChatMessage", "Badge"]
+  },
+  {
+    name: "Citation Card",
+    slug: "citation-card",
+    description: "Display sources and references cited by the AI in responses.",
+    category: "AI",
+    importStatement: "import { CitationCard } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "title", type: "string", required: true, description: "Source title" },
+      { name: "url", type: "string", required: false, description: "Source URL" },
+      { name: "snippet", type: "string", required: false, description: "Quoted excerpt" },
+      { name: "favicon", type: "string", required: false, description: "Site favicon URL" },
+      { name: "index", type: "number", required: false, description: "Citation number" }
+    ],
+    examples: [
+      {
+        title: "Inline Citation",
+        code: `<span className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-info rounded text-xs font-medium text-info-foreground cursor-pointer hover:bg-info-border transition-colors">
+  <span>[1]</span>
+</span>`,
+        preview: "inline"
+      },
+      {
+        title: "Citation Card",
+        code: `<div className="p-3 bg-surface-raised border border-default rounded-lg max-w-sm hover:border-emphasis transition-colors cursor-pointer">
+  <div className="flex items-start gap-3">
+    <div className="w-8 h-8 bg-surface-hover rounded flex items-center justify-center shrink-0">
+      <svg className="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+    </div>
+    <div className="flex-1 min-w-0">
+      <div className="flex items-center gap-2">
+        <span className="text-xs font-medium text-info-foreground bg-info px-1.5 py-0.5 rounded">[1]</span>
+        <p className="text-sm font-medium text-default truncate">React Documentation</p>
+      </div>
+      <p className="text-xs text-muted mt-1 truncate">https://react.dev/learn</p>
+    </div>
+  </div>
+</div>`,
+        preview: "card"
+      },
+      {
+        title: "With Snippet",
+        code: `<div className="p-4 bg-surface-raised border border-default rounded-xl max-w-md">
+  <div className="flex items-center gap-2 mb-2">
+    <span className="text-xs font-medium text-info-foreground bg-info px-1.5 py-0.5 rounded">[2]</span>
+    <p className="text-sm font-medium text-default">MDN Web Docs</p>
+  </div>
+  <p className="text-sm text-muted italic">"The Array.prototype.sort() method sorts the elements of an array in place and returns the sorted array."</p>
+  <a href="#" className="text-xs text-info-emphasis hover:underline mt-2 inline-block">developer.mozilla.org →</a>
+</div>`,
+        preview: "with-snippet"
+      }
+    ],
+    relatedComponents: ["ChatMessage", "Card", "Badge"]
+  },
+  {
+    name: "AI Error State",
+    slug: "ai-error-state",
+    description: "Error displays for rate limits, API errors, and content warnings.",
+    category: "AI",
+    importStatement: "import { AIErrorState } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "type", type: "'rate-limit' | 'api-error' | 'content-warning' | 'network' | 'context-length'", required: true, description: "Error type" },
+      { name: "title", type: "string", required: false, description: "Custom error title" },
+      { name: "message", type: "string", required: false, description: "Error description" },
+      { name: "onRetry", type: "() => void", required: false, description: "Retry handler" },
+      { name: "retryIn", type: "number", required: false, description: "Seconds until retry available" }
+    ],
+    examples: [
+      {
+        title: "Rate Limit",
+        code: `<div className="p-4 bg-warning border border-warning-border rounded-xl">
+  <div className="flex gap-3">
+    <svg className="w-5 h-5 text-warning-emphasis shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    <div className="flex-1">
+      <p className="text-sm font-medium text-warning-foreground">Rate limit exceeded</p>
+      <p className="text-sm text-warning-foreground mt-1">You've sent too many messages. Please wait 30 seconds before trying again.</p>
+      <button className="mt-3 h-8 px-3 bg-warning-emphasis text-white rounded-lg text-xs font-medium hover:opacity-90 transition-opacity">
+        Retry in 30s
+      </button>
+    </div>
+  </div>
+</div>`,
+        preview: "rate-limit"
+      },
+      {
+        title: "API Error",
+        code: `<div className="p-4 bg-error border border-error-border rounded-xl">
+  <div className="flex gap-3">
+    <svg className="w-5 h-5 text-error-emphasis shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+    <div className="flex-1">
+      <p className="text-sm font-medium text-error-foreground">Something went wrong</p>
+      <p className="text-sm text-error-foreground mt-1">We couldn't generate a response. Please try again.</p>
+      <button className="mt-3 h-8 px-3 bg-error-emphasis text-white rounded-lg text-xs font-medium hover:opacity-90 transition-opacity inline-flex items-center gap-1.5">
+        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+        Retry
+      </button>
+    </div>
+  </div>
+</div>`,
+        preview: "api-error"
+      },
+      {
+        title: "Content Warning",
+        code: `<div className="p-4 bg-surface-raised border border-default rounded-xl">
+  <div className="flex gap-3">
+    <svg className="w-5 h-5 text-muted shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    <div className="flex-1">
+      <p className="text-sm font-medium text-default">Content filtered</p>
+      <p className="text-sm text-muted mt-1">This response was filtered due to content policy guidelines. Please rephrase your request.</p>
+    </div>
+  </div>
+</div>`,
+        preview: "content-warning"
+      }
+    ],
+    relatedComponents: ["Alert", "ChatMessage", "Toast"]
+  },
+  {
+    name: "System Prompt Editor",
+    slug: "system-prompt-editor",
+    description: "Editor to customize AI behavior and instructions.",
+    category: "AI",
+    importStatement: "import { SystemPromptEditor } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "value", type: "string", required: true, description: "System prompt content" },
+      { name: "onChange", type: "(value: string) => void", required: true, description: "Change handler" },
+      { name: "placeholder", type: "string", required: false, description: "Placeholder text" },
+      { name: "maxLength", type: "number", required: false, description: "Character limit" },
+      { name: "presets", type: "Array<{ name: string; prompt: string }>", required: false, description: "Preset prompts" }
+    ],
+    examples: [
+      {
+        title: "Default",
+        code: `<div className="p-4 bg-surface-raised border border-default rounded-xl">
+  <div className="flex items-center justify-between mb-3">
+    <label className="text-sm font-medium text-default">System Prompt</label>
+    <span className="text-xs text-muted">245 / 2000</span>
+  </div>
+  <textarea
+    placeholder="You are a helpful assistant..."
+    rows="4"
+    className="w-full px-3 py-2 bg-surface-sunken border border-default rounded-lg text-sm text-default placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+  >You are a helpful coding assistant. Provide clear, concise answers with code examples when appropriate. Always explain your reasoning.</textarea>
+  <p className="text-xs text-muted mt-2">Customize how the AI behaves and responds.</p>
+</div>`,
+        preview: "default"
+      },
+      {
+        title: "With Presets",
+        code: `<div className="p-4 bg-surface-raised border border-default rounded-xl">
+  <div className="flex items-center justify-between mb-3">
+    <label className="text-sm font-medium text-default">System Prompt</label>
+    <div className="relative">
+      <button className="text-xs text-info-emphasis hover:underline inline-flex items-center gap-1">
+        Load preset
+        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+      </button>
+    </div>
+  </div>
+  <div className="flex gap-2 mb-3">
+    <button className="px-2 py-1 bg-surface-hover text-xs text-default rounded-md hover:bg-surface-sunken transition-colors">Code Assistant</button>
+    <button className="px-2 py-1 bg-surface-hover text-xs text-default rounded-md hover:bg-surface-sunken transition-colors">Writing Helper</button>
+    <button className="px-2 py-1 bg-surface-hover text-xs text-default rounded-md hover:bg-surface-sunken transition-colors">Translator</button>
+  </div>
+  <textarea
+    rows="4"
+    className="w-full px-3 py-2 bg-surface-sunken border border-default rounded-lg text-sm text-default focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+  >You are an expert code reviewer. Analyze code for bugs, performance issues, and best practices.</textarea>
+</div>`,
+        preview: "with-presets"
+      }
+    ],
+    relatedComponents: ["Textarea", "ModelSelector", "Dropdown"]
+  },
+  {
+    name: "Temperature Slider",
+    slug: "temperature-slider",
+    description: "Slider to adjust AI creativity and randomness settings.",
+    category: "AI",
+    importStatement: "import { TemperatureSlider } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "value", type: "number", required: true, description: "Temperature value (0-2)" },
+      { name: "onChange", type: "(value: number) => void", required: true, description: "Change handler" },
+      { name: "min", type: "number", required: false, default: "0", description: "Minimum value" },
+      { name: "max", type: "number", required: false, default: "2", description: "Maximum value" },
+      { name: "step", type: "number", required: false, default: "0.1", description: "Step increment" },
+      { name: "showLabels", type: "boolean", required: false, default: "true", description: "Show min/max labels" }
+    ],
+    examples: [
+      {
+        title: "Default",
+        code: `<div className="w-64 p-4 bg-surface-raised border border-default rounded-xl">
+  <div className="flex items-center justify-between mb-3">
+    <label className="text-sm font-medium text-default">Temperature</label>
+    <span className="text-sm font-mono text-muted">0.7</span>
+  </div>
+  <input
+    type="range"
+    min="0"
+    max="2"
+    step="0.1"
+    value="0.7"
+    className="w-full h-2 bg-surface-hover rounded-full appearance-none cursor-pointer accent-primary"
+  />
+  <div className="flex justify-between mt-2">
+    <span className="text-xs text-muted">Precise</span>
+    <span className="text-xs text-muted">Creative</span>
+  </div>
+</div>`,
+        preview: "default"
+      },
+      {
+        title: "With Description",
+        code: `<div className="w-72 p-4 bg-surface-raised border border-default rounded-xl">
+  <div className="flex items-center justify-between mb-1">
+    <label className="text-sm font-medium text-default">Temperature</label>
+    <span className="text-sm font-mono text-primary font-medium">1.2</span>
+  </div>
+  <p className="text-xs text-muted mb-3">Higher values = more creative, lower = more focused</p>
+  <input
+    type="range"
+    min="0"
+    max="2"
+    step="0.1"
+    value="1.2"
+    className="w-full h-2 bg-surface-hover rounded-full appearance-none cursor-pointer accent-primary"
+  />
+  <div className="flex justify-between mt-2 text-xs">
+    <span className="text-info-emphasis">0 - Deterministic</span>
+    <span className="text-warning-emphasis">2 - Random</span>
+  </div>
+</div>`,
+        preview: "with-description"
+      }
+    ],
+    relatedComponents: ["ModelSelector", "SystemPromptEditor", "Progress"]
+  },
+  {
+    name: "Context Indicator",
+    slug: "context-indicator",
+    description: "Shows what files, documents, or context the AI is currently using.",
+    category: "AI",
+    importStatement: "import { ContextIndicator } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "items", type: "Array<{ type: 'file' | 'url' | 'text'; name: string; size?: string }>", required: true, description: "Context items" },
+      { name: "variant", type: "'inline' | 'expanded'", required: false, default: "'inline'", description: "Display variant" },
+      { name: "onRemove", type: "(index: number) => void", required: false, description: "Remove item handler" },
+      { name: "maxDisplay", type: "number", required: false, default: "3", description: "Max items to show" }
+    ],
+    examples: [
+      {
+        title: "Inline",
+        code: `<div className="flex items-center gap-2 text-xs text-muted">
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+  <span>Using context from:</span>
+  <span className="text-default font-medium">README.md</span>
+  <span>+2 more</span>
+</div>`,
+        preview: "inline"
+      },
+      {
+        title: "Expanded",
+        code: `<div className="p-3 bg-surface-sunken border border-default rounded-lg">
+  <div className="flex items-center gap-2 mb-2">
+    <svg className="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+    <span className="text-xs font-medium text-default">Context</span>
+  </div>
+  <div className="space-y-1.5">
+    <div className="flex items-center justify-between px-2 py-1.5 bg-surface-raised rounded">
+      <div className="flex items-center gap-2">
+        <svg className="w-3.5 h-3.5 text-info-emphasis" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+        <span className="text-xs text-default">README.md</span>
+      </div>
+      <button className="text-subtle hover:text-default"><svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg></button>
+    </div>
+    <div className="flex items-center justify-between px-2 py-1.5 bg-surface-raised rounded">
+      <div className="flex items-center gap-2">
+        <svg className="w-3.5 h-3.5 text-success-emphasis" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+        <span className="text-xs text-default">index.ts</span>
+      </div>
+      <button className="text-subtle hover:text-default"><svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg></button>
+    </div>
+  </div>
+</div>`,
+        preview: "expanded"
+      }
+    ],
+    relatedComponents: ["FileAttachment", "Badge", "MessageInput"]
+  },
+  {
+    name: "Voice Input Button",
+    slug: "voice-input-button",
+    description: "Button to trigger speech-to-text input for hands-free messaging.",
+    category: "AI",
+    importStatement: "import { VoiceInputButton } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "onStart", type: "() => void", required: true, description: "Recording start handler" },
+      { name: "onStop", type: "(transcript: string) => void", required: true, description: "Recording stop handler" },
+      { name: "isRecording", type: "boolean", required: false, default: "false", description: "Recording state" },
+      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disabled state" }
+    ],
+    examples: [
+      {
+        title: "Default",
+        code: `<button className="p-2 text-subtle hover:text-default hover:bg-surface-hover rounded-lg transition-colors" aria-label="Voice input">
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
+</button>`,
+        preview: "default"
+      },
+      {
+        title: "Recording",
+        code: `<button className="p-2 bg-error text-error-foreground rounded-lg animate-pulse" aria-label="Stop recording">
+  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
+</button>`,
+        preview: "recording"
+      },
+      {
+        title: "With Waveform",
+        code: `<div className="flex items-center gap-3 px-4 py-2 bg-error rounded-lg">
+  <button className="p-1" aria-label="Stop recording">
+    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" /></svg>
+  </button>
+  <div className="flex items-center gap-0.5 h-6">
+    <span className="w-1 h-3 bg-white rounded-full animate-pulse" style="animation-delay: 0ms"></span>
+    <span className="w-1 h-5 bg-white rounded-full animate-pulse" style="animation-delay: 100ms"></span>
+    <span className="w-1 h-4 bg-white rounded-full animate-pulse" style="animation-delay: 200ms"></span>
+    <span className="w-1 h-6 bg-white rounded-full animate-pulse" style="animation-delay: 300ms"></span>
+    <span className="w-1 h-3 bg-white rounded-full animate-pulse" style="animation-delay: 400ms"></span>
+  </div>
+  <span className="text-sm text-white font-medium">0:03</span>
+</div>`,
+        preview: "with-waveform"
+      }
+    ],
+    relatedComponents: ["MessageInput", "IconButton", "Button"]
+  },
+  {
+    name: "Image Upload Zone",
+    slug: "image-upload-zone",
+    description: "Multi-modal input area for uploading images to AI conversations.",
+    category: "AI",
+    importStatement: "import { ImageUploadZone } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "onUpload", type: "(files: File[]) => void", required: true, description: "Upload handler" },
+      { name: "accept", type: "string", required: false, default: "'image/*'", description: "Accepted file types" },
+      { name: "multiple", type: "boolean", required: false, default: "true", description: "Allow multiple files" },
+      { name: "maxSize", type: "number", required: false, description: "Max file size in bytes" },
+      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disabled state" }
+    ],
+    examples: [
+      {
+        title: "Default",
+        code: `<div className="border-2 border-dashed border-default rounded-xl p-8 text-center hover:border-emphasis hover:bg-surface-hover transition-all cursor-pointer">
+  <svg className="w-10 h-10 text-subtle mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+  <p className="mt-4 text-sm text-muted">
+    <span className="font-medium text-default">Click to upload</span> or drag and drop
+  </p>
+  <p className="mt-1 text-xs text-subtle">PNG, JPG, GIF, WebP up to 10MB</p>
+</div>`,
+        preview: "default"
+      },
+      {
+        title: "With Previews",
+        code: `<div className="space-y-4">
+  <div className="grid grid-cols-3 gap-3">
+    <div className="relative aspect-square rounded-lg overflow-hidden bg-surface-hover">
+      <div className="w-full h-full bg-gradient-to-br from-cyan-400 to-blue-500"></div>
+      <button className="absolute top-1 right-1 p-1 bg-surface-overlay rounded-full text-white hover:bg-black/70 transition-colors">
+        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <div className="relative aspect-square rounded-lg overflow-hidden bg-surface-hover">
+      <div className="w-full h-full bg-gradient-to-br from-purple-400 to-pink-500"></div>
+      <button className="absolute top-1 right-1 p-1 bg-surface-overlay rounded-full text-white hover:bg-black/70 transition-colors">
+        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <div className="aspect-square border-2 border-dashed border-default rounded-lg flex items-center justify-center hover:border-emphasis hover:bg-surface-hover transition-all cursor-pointer">
+      <svg className="w-6 h-6 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+    </div>
+  </div>
+</div>`,
+        preview: "with-previews"
+      }
+    ],
+    relatedComponents: ["FileUpload", "FileAttachment", "MessageInput"]
+  },
+  {
+    name: "Export Share Menu",
+    slug: "export-share-menu",
+    description: "Menu for exporting and sharing conversation content.",
+    category: "AI",
+    importStatement: "import { ExportShareMenu } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "onExport", type: "(format: 'pdf' | 'markdown' | 'json' | 'text') => void", required: true, description: "Export handler" },
+      { name: "onShare", type: "(method: 'link' | 'email') => void", required: false, description: "Share handler" },
+      { name: "formats", type: "Array<'pdf' | 'markdown' | 'json' | 'text'>", required: false, description: "Available export formats" },
+      { name: "showShare", type: "boolean", required: false, default: "true", description: "Show share options" }
+    ],
+    examples: [
+      {
+        title: "Dropdown Menu",
+        code: `<div className="relative inline-block">
+  <button className="h-9 px-3 bg-surface-raised border border-default rounded-lg text-sm text-default hover:bg-surface-hover inline-flex items-center gap-2 transition-colors">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+    Share
+  </button>
+  <div className="absolute top-full right-0 mt-1 w-48 bg-surface-raised border border-default rounded-xl shadow-lg dark:shadow-black/50 py-1 z-10">
+    <div className="px-3 py-1.5 text-xs font-medium text-muted uppercase">Export as</div>
+    <button className="w-full px-4 py-2 text-left text-sm text-default hover:bg-surface-hover flex items-center gap-3">
+      <svg className="w-4 h-4 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+      Markdown
+    </button>
+    <button className="w-full px-4 py-2 text-left text-sm text-default hover:bg-surface-hover flex items-center gap-3">
+      <svg className="w-4 h-4 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+      PDF
+    </button>
+    <button className="w-full px-4 py-2 text-left text-sm text-default hover:bg-surface-hover flex items-center gap-3">
+      <svg className="w-4 h-4 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+      JSON
+    </button>
+    <div className="my-1 border-t border-default"></div>
+    <div className="px-3 py-1.5 text-xs font-medium text-muted uppercase">Share</div>
+    <button className="w-full px-4 py-2 text-left text-sm text-default hover:bg-surface-hover flex items-center gap-3">
+      <svg className="w-4 h-4 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+      Copy link
+    </button>
+  </div>
+</div>`,
+        preview: "dropdown"
+      },
+      {
+        title: "Button Group",
+        code: `<div className="inline-flex rounded-lg border border-default divide-x divide-default">
+  <button className="px-3 py-2 text-sm text-default bg-surface-raised hover:bg-surface-hover first:rounded-l-lg inline-flex items-center gap-2">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+    Export
+  </button>
+  <button className="px-3 py-2 text-sm text-default bg-surface-raised hover:bg-surface-hover last:rounded-r-lg inline-flex items-center gap-2">
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+    Share
+  </button>
+</div>`,
+        preview: "button-group"
+      }
+    ],
+    relatedComponents: ["Dropdown", "ButtonGroup", "ConversationList"]
+  },
+  {
+    name: "Conversation Search",
+    slug: "conversation-search",
+    description: "Search bar to find messages within conversation history.",
+    category: "AI",
+    importStatement: "import { ConversationSearch } from '@minimal/ui'",
+    tailwind: true,
+    props: [
+      { name: "value", type: "string", required: false, description: "Search query" },
+      { name: "onChange", type: "(value: string) => void", required: true, description: "Query change handler" },
+      { name: "onSearch", type: "(query: string) => void", required: false, description: "Search submit handler" },
+      { name: "results", type: "Array<{ id: string; preview: string; timestamp: string }>", required: false, description: "Search results" },
+      { name: "placeholder", type: "string", required: false, default: "'Search conversations...'", description: "Placeholder text" }
+    ],
+    examples: [
+      {
+        title: "Default",
+        code: `<div className="relative">
+  <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+  <input
+    type="text"
+    placeholder="Search conversations..."
+    className="w-full h-10 pl-10 pr-4 bg-surface-raised border border-default rounded-lg text-sm text-default placeholder:text-subtle focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+  />
+</div>`,
+        preview: "default"
+      },
+      {
+        title: "With Results",
+        code: `<div className="w-80">
+  <div className="relative">
+    <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+    <input
+      type="text"
+      value="sorting array"
+      className="w-full h-10 pl-10 pr-4 bg-surface-raised border border-primary rounded-lg text-sm text-default focus:outline-none focus:ring-2 focus:ring-primary"
+    />
+  </div>
+  <div className="mt-2 bg-surface-raised border border-default rounded-xl shadow-lg dark:shadow-black/50 overflow-hidden">
+    <div className="px-3 py-2 text-xs text-muted border-b border-default">3 results</div>
+    <button className="w-full px-3 py-3 text-left hover:bg-surface-hover transition-colors border-b border-default">
+      <p className="text-sm text-default truncate">How do I <mark className="bg-warning px-0.5 rounded">sort</mark> an <mark className="bg-warning px-0.5 rounded">array</mark> in JS?</p>
+      <p className="text-xs text-muted mt-1">Today at 2:34 PM</p>
+    </button>
+    <button className="w-full px-3 py-3 text-left hover:bg-surface-hover transition-colors border-b border-default">
+      <p className="text-sm text-default truncate">Here's a function to <mark className="bg-warning px-0.5 rounded">sort</mark> the <mark className="bg-warning px-0.5 rounded">array</mark>...</p>
+      <p className="text-xs text-muted mt-1">Today at 2:35 PM</p>
+    </button>
+    <button className="w-full px-3 py-3 text-left hover:bg-surface-hover transition-colors">
+      <p className="text-sm text-default truncate">Custom <mark className="bg-warning px-0.5 rounded">sorting</mark> with compare function</p>
+      <p className="text-xs text-muted mt-1">Yesterday at 10:15 AM</p>
+    </button>
+  </div>
+</div>`,
+        preview: "with-results"
+      }
+    ],
+    relatedComponents: ["ConversationList", "Input", "ChatMessage"]
   }
 ];
