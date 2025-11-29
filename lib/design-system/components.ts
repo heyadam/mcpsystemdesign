@@ -1544,9 +1544,7 @@ console.log(greeting);</code></pre>
     tailwind: true,
     props: [
       { name: "variant", type: "'dots' | 'text' | 'skeleton'", required: false, default: "'dots'", description: "Indicator style" },
-      { name: "label", type: "string", required: false, description: "Optional text label (e.g., 'Claude is thinking...')" },
-      { name: "showAvatar", type: "boolean", required: false, default: "true", description: "Show assistant avatar" },
-      { name: "size", type: "'sm' | 'md'", required: false, default: "'md'", description: "Indicator size" }
+      { name: "label", type: "string", required: false, description: "Optional text label (e.g., 'Claude is thinking...')" }
     ],
     examples: [
       {
@@ -1604,7 +1602,6 @@ console.log(greeting);</code></pre>
     props: [
       { name: "filename", type: "string", required: true, description: "File name to display" },
       { name: "size", type: "number", required: false, description: "File size in bytes" },
-      { name: "type", type: "string", required: false, description: "MIME type or file extension" },
       { name: "status", type: "'uploading' | 'complete' | 'error'", required: false, default: "'complete'", description: "Upload status" },
       { name: "progress", type: "number", required: false, description: "Upload progress (0-100)" },
       { name: "previewUrl", type: "string", required: false, description: "Image preview URL" },
@@ -1679,11 +1676,7 @@ console.log(greeting);</code></pre>
       { name: "code", type: "string", required: true, description: "Code content to display" },
       { name: "language", type: "string", required: false, default: "'plaintext'", description: "Programming language for syntax highlighting" },
       { name: "filename", type: "string", required: false, description: "Optional filename to display in header" },
-      { name: "showLineNumbers", type: "boolean", required: false, default: "false", description: "Show line numbers" },
-      { name: "copyable", type: "boolean", required: false, default: "true", description: "Show copy button" },
-      { name: "collapsible", type: "boolean", required: false, default: "true", description: "Allow collapse for long code" },
-      { name: "maxLines", type: "number", required: false, default: "20", description: "Lines before showing collapse" },
-      { name: "isStreaming", type: "boolean", required: false, default: "false", description: "Show streaming cursor" }
+      { name: "copyable", type: "boolean", required: false, default: "true", description: "Show copy button" }
     ],
     examples: [
       {
@@ -1749,8 +1742,6 @@ console.log(greet("World"));</code></pre>
     tailwind: true,
     props: [
       { name: "role", type: "'user' | 'assistant'", required: true, description: "Message role determines available actions" },
-      { name: "variant", type: "'inline' | 'hover'", required: false, default: "'inline'", description: "Display variant" },
-      { name: "showLabels", type: "boolean", required: false, default: "false", description: "Show text labels with icons" },
       { name: "onCopy", type: "() => void", required: false, description: "Copy button click handler" },
       { name: "onRegenerate", type: "() => void", required: false, description: "Regenerate button click handler (assistant only)" },
       { name: "onEdit", type: "() => void", required: false, description: "Edit button click handler (user only)" },
@@ -1819,14 +1810,10 @@ console.log(greet("World"));</code></pre>
     importStatement: "import { ChatMessage } from '@minimal/ui'",
     tailwind: true,
     props: [
-      { name: "role", type: "'user' | 'assistant' | 'system'", required: true, description: "Message sender role" },
+      { name: "role", type: "'user' | 'assistant'", required: true, description: "Message sender role" },
       { name: "content", type: "string", required: true, description: "Message content (supports markdown)" },
       { name: "avatar", type: "ReactNode | string", required: false, description: "Avatar element or image URL" },
-      { name: "timestamp", type: "string", required: false, description: "Message timestamp" },
-      { name: "isStreaming", type: "boolean", required: false, default: "false", description: "Show streaming indicator" },
-      { name: "showAvatar", type: "boolean", required: false, default: "true", description: "Display sender avatar" },
-      { name: "showTimestamp", type: "boolean", required: false, default: "false", description: "Display timestamp" },
-      { name: "actions", type: "ReactNode", required: false, description: "Custom action buttons" }
+      { name: "timestamp", type: "string", required: false, description: "Message timestamp" }
     ],
     examples: [
       {
@@ -1900,8 +1887,6 @@ console.log(greet("World"));</code></pre>
       { name: "placeholder", type: "string", required: false, default: "'Send a message...'", description: "Placeholder text" },
       { name: "disabled", type: "boolean", required: false, default: "false", description: "Disable input" },
       { name: "loading", type: "boolean", required: false, default: "false", description: "Show loading state on send" },
-      { name: "maxRows", type: "number", required: false, default: "6", description: "Maximum rows before scrolling" },
-      { name: "showAttachments", type: "boolean", required: false, default: "true", description: "Show attachment button" },
       { name: "onSend", type: "(content: string) => void", required: false, description: "Send button click handler" },
       { name: "onChange", type: "(value: string) => void", required: false, description: "Input change handler" },
       { name: "onAttach", type: "() => void", required: false, description: "Attachment button click handler" }
@@ -1991,8 +1976,6 @@ console.log(greet("World"));</code></pre>
       { name: "conversations", type: "Array<{ id: string; title: string; preview?: string; timestamp?: string }>", required: true, description: "Array of conversation items" },
       { name: "activeId", type: "string", required: false, description: "Currently active conversation ID" },
       { name: "onSelect", type: "(id: string) => void", required: true, description: "Conversation click handler" },
-      { name: "showPreviews", type: "boolean", required: false, default: "true", description: "Show message previews" },
-      { name: "showTimestamps", type: "boolean", required: false, default: "true", description: "Show timestamps" },
       { name: "variant", type: "'default' | 'compact'", required: false, default: "'default'", description: "List density" }
     ],
     examples: [
@@ -2065,11 +2048,9 @@ console.log(greet("World"));</code></pre>
       { name: "open", type: "boolean", required: true, description: "Panel visibility" },
       { name: "onClose", type: "() => void", required: true, description: "Close button click handler" },
       { name: "title", type: "string", required: true, description: "Artifact title" },
-      { name: "type", type: "'code' | 'document' | 'diagram' | 'preview'", required: false, default: "'code'", description: "Artifact type" },
       { name: "code", type: "string", required: false, description: "Code content" },
       { name: "language", type: "string", required: false, description: "Code language" },
       { name: "preview", type: "ReactNode", required: false, description: "Preview content" },
-      { name: "defaultView", type: "'preview' | 'code'", required: false, default: "'preview'", description: "Initial view" },
       { name: "onDownload", type: "() => void", required: false, description: "Download button click handler" },
       { name: "onCopy", type: "() => void", required: false, description: "Copy button click handler" }
     ],
@@ -2156,9 +2137,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     props: [
       { name: "models", type: "Array<{ id: string; name: string; description?: string; capabilities?: string[] }>", required: true, description: "Available models" },
       { name: "value", type: "string", required: true, description: "Selected model ID" },
-      { name: "onChange", type: "(modelId: string) => void", required: true, description: "Model change handler" },
-      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disable selector" },
-      { name: "showCapabilities", type: "boolean", required: false, default: "true", description: "Show model capabilities" }
+      { name: "onChange", type: "(modelId: string) => void", required: true, description: "Model change handler" }
     ],
     examples: [
       {
@@ -2213,9 +2192,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     props: [
       { name: "used", type: "number", required: true, description: "Tokens used" },
       { name: "limit", type: "number", required: true, description: "Token limit" },
-      { name: "variant", type: "'compact' | 'detailed'", required: false, default: "'compact'", description: "Display variant" },
-      { name: "showProgress", type: "boolean", required: false, default: "true", description: "Show progress bar" },
-      { name: "warningThreshold", type: "number", required: false, default: "80", description: "Percentage to show warning" }
+      { name: "variant", type: "'compact' | 'detailed'", required: false, default: "'compact'", description: "Display variant" }
     ],
     examples: [
       {
@@ -2267,9 +2244,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     props: [
       { name: "onClick", type: "() => void", required: true, description: "Click handler" },
       { name: "loading", type: "boolean", required: false, default: "false", description: "Loading state" },
-      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disabled state" },
-      { name: "variant", type: "'icon' | 'text' | 'both'", required: false, default: "'icon'", description: "Display variant" },
-      { name: "size", type: "'sm' | 'md'", required: false, default: "'md'", description: "Button size" }
+      { name: "variant", type: "'icon' | 'text' | 'both'", required: false, default: "'icon'", description: "Display variant" }
     ],
     examples: [
       {
@@ -2310,7 +2285,6 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     tailwind: true,
     props: [
       { name: "onClick", type: "() => void", required: true, description: "Click handler" },
-      { name: "visible", type: "boolean", required: false, default: "true", description: "Button visibility" },
       { name: "variant", type: "'icon' | 'text' | 'both'", required: false, default: "'both'", description: "Display variant" }
     ],
     examples: [
@@ -2352,9 +2326,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     importStatement: "import { StreamingCursor } from '@minimal/ui'",
     tailwind: true,
     props: [
-      { name: "variant", type: "'block' | 'line' | 'underscore'", required: false, default: "'block'", description: "Cursor style" },
-      { name: "blinkSpeed", type: "'slow' | 'normal' | 'fast'", required: false, default: "'normal'", description: "Blink animation speed" },
-      { name: "color", type: "string", required: false, description: "Custom cursor color" }
+      { name: "variant", type: "'block' | 'line' | 'underscore'", required: false, default: "'block'", description: "Cursor style" }
     ],
     examples: [
       {
@@ -2391,8 +2363,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     props: [
       { name: "prompts", type: "Array<{ label: string; prompt: string; icon?: ReactNode }>", required: true, description: "Prompt suggestions" },
       { name: "onSelect", type: "(prompt: string) => void", required: true, description: "Prompt selection handler" },
-      { name: "variant", type: "'chips' | 'cards' | 'list'", required: false, default: "'chips'", description: "Display variant" },
-      { name: "columns", type: "number", required: false, default: "2", description: "Grid columns for cards" }
+      { name: "variant", type: "'chips' | 'cards' | 'list'", required: false, default: "'chips'", description: "Display variant" }
     ],
     examples: [
       {
@@ -2447,7 +2418,6 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
       { name: "title", type: "string", required: true, description: "Source title" },
       { name: "url", type: "string", required: false, description: "Source URL" },
       { name: "snippet", type: "string", required: false, description: "Quoted excerpt" },
-      { name: "favicon", type: "string", required: false, description: "Site favicon URL" },
       { name: "index", type: "number", required: false, description: "Citation number" }
     ],
     examples: [
@@ -2499,11 +2469,10 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     importStatement: "import { AIErrorState } from '@minimal/ui'",
     tailwind: true,
     props: [
-      { name: "type", type: "'rate-limit' | 'api-error' | 'content-warning' | 'network' | 'context-length'", required: true, description: "Error type" },
+      { name: "type", type: "'rate-limit' | 'api-error' | 'content-warning'", required: true, description: "Error type" },
       { name: "title", type: "string", required: false, description: "Custom error title" },
       { name: "message", type: "string", required: false, description: "Error description" },
-      { name: "onRetry", type: "() => void", required: false, description: "Retry handler" },
-      { name: "retryIn", type: "number", required: false, description: "Seconds until retry available" }
+      { name: "onRetry", type: "() => void", required: false, description: "Retry handler" }
     ],
     examples: [
       {
@@ -2566,7 +2535,6 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
       { name: "value", type: "string", required: true, description: "System prompt content" },
       { name: "onChange", type: "(value: string) => void", required: true, description: "Change handler" },
       { name: "placeholder", type: "string", required: false, description: "Placeholder text" },
-      { name: "maxLength", type: "number", required: false, description: "Character limit" },
       { name: "presets", type: "Array<{ name: string; prompt: string }>", required: false, description: "Preset prompts" }
     ],
     examples: [
@@ -2622,11 +2590,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     tailwind: true,
     props: [
       { name: "value", type: "number", required: true, description: "Temperature value (0-2)" },
-      { name: "onChange", type: "(value: number) => void", required: true, description: "Change handler" },
-      { name: "min", type: "number", required: false, default: "0", description: "Minimum value" },
-      { name: "max", type: "number", required: false, default: "2", description: "Maximum value" },
-      { name: "step", type: "number", required: false, default: "0.1", description: "Step increment" },
-      { name: "showLabels", type: "boolean", required: false, default: "true", description: "Show min/max labels" }
+      { name: "onChange", type: "(value: number) => void", required: true, description: "Change handler" }
     ],
     examples: [
       {
@@ -2687,8 +2651,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     props: [
       { name: "items", type: "Array<{ type: 'file' | 'url' | 'text'; name: string; size?: string }>", required: true, description: "Context items" },
       { name: "variant", type: "'inline' | 'expanded'", required: false, default: "'inline'", description: "Display variant" },
-      { name: "onRemove", type: "(index: number) => void", required: false, description: "Remove item handler" },
-      { name: "maxDisplay", type: "number", required: false, default: "3", description: "Max items to show" }
+      { name: "onRemove", type: "(index: number) => void", required: false, description: "Remove item handler" }
     ],
     examples: [
       {
@@ -2740,8 +2703,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     props: [
       { name: "onStart", type: "() => void", required: true, description: "Recording start handler" },
       { name: "onStop", type: "(transcript: string) => void", required: true, description: "Recording stop handler" },
-      { name: "isRecording", type: "boolean", required: false, default: "false", description: "Recording state" },
-      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disabled state" }
+      { name: "isRecording", type: "boolean", required: false, default: "false", description: "Recording state" }
     ],
     examples: [
       {
@@ -2786,11 +2748,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     importStatement: "import { ImageUploadZone } from '@minimal/ui'",
     tailwind: true,
     props: [
-      { name: "onUpload", type: "(files: File[]) => void", required: true, description: "Upload handler" },
-      { name: "accept", type: "string", required: false, default: "'image/*'", description: "Accepted file types" },
-      { name: "multiple", type: "boolean", required: false, default: "true", description: "Allow multiple files" },
-      { name: "maxSize", type: "number", required: false, description: "Max file size in bytes" },
-      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disabled state" }
+      { name: "onUpload", type: "(files: File[]) => void", required: true, description: "Upload handler" }
     ],
     examples: [
       {
@@ -2839,9 +2797,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     tailwind: true,
     props: [
       { name: "onExport", type: "(format: 'pdf' | 'markdown' | 'json' | 'text') => void", required: true, description: "Export handler" },
-      { name: "onShare", type: "(method: 'link' | 'email') => void", required: false, description: "Share handler" },
-      { name: "formats", type: "Array<'pdf' | 'markdown' | 'json' | 'text'>", required: false, description: "Available export formats" },
-      { name: "showShare", type: "boolean", required: false, default: "true", description: "Show share options" }
+      { name: "onShare", type: "(method: 'link' | 'email') => void", required: false, description: "Share handler" }
     ],
     examples: [
       {
