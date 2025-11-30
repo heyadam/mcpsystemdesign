@@ -7,6 +7,11 @@ import {
   styleGuide
 } from '@/lib/design-system';
 import {
+  getAllWebComponents,
+  getWebComponentByTag,
+  searchWebComponents,
+} from '@/lib/design-system/web-components';
+import {
   JsonRpcRequestSchema,
   BatchRequestSchema,
   ComponentNameArgsSchema,
@@ -34,7 +39,11 @@ const tools = [
   { name: "get_typography", description: "Get typography scale", inputSchema: { type: "object", properties: {}, required: [] } },
   { name: "get_spacing", description: "Get spacing scale", inputSchema: { type: "object", properties: {}, required: [] } },
   { name: "get_breakpoints", description: "Get breakpoints", inputSchema: { type: "object", properties: {}, required: [] } },
-  { name: "get_design_system_info", description: "Get design system overview", inputSchema: { type: "object", properties: {}, required: [] } }
+  { name: "get_design_system_info", description: "Get design system overview", inputSchema: { type: "object", properties: {}, required: [] } },
+  // Web Components tools
+  { name: "list_web_components", description: "List all @mcpsystem/ui Web Components for AI chat interfaces", inputSchema: { type: "object", properties: {}, required: [] } },
+  { name: "get_web_component", description: "Get detailed Web Component documentation including props, events, CSS parts, and examples", inputSchema: { type: "object", properties: { tagName: { type: "string", description: "Web Component tag name (e.g., 'mcp-chat-message')" } }, required: ["tagName"] } },
+  { name: "search_web_components", description: "Search Web Components by name or description", inputSchema: { type: "object", properties: { query: { type: "string", description: "Search query" } }, required: ["query"] } },
 ];
 
 // Execute tool with validated arguments
@@ -129,6 +138,104 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
 
     case "get_design_system_info":
       return { content: [{ type: "text", text: JSON.stringify({ name: designSystem.name, version: designSystem.version, description: designSystem.description, stats: { components: designSystem.components.length, categories: getAllCategories() } }, null, 2) }] };
+
+    // Web Components tools
+    case "list_web_components": {
+      const webComponents = getAllWebComponents();
+      const summary = webComponents.map(c => ({
+        name: c.name,
+        tagName: c.tagName,
+        description: c.description,
+        category: c.category,
+      }));
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify({
+            package: "@mcpsystem/ui",
+            version: "0.1.0",
+            description: "AI-first Web Components for chat interfaces",
+            install: "npm install @mcpsystem/ui",
+            usage: "import '@mcpsystem/ui';",
+            components: summary,
+          }, null, 2)
+        }]
+      };
+    }
+
+    case "get_web_component": {
+      const tagName = typeof args.tagName === 'string' ? args.tagName : '';
+      if (!tagName) {
+        return { content: [{ type: "text", text: "Missing tagName argument" }], isError: true };
+      }
+      const comp = getWebComponentByTag(tagName);
+      if (!comp) {
+        const available = getAllWebComponents().map(c => c.tagName).join(", ");
+        return { content: [{ type: "text", text: `Web Component not found: ${tagName}. Available: ${available}` }], isError: true };
+      }
+
+      // Format as documentation
+      const doc = [
+        `# <${comp.tagName}>`,
+        '',
+        comp.description,
+        '',
+        '## Installation',
+        '```bash',
+        'npm install @mcpsystem/ui',
+        '```',
+        '',
+        '## Usage',
+        '```html',
+        '<script type="module">',
+        "  import '@mcpsystem/ui';",
+        '</script>',
+        '',
+        `<${comp.tagName}></${comp.tagName}>`,
+        '```',
+        '',
+        '## Properties',
+        ...comp.props.map(p => `- **${p.name}** (\`${p.type}\`${p.default ? `, default: \`${p.default}\`` : ''}): ${p.description}${p.attribute ? ` (attribute: \`${p.attribute}\`)` : ''}`),
+        '',
+        '## Slots',
+        comp.slots.length ? comp.slots.map(s => `- **${s.name || 'default'}**: ${s.description}`).join('\n') : '- None',
+        '',
+        '## CSS Parts',
+        ...comp.cssParts.map(p => `- **${p.name}**: ${p.description}`),
+        '',
+        '## CSS Custom Properties',
+        ...comp.cssProps.map(p => `- \`${p.name}\`${p.default ? ` (default: \`${p.default}\`)` : ''}: ${p.description}`),
+        '',
+        '## Events',
+        comp.events.length ? comp.events.map(e => `- **${e.name}**${e.detail ? ` (detail: \`${e.detail}\`)` : ''}: ${e.description}`).join('\n') : '- None',
+        '',
+        '## Examples',
+        ...comp.examples.flatMap(e => [`### ${e.title}`, '```html', e.code, '```', '']),
+      ].join('\n');
+
+      return { content: [{ type: "text", text: doc }] };
+    }
+
+    case "search_web_components": {
+      const query = typeof args.query === 'string' ? args.query : '';
+      if (!query) {
+        return { content: [{ type: "text", text: "Missing query argument" }], isError: true };
+      }
+      const results = searchWebComponents(query);
+      return {
+        content: [{
+          type: "text",
+          text: JSON.stringify({
+            query,
+            results: results.map(c => ({
+              name: c.name,
+              tagName: c.tagName,
+              description: c.description,
+            }))
+          }, null, 2)
+        }]
+      };
+    }
 
     default:
       return { content: [{ type: "text", text: `Unknown tool: ${name}` }], isError: true };
