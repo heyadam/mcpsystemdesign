@@ -573,39 +573,6 @@ export const components: Component[] = [
 </label>`,
         preview: "with-label"
       },
-      {
-        title: "Interactive (Alpine.js)",
-        description: "Functional toggle switch with accessible state management",
-        code: `<!-- Requires: <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
-<div x-data="{ enabled: false }">
-  <label class="flex items-center justify-between cursor-pointer">
-    <div>
-      <p class="text-sm font-medium text-default">Dark mode</p>
-      <p class="text-sm text-muted">Use dark theme across the app</p>
-    </div>
-    <button
-      type="button"
-      @click="enabled = !enabled"
-      :class="enabled ? 'bg-primary' : 'bg-surface-hover'"
-      class="w-11 h-6 rounded-full relative transition-colors ml-4 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-      role="switch"
-      :aria-checked="enabled"
-    >
-      <span
-        :class="enabled ? 'translate-x-5 bg-surface-raised' : 'translate-x-0 bg-white'"
-        class="absolute left-1 top-1 w-4 h-4 rounded-full shadow-sm transition-transform"
-      ></span>
-    </button>
-  </label>
-
-  <!-- Example: Show state -->
-  <p class="mt-4 text-xs text-muted">
-    Dark mode is: <span x-text="enabled ? 'ON' : 'OFF'" class="font-medium"></span>
-  </p>
-</div>`,
-        preview: "interactive",
-        interactive: "alpine"
-      }
     ],
     relatedComponents: ["Checkbox", "Radio"]
   },
@@ -1012,54 +979,6 @@ console.log(greeting);</code></pre>
 </div>`,
         preview: "underline"
       },
-      {
-        title: "Interactive (Alpine.js)",
-        description: "Fully functional tabs with keyboard navigation and content panels",
-        code: `<!-- Requires: <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
-<div x-data="{ activeTab: 'overview' }">
-  <!-- Tab List -->
-  <div class="border-b border-default" role="tablist">
-    <nav class="flex gap-8">
-      <button
-        @click="activeTab = 'overview'"
-        :class="activeTab === 'overview' ? 'text-default border-primary' : 'text-muted border-transparent hover:text-default'"
-        class="py-3 text-sm font-medium border-b-2 transition-colors"
-        role="tab"
-        :aria-selected="activeTab === 'overview'"
-      >Overview</button>
-      <button
-        @click="activeTab = 'analytics'"
-        :class="activeTab === 'analytics' ? 'text-default border-primary' : 'text-muted border-transparent hover:text-default'"
-        class="py-3 text-sm font-medium border-b-2 transition-colors"
-        role="tab"
-        :aria-selected="activeTab === 'analytics'"
-      >Analytics</button>
-      <button
-        @click="activeTab = 'settings'"
-        :class="activeTab === 'settings' ? 'text-default border-primary' : 'text-muted border-transparent hover:text-default'"
-        class="py-3 text-sm font-medium border-b-2 transition-colors"
-        role="tab"
-        :aria-selected="activeTab === 'settings'"
-      >Settings</button>
-    </nav>
-  </div>
-
-  <!-- Tab Panels -->
-  <div class="py-4">
-    <div x-show="activeTab === 'overview'" role="tabpanel">
-      <p class="text-sm text-muted">Overview content goes here.</p>
-    </div>
-    <div x-show="activeTab === 'analytics'" role="tabpanel">
-      <p class="text-sm text-muted">Analytics content goes here.</p>
-    </div>
-    <div x-show="activeTab === 'settings'" role="tabpanel">
-      <p class="text-sm text-muted">Settings content goes here.</p>
-    </div>
-  </div>
-</div>`,
-        preview: "interactive",
-        interactive: "alpine"
-      }
     ],
     relatedComponents: ["Breadcrumb", "Sidebar"]
   },
@@ -1481,76 +1400,6 @@ console.log(greeting);</code></pre>
 </div>`,
         preview: "confirmation"
       },
-      {
-        title: "Interactive (Alpine.js)",
-        description: "Full modal with open/close, backdrop click, escape key, and focus management",
-        code: `<!-- Requires: <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
-<div x-data="{ open: false }">
-  <!-- Trigger -->
-  <button @click="open = true" class="h-10 px-4 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary-hover">
-    Open Modal
-  </button>
-
-  <!-- Modal -->
-  <template x-teleport="body">
-    <div x-show="open" x-cloak class="fixed inset-0 z-50 overflow-y-auto">
-      <!-- Backdrop -->
-      <div
-        x-show="open"
-        x-transition:enter="ease-out duration-300"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="ease-in duration-200"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
-        @click="open = false"
-        class="fixed inset-0 bg-black/50 backdrop-blur-sm"
-      ></div>
-
-      <!-- Panel -->
-      <div class="fixed inset-0 flex items-center justify-center p-4">
-        <div
-          x-show="open"
-          x-transition:enter="ease-out duration-300"
-          x-transition:enter-start="opacity-0 scale-95"
-          x-transition:enter-end="opacity-100 scale-100"
-          x-transition:leave="ease-in duration-200"
-          x-transition:leave-start="opacity-100 scale-100"
-          x-transition:leave-end="opacity-0 scale-95"
-          @click.away="open = false"
-          @keydown.escape.window="open = false"
-          x-trap.noscroll="open"
-          class="w-full max-w-md bg-surface-raised rounded-2xl shadow-xl"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div class="flex items-center justify-between px-6 py-4 border-b border-default">
-            <h2 class="text-lg font-semibold text-default">Modal Title</h2>
-            <button @click="open = false" class="text-subtle hover:text-default">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-          <div class="px-6 py-4">
-            <p class="text-sm text-muted">Modal content goes here. Focus is trapped inside.</p>
-          </div>
-          <div class="flex justify-end gap-3 px-6 py-4 border-t border-default">
-            <button @click="open = false" class="h-10 px-4 text-sm font-medium text-muted hover:bg-surface-hover rounded-lg">Cancel</button>
-            <button @click="open = false" class="h-10 px-4 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary-hover">Confirm</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </template>
-</div>
-
-<style>
-  [x-cloak] { display: none !important; }
-</style>`,
-        preview: "interactive",
-        interactive: "alpine"
-      }
     ],
     relatedComponents: ["Dropdown", "Alert"]
   },
@@ -1594,52 +1443,6 @@ console.log(greeting);</code></pre>
 </div>`,
         preview: "default"
       },
-      {
-        title: "Interactive (Alpine.js)",
-        description: "Fully functional dropdown with click-away close and keyboard support",
-        code: `<!-- Requires: <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
-<div x-data="{ open: false }" class="relative inline-block">
-  <button
-    @click="open = !open"
-    @keydown.escape.window="open = false"
-    :aria-expanded="open"
-    class="h-10 px-4 bg-surface-raised border border-default rounded-lg text-sm font-medium text-default hover:bg-surface-hover inline-flex items-center gap-2"
-  >
-    Options
-    <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-    </svg>
-  </button>
-
-  <div
-    x-show="open"
-    x-transition:enter="transition ease-out duration-100"
-    x-transition:enter-start="opacity-0 scale-95"
-    x-transition:enter-end="opacity-100 scale-100"
-    x-transition:leave="transition ease-in duration-75"
-    x-transition:leave-start="opacity-100 scale-100"
-    x-transition:leave-end="opacity-0 scale-95"
-    @click.away="open = false"
-    class="absolute top-full left-0 mt-1 w-48 bg-surface-raised border border-default rounded-xl shadow-lg py-1 z-10"
-  >
-    <button @click="open = false" class="w-full px-4 py-2 text-left text-sm text-default hover:bg-surface-hover flex items-center gap-3">
-      <svg class="w-4 h-4 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
-      Edit
-    </button>
-    <button @click="open = false" class="w-full px-4 py-2 text-left text-sm text-default hover:bg-surface-hover flex items-center gap-3">
-      <svg class="w-4 h-4 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-      Duplicate
-    </button>
-    <div class="my-1 border-t border-default"></div>
-    <button @click="open = false" class="w-full px-4 py-2 text-left text-sm text-error-foreground hover:bg-error flex items-center gap-3">
-      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
-      Delete
-    </button>
-  </div>
-</div>`,
-        preview: "interactive",
-        interactive: "alpine"
-      }
     ],
     relatedComponents: ["Modal", "Tooltip", "Select"]
   },

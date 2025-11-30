@@ -2,57 +2,38 @@
 
 ## Vision
 
-Build an AI-first component system that serves two purposes:
-1. **Pattern Reference** - Tailwind CSS patterns with Alpine.js for interactivity, served via MCP
-2. **Web Components** - Lightweight, framework-agnostic components designed for AI consumption
+Build an AI-first component system with two layers:
+1. **Pattern Reference** - Static Tailwind CSS patterns served via MCP (current)
+2. **Web Components** - Plug-and-play components designed for AI interfaces (future)
+
+The patterns are documentation. The Web Components are the product.
 
 ---
 
-## Phase 1: Alpine.js Interactive Patterns (Current)
+## Phase 1: Tailwind Pattern Reference (Current)
 
-Add Alpine.js examples alongside static HTML for components that need interactivity.
+Static HTML/CSS patterns that show the styling, not the behavior.
 
-### Components to Enhance
+### What We Provide
+- Tailwind CSS class combinations for common UI patterns
+- Class variations (variants, sizes, states) showing which classes to swap
+- Copy-paste examples for rapid prototyping
 
-| Component | Interactivity Needed |
-|-----------|---------------------|
-| Dropdown | Open/close, keyboard navigation |
-| Modal | Open/close, focus trap, escape key |
-| Tabs | Tab switching, keyboard nav |
-| Toggle | On/off state |
-| Accordion | Expand/collapse sections |
-| Toast | Show/hide, auto-dismiss |
-| Tooltip | Show on hover/focus |
-| Select | Custom dropdown behavior |
+### What We Don't Provide
+- Interactive behavior (users add their own JS)
+- Framework-specific code
+- Build dependencies
 
-### Example Structure
-
-```html
-<!-- Static HTML (works without JS) -->
-<div class="relative">
-  <button class="...">Options</button>
-  <div class="hidden absolute ...">Menu items</div>
-</div>
-
-<!-- With Alpine.js -->
-<div x-data="{ open: false }" class="relative">
-  <button @click="open = !open" class="...">Options</button>
-  <div x-show="open" @click.away="open = false" class="absolute ...">
-    Menu items
-  </div>
-</div>
-```
-
-### Deliverables
-- [ ] Add `alpine` field to ComponentExample type
-- [ ] Add Alpine.js examples to 8+ interactive components
-- [ ] Document Alpine.js setup in getting-started docs
+### Status
+- 50+ component patterns documented
+- Class variations added to Button, Input, Badge, Card, Alert
+- MCP server exposing patterns to AI assistants
 
 ---
 
-## Phase 2: Web Components Scaffolding
+## Phase 2: Web Components Infrastructure
 
-Set up the infrastructure for shipping real components as a package.
+Set up the tooling for shipping real components.
 
 ### Directory Structure
 
@@ -61,30 +42,30 @@ packages/
 └── ui/
     ├── package.json          # @mcpsystem/ui
     ├── tsconfig.json
+    ├── vite.config.ts
     ├── src/
     │   ├── index.ts          # Main exports
     │   ├── components/
+    │   │   ├── base.ts       # Shared base class
     │   │   ├── chat-message.ts
-    │   │   ├── typing-indicator.ts
-    │   │   ├── code-block.ts
     │   │   └── ...
     │   └── styles/
-    │       └── base.css      # Shared styles
-    ├── dist/                 # Built output
-    └── README.md
+    │       └── tokens.css    # Design tokens
+    └── dist/                 # Built output
 ```
 
 ### Tech Stack
-- **Lit** - Web Component library (~5KB, great DX)
+- **Lit** - Web Component library (~5KB)
 - **TypeScript** - Type safety
 - **Vite** - Build tooling
 - **CSS Custom Properties** - Theming
 
 ### Deliverables
-- [ ] Initialize packages/ui with Lit + Vite
-- [ ] Create base component class with shared functionality
-- [ ] Set up build pipeline for ESM + IIFE bundles
+- [x] Initialize packages/ui with Lit + Vite
+- [x] Create base component class
+- [ ] Set up build pipeline for ESM + UMD bundles
 - [ ] Configure npm publishing workflow
+- [ ] Add unit tests
 
 ---
 
@@ -105,8 +86,8 @@ Build components specifically designed for AI interfaces.
 
 ### Design Principles
 
-1. **Semantic element names** - AI assistants can understand `<mcp-chat-message role="assistant">` better than div soup
-2. **Sensible defaults** - Works out of the box with zero config
+1. **Semantic element names** - AI can understand `<mcp-chat-message role="assistant">` better than div soup
+2. **Zero config** - Works out of the box with sensible defaults
 3. **Themeable** - CSS custom properties for customization
 4. **Accessible** - ARIA attributes built-in
 5. **Framework-agnostic** - Works in React, Vue, Svelte, plain HTML
@@ -143,7 +124,7 @@ Build components specifically designed for AI interfaces.
 
 ## Phase 4: AI Guidance Integration
 
-Enhance MCP server to return opinionated guidance alongside patterns.
+Enhance MCP server with opinionated guidance.
 
 ### New MCP Tools
 
@@ -152,29 +133,6 @@ Enhance MCP server to return opinionated guidance alongside patterns.
 | `get_accessibility_guide` | ARIA patterns, keyboard nav requirements |
 | `get_anti_patterns` | Common mistakes to avoid |
 | `get_composition_rules` | How components work together |
-| `validate_component_usage` | Check if usage follows best practices |
-
-### Guidance Structure
-
-```typescript
-interface ComponentGuidance {
-  accessibility: {
-    required: string[];      // Must-have ARIA attributes
-    recommended: string[];   // Should-have attributes
-    keyboardNav: string[];   // Keyboard interaction requirements
-  };
-  antiPatterns: {
-    pattern: string;
-    why: string;
-    instead: string;
-  }[];
-  compositionRules: {
-    canContain: string[];    // Valid child components
-    mustBeIn: string[];      // Required parent components
-    incompatibleWith: string[];
-  };
-}
-```
 
 ---
 
@@ -182,25 +140,24 @@ interface ComponentGuidance {
 
 | Phase | Status | Priority |
 |-------|--------|----------|
-| Phase 1: Alpine.js | In Progress | High |
-| Phase 2: Scaffolding | Not Started | High |
-| Phase 3: Web Components | Not Started | Medium |
+| Phase 1: Patterns | Complete | - |
+| Phase 2: Infrastructure | In Progress | High |
+| Phase 3: Web Components | Not Started | High |
 | Phase 4: AI Guidance | Not Started | Medium |
 
 ---
 
 ## Open Questions
 
-1. **Naming convention** - `@mcpsystem/ui` or `@mcp-design/ui`?
-2. **Theming approach** - CSS custom properties vs Tailwind integration?
+1. **Package naming** - `@mcpsystem/ui` or `@mcp-design/ui`?
+2. **Theming** - CSS custom properties vs Tailwind integration?
 3. **Bundle strategy** - Single bundle vs per-component bundles?
-4. **SSR support** - Declarative Shadow DOM for server rendering?
+4. **SSR** - Declarative Shadow DOM for server rendering?
 
 ---
 
 ## References
 
 - [Lit Documentation](https://lit.dev/)
-- [Alpine.js Documentation](https://alpinejs.dev/)
 - [Web Components Best Practices](https://web.dev/custom-elements-best-practices/)
 - [Open UI Component Standards](https://open-ui.org/)

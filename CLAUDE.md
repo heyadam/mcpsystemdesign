@@ -182,8 +182,7 @@ When adding or modifying component patterns in `lib/design-system/components.ts`
     {
       title: "Example Title",
       code: `<div className="...">Example</div>`,
-      preview: "preview-id",         // Optional preview identifier
-      interactive: "alpine"          // Optional: indicates Alpine.js required
+      preview: "preview-id"          // Optional preview identifier
     }
   ],
   relatedComponents: ["OtherComponent"]

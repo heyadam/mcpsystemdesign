@@ -101,9 +101,8 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
       }
 
       const examplesText = comp.examples.map(e => {
-        const requiresNote = e.interactive === 'alpine' ? '\n*Requires Alpine.js*' : '';
         const description = e.description ? `\n${e.description}` : '';
-        return `## ${e.title}${requiresNote}${description}\n\n\`\`\`html\n${e.code}\n\`\`\``;
+        return `## ${e.title}${description}\n\n\`\`\`html\n${e.code}\n\`\`\``;
       }).join("\n\n");
       return { content: [{ type: "text", text: `# ${comp.name}\n\n${comp.description}\n\nUsage: ${comp.usageNote}${classVariationsText}\n\n${examplesText}` }] };
     }
