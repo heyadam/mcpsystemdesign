@@ -42,29 +42,24 @@ packages/
 └── ui/
     ├── package.json          # @mcpsystem/ui
     ├── tsconfig.json
-    ├── vite.config.ts
     ├── src/
     │   ├── index.ts          # Main exports
-    │   ├── components/
-    │   │   ├── base.ts       # Shared base class
-    │   │   ├── chat-message.ts
-    │   │   └── ...
-    │   └── styles/
-    │       └── tokens.css    # Design tokens
-    └── dist/                 # Built output
+    │   └── components/
+    │       ├── base.ts       # Shared base class
+    │       └── chat-message.ts
+    └── dist/                 # Built output (ESM)
 ```
 
 ### Tech Stack
 - **Lit** - Web Component library (~5KB)
-- **TypeScript** - Type safety
-- **Vite** - Build tooling
+- **TypeScript** - Type safety and build (`tsc`)
 - **CSS Custom Properties** - Theming
 
 ### Deliverables
-- [x] Initialize packages/ui with Lit + Vite
+- [x] Initialize packages/ui with Lit
 - [x] Create base component class
-- [ ] Set up build pipeline for ESM + UMD bundles
-- [ ] Configure npm publishing workflow
+- [x] Set up build pipeline (TypeScript → ESM)
+- [x] Configure npm publishing workflow
 - [ ] Add unit tests
 
 ---

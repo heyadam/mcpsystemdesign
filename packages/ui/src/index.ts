@@ -5,17 +5,22 @@
  * Built with Lit for minimal bundle size and maximum compatibility.
  *
  * Usage:
- *   <script type="module" src="https://unpkg.com/@mcpsystem/ui"></script>
+ *   npm install @mcpsystem/ui
+ *   import '@mcpsystem/ui';
  *   <mcp-chat-message role="assistant">Hello!</mcp-chat-message>
  */
 
-// Components (export as they are built)
-// export { McpChatMessage } from './components/chat-message.js';
+export const VERSION = '0.0.1';
+
+// Components
+export { McpChatMessage } from './components/chat-message.js';
+
+// Base class for extending
+export { McpBaseElement } from './components/base.js';
+
+// Future components (uncomment as built)
 // export { McpTypingIndicator } from './components/typing-indicator.js';
 // export { McpCodeBlock } from './components/code-block.js';
 // export { McpMessageInput } from './components/message-input.js';
 // export { McpStreamingText } from './components/streaming-text.js';
 // export { McpTokenCounter } from './components/token-counter.js';
-
-// Placeholder export for initial setup
-export const VERSION = '0.0.1';
