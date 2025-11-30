@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@mcpsystem/ui - Component Demo</title>
+  <style>
+    :root {
+      --font-sans: Inter, system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', Menlo, Monaco, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      margin: 0;
+      padding: 2rem;
+      background: #fafafa;
+      color: #18181b;
+    }
+
+    .dark body {
+      background: #09090b;
+      color: #fafafa;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #71717a;
+      margin-bottom: 2rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 0.5rem;
+      border: 1px solid #e4e4e7;
+    }
+
+    .dark .controls {
+      background: #18181b;
+      border-color: #27272a;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      border: 1px solid #e4e4e7;
+      border-radius: 0.375rem;
+      background: white;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+
+    button:hover {
+      background: #f4f4f5;
+    }
+
+    .dark button {
+      background: #27272a;
+      border-color: #3f3f46;
+      color: #fafafa;
+    }
+
+    .dark button:hover {
+      background: #3f3f46;
+    }
+
+    section {
+      margin-bottom: 3rem;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 0.75rem;
+      border: 1px solid #e4e4e7;
+    }
+
+    .dark section {
+      background: #18181b;
+      border-color: #27272a;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-top: 0;
+      margin-bottom: 0.25rem;
+    }
+
+    .description {
+      color: #71717a;
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .demo-area {
+      padding: 1rem;
+      background: #f9fafb;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .dark .demo-area {
+      background: #09090b;
+    }
+
+    .variant-label {
+      font-size: 0.75rem;
+      color: #71717a;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .chat-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 600px;
+    }
+
+    pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      font-size: 0.8125rem;
+    }
+
+    code {
+      font-family: var(--font-mono);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>@mcpsystem/ui</h1>
+  <p class="subtitle">AI-first Web Components - Interactive Demo</p>
+
+  <div class="controls">
+    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <button onclick="location.reload()">Reset Demo</button>
+  </div>
+
+  <!-- Chat Message -->
+  <section>
+    <h2>&lt;mcp-chat-message&gt;</h2>
+    <p class="description">Display chat messages with user/assistant styling, avatars, and timestamps.</p>
+
+    <div class="demo-area">
+      <div class="chat-demo">
+        <mcp-chat-message role="user">
+          How do I center a div in CSS?
+        </mcp-chat-message>
+
+        <mcp-chat-message role="assistant" name="Claude" timestamp="Just now">
+          You can center a div using flexbox. Here's how:
+        </mcp-chat-message>
+
+        <mcp-chat-message role="system">
+          Claude is using the latest model version.
+        </mcp-chat-message>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typing Indicator -->
+  <section>
+    <h2>&lt;mcp-typing-indicator&gt;</h2>
+    <p class="description">Animated indicator showing the AI is processing or generating a response.</p>
+
+    <div class="demo-area">
+      <div class="grid">
+        <div>
+          <div class="variant-label">Bubble (default)</div>
+          <mcp-typing-indicator></mcp-typing-indicator>
+        </div>
+        <div>
+          <div class="variant-label">Minimal</div>
+          <mcp-typing-indicator variant="minimal"></mcp-typing-indicator>
+        </div>
+        <div>
+          <div class="variant-label">Small</div>
+          <mcp-typing-indicator size="sm"></mcp-typing-indicator>
+        </div>
+        <div>
+          <div class="variant-label">Large</div>
+          <mcp-typing-indicator size="lg"></mcp-typing-indicator>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Block -->
+  <section>
+    <h2>&lt;mcp-code-block&gt;</h2>
+    <p class="description">Code display with copy button, language label, and optional line numbers.</p>
+
+    <div class="demo-area">
+      <mcp-code-block language="css" filename="styles.css">
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}</mcp-code-block>
+    </div>
+
+    <div class="demo-area">
+      <div class="variant-label">With line numbers</div>
+      <mcp-code-block language="javascript" show-line-numbers>
+function greet(name) {
+  const message = `Hello, ${name}!`;
+  console.log(message);
+  return message;
+}
+
+greet('World');</mcp-code-block>
+    </div>
+  </section>
+
+  <!-- Message Input -->
+  <section>
+    <h2>&lt;mcp-message-input&gt;</h2>
+    <p class="description">Auto-resizing textarea with send button and keyboard shortcuts.</p>
+
+    <div class="demo-area">
+      <mcp-message-input
+        id="demo-input"
+        placeholder="Type a message... (Enter to submit)"
+      ></mcp-message-input>
+      <p id="submit-output" style="font-size: 0.875rem; color: #71717a; margin-top: 0.5rem;"></p>
+    </div>
+
+    <div class="demo-area">
+      <div class="variant-label">With character limit</div>
+      <mcp-message-input
+        placeholder="Limited to 100 characters..."
+        max-length="100"
+        show-count
+      ></mcp-message-input>
+    </div>
+  </section>
+
+  <!-- Streaming Text -->
+  <section>
+    <h2>&lt;mcp-streaming-text&gt;</h2>
+    <p class="description">Typewriter effect for AI responses with configurable speed.</p>
+
+    <div class="demo-area">
+      <div class="variant-label">Default speed (50 chars/sec)</div>
+      <mcp-streaming-text
+        id="stream1"
+        text="Hello! I'm an AI assistant. I can help you with coding, writing, analysis, and much more. What would you like to work on today?"
+      ></mcp-streaming-text>
+    </div>
+
+    <div class="demo-area">
+      <div class="variant-label">Slow speed (20 chars/sec)</div>
+      <mcp-streaming-text
+        text="This text streams more slowly, which can be useful for dramatic effect or when you want users to read along."
+        speed="20"
+      ></mcp-streaming-text>
+    </div>
+
+    <div style="margin-top: 1rem;">
+      <button onclick="document.getElementById('stream1').stream('Restarted! This is new text being streamed.')">
+        Restart Stream
+      </button>
+      <button onclick="document.getElementById('stream1').complete()">
+        Complete Instantly
+      </button>
+    </div>
+  </section>
+
+  <!-- Token Counter -->
+  <section>
+    <h2>&lt;mcp-token-counter&gt;</h2>
+    <p class="description">Visual token usage indicator with warning and error states.</p>
+
+    <div class="demo-area">
+      <div class="grid">
+        <div>
+          <div class="variant-label">Normal (50%)</div>
+          <mcp-token-counter used="2048" limit="4096" show-label></mcp-token-counter>
+        </div>
+        <div>
+          <div class="variant-label">Warning (85%)</div>
+          <mcp-token-counter used="3481" limit="4096" show-label></mcp-token-counter>
+        </div>
+        <div>
+          <div class="variant-label">Error (100%+)</div>
+          <mcp-token-counter used="4500" limit="4096" show-label></mcp-token-counter>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-area">
+      <div class="variant-label">Interactive</div>
+      <mcp-token-counter id="interactive-counter" used="0" limit="4096" show-label></mcp-token-counter>
+      <div style="margin-top: 1rem;">
+        <button onclick="updateTokens(500)">+500 tokens</button>
+        <button onclick="updateTokens(-500)">-500 tokens</button>
+        <button onclick="resetTokens()">Reset</button>
+      </div>
+    </div>
+
+    <div class="demo-area">
+      <div class="variant-label">Compact variant</div>
+      <mcp-token-counter used="75000" limit="128000" variant="compact" show-label></mcp-token-counter>
+    </div>
+  </section>
+
+  <!-- Full Chat Demo -->
+  <section>
+    <h2>Full Chat Demo</h2>
+    <p class="description">Components working together in a realistic chat interface.</p>
+
+    <div class="demo-area">
+      <div class="chat-demo">
+        <mcp-chat-message role="user">
+          Can you show me how to create a React component?
+        </mcp-chat-message>
+
+        <mcp-chat-message role="assistant" name="Claude">
+          <p style="margin: 0 0 0.75rem 0;">Sure! Here's a simple React functional component:</p>
+          <mcp-code-block language="jsx">
+function Greeting({ name }) {
+  return (
+    &lt;div className="greeting"&gt;
+      Hello, {name}!
+    &lt;/div&gt;
+  );
+}</mcp-code-block>
+        </mcp-chat-message>
+
+        <mcp-typing-indicator></mcp-typing-indicator>
+
+        <div style="margin-top: 1rem;">
+          <mcp-token-counter used="1250" limit="4096"></mcp-token-counter>
+        </div>
+
+        <mcp-message-input placeholder="Ask a follow-up question..."></mcp-message-input>
+      </div>
+    </div>
+  </section>
+
+  <script type="module">
+    import '../dist/index.js';
+
+    // Handle message input submit
+    document.getElementById('demo-input').addEventListener('mcp-submit', (e) => {
+      document.getElementById('submit-output').textContent = `Submitted: "${e.detail.value}"`;
+    });
+
+    // Token counter warning/error events
+    document.querySelectorAll('mcp-token-counter').forEach(counter => {
+      counter.addEventListener('mcp-limit-warning', (e) => {
+        console.log('Token warning:', e.detail);
+      });
+      counter.addEventListener('mcp-limit-exceeded', (e) => {
+        console.log('Token limit exceeded:', e.detail);
+      });
+    });
+
+    // Make functions available globally
+    window.toggleDarkMode = () => {
+      document.documentElement.classList.toggle('dark');
+    };
+
+    window.updateTokens = (delta) => {
+      const counter = document.getElementById('interactive-counter');
+      counter.used = Math.max(0, counter.used + delta);
+    };
+
+    window.resetTokens = () => {
+      document.getElementById('interactive-counter').used = 0;
+    };
+  </script>
+</body>
+</html>

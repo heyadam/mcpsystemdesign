@@ -68,9 +68,9 @@ This is a production-ready MCP (Model Context Protocol) server that exposes desi
 
 ### MCP Tools Provided
 
-The server exposes 10 MCP tools organized into two categories:
+The server exposes 13 MCP tools organized into three categories:
 
-#### Component Tools
+#### Component Tools (Tailwind Patterns)
 1. `list_components` - List all components with categories
 2. `get_component` - Get detailed specification for a component
 3. `search_components` - Search components by name/description/category
@@ -83,6 +83,11 @@ The server exposes 10 MCP tools organized into two categories:
 8. `get_spacing` - Get spacing scale tokens
 9. `get_breakpoints` - Get responsive breakpoint definitions
 10. `get_design_system_info` - Get design system overview and stats
+
+#### Web Components Tools (@mcpsystem/ui)
+11. `list_web_components` - List all @mcpsystem/ui Web Components
+12. `get_web_component` - Get detailed Web Component docs (props, events, CSS parts)
+13. `search_web_components` - Search Web Components by name or description
 
 ### Key Files
 
@@ -112,6 +117,20 @@ The server exposes 10 MCP tools organized into two categories:
 #### Validation Scripts
 - **`scripts/validate-css-tokens.ts`** - Validates CSS variables match design tokens
 - **`scripts/validate-component-colors.ts`** - Validates component examples use semantic color tokens
+
+#### Web Components Package (@mcpsystem/ui)
+- **`packages/ui/src/components/`** - Lit-based Web Components
+  - `base.ts` - Shared base class with theming and utilities
+  - `chat-message.ts` - Chat message bubbles
+  - `typing-indicator.ts` - "AI is thinking" animation
+  - `code-block.ts` - Syntax display with copy button
+  - `message-input.ts` - Auto-resize textarea
+  - `streaming-text.ts` - Typewriter effect
+  - `token-counter.ts` - Usage visualization
+- **`packages/ui/src/styles/tokens.ts`** - CSS custom properties for theming
+- **`packages/ui/src/utils/index.ts`** - Shared utilities
+- **`packages/ui/demo/index.html`** - Interactive demo page for testing
+- **`lib/design-system/web-components.ts`** - MCP documentation for Web Components
 
 ## Development Guidelines
 
@@ -433,6 +452,75 @@ The SSE endpoint includes comprehensive security hardening:
 - Check deployment logs in Vercel dashboard
 - Ensure environment variables are set (if any)
 
+## @mcpsystem/ui Web Components
+
+### Overview
+
+The `packages/ui/` directory contains `@mcpsystem/ui`, a package of AI-first Web Components built with Lit. These are real, interactive components (not just Tailwind patterns) designed for AI chat interfaces.
+
+### Available Components
+
+| Component | Tag | Purpose |
+|-----------|-----|---------|
+| Chat Message | `<mcp-chat-message>` | User/assistant message bubbles |
+| Typing Indicator | `<mcp-typing-indicator>` | "AI is thinking" animation |
+| Code Block | `<mcp-code-block>` | Syntax display + copy button |
+| Message Input | `<mcp-message-input>` | Auto-resize textarea + send |
+| Streaming Text | `<mcp-streaming-text>` | Typewriter effect |
+| Token Counter | `<mcp-token-counter>` | Usage visualization |
+
+### Building the Package
+
+```bash
+cd packages/ui
+npm install
+npm run build          # Build once
+npm run build:watch    # Watch mode
+```
+
+### Testing Strategy
+
+**We use manual testing via a demo page** rather than automated unit tests during active development.
+
+#### Why Manual Testing (For Now)
+
+1. **Rapid iteration** - Component APIs are still evolving; automated tests would require constant updates and slow down development
+2. **Visual verification** - Many behaviors (animations, styling, dark mode) are best verified visually in a real browser
+3. **Real browser required** - Web Components need real browser APIs; simulated DOMs (jsdom/happy-dom) have quirks with Shadow DOM and custom element registration
+4. **Cost vs. value** - For an unpublished package with 6 components, manual testing catches more issues faster
+
+#### Using the Demo Page
+
+```bash
+cd packages/ui
+npm run build
+# Open demo/index.html in a browser
+```
+
+The demo page provides:
+- All components with interactive controls
+- Dark mode toggle
+- Component composition examples (components nested within each other)
+- Event logging in console
+
+#### When to Add Automated Tests
+
+Add automated tests (using Web Test Runner + @open-wc/testing) when:
+- Publishing to npm
+- Component APIs stabilize
+- Multiple contributors are working on the package
+
+This follows the principle: **defer infrastructure until it provides clear value**.
+
+### Adding New Components
+
+1. Create component file in `packages/ui/src/components/`
+2. Extend `McpBaseElement` for shared styles and utilities
+3. Export from `packages/ui/src/index.ts`
+4. Add documentation to `lib/design-system/web-components.ts`
+5. Add to demo page for manual testing
+6. Update README with component documentation
+
 ## Future Enhancements
 
 Consider these when extending the project:
@@ -442,4 +530,4 @@ Consider these when extending the project:
 - Create component playground/sandbox
 - Add dark mode tokens to style guide
 - Add class variations to more components (currently Button, Input, Badge, Card, Alert have full specs)
-- Build AI-first Web Components in `packages/ui/` (see `docs/ROADMAP.md`)
+- Publish @mcpsystem/ui to npm (see `docs/ROADMAP.md`)

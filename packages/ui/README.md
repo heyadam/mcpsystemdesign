@@ -239,6 +239,38 @@ npm run build
 npm run build:watch  # Watch mode
 ```
 
+### Demo Page
+
+A demo page is included for manual testing and visual verification of components:
+
+```bash
+npm run build
+# Then open demo/index.html in a browser
+```
+
+The demo page allows you to:
+- Test all components interactively
+- Toggle dark mode
+- Verify accessibility features
+- Test component composition (components nested within each other)
+
+### Testing Strategy
+
+We use **manual testing via the demo page** rather than automated unit tests during active development. This is intentional:
+
+**Why not automated tests yet?**
+1. **Rapid iteration** - Component APIs are still evolving; tests would require constant updates
+2. **Visual verification** - Many component behaviors (animations, styling, dark mode) are best verified visually
+3. **Real browser testing** - Web Components require real browser APIs; simulated DOMs (jsdom/happy-dom) have quirks with Shadow DOM and custom element registration
+4. **Cost vs. value** - For an unpublished package with 6 components, manual testing is faster and catches more issues
+
+**When we'll add automated tests:**
+- Before publishing to npm
+- When the component API stabilizes
+- Using Web Test Runner + @open-wc/testing (Lit's recommended approach)
+
+This follows the principle of deferring infrastructure until it provides clear value.
+
 ## Browser Support
 
 Works in all modern browsers with native Web Component support:
