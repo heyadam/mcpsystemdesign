@@ -78,7 +78,7 @@ export default function HomePage() {
                   href="/components"
                   className="h-12 px-6 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary-hover transition-colors inline-flex items-center"
                 >
-                  Browse Components
+                  Browse Patterns
                 </Link>
                 <Link
                   href="/docs/getting-started"
@@ -95,7 +95,7 @@ export default function HomePage() {
             <div className="max-w-6xl">
               <h2 className="text-2xl font-semibold text-default">MCP Server Setup</h2>
               <p className="mt-4 text-muted max-w-2xl">
-                Connect this design system to your AI assistant (Claude, Cursor) via the Model Context Protocol.
+                Connect to your AI assistant (Claude, Cursor) via MCP for instant access to Tailwind component patterns.
               </p>
               <div className="mt-8 p-6 bg-surface-raised border border-default rounded-xl">
                 <div className="flex items-center justify-between mb-4">
@@ -117,11 +117,11 @@ export default function HomePage() {
           {/* Stats */}
           <section className="py-10">
             <div className="max-w-6xl">
-              <h2 className="text-2xl font-semibold text-default">Design System Overview</h2>
+              <h2 className="text-2xl font-semibold text-default">Pattern Library Overview</h2>
               <div className="mt-8 grid md:grid-cols-4 gap-6">
                 <div className="p-6 bg-surface-raised rounded-xl border border-default">
                   <p className="text-3xl font-semibold text-default">{stats.totalComponents}</p>
-                  <p className="mt-1 text-sm text-muted">Components</p>
+                  <p className="mt-1 text-sm text-muted">Patterns</p>
                 </div>
                 <div className="p-6 bg-surface-raised rounded-xl border border-default">
                   <p className="text-3xl font-semibold text-default">{stats.totalCategories}</p>
@@ -142,7 +142,7 @@ export default function HomePage() {
           {/* Categories */}
           <section className="py-10 bg-surface-sunken -mx-6 md:-mx-10 px-6 md:px-10">
             <div className="max-w-6xl">
-              <h2 className="text-2xl font-semibold text-default">Component Categories</h2>
+              <h2 className="text-2xl font-semibold text-default">Pattern Categories</h2>
               <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {categories.map((category) => (
                   <Link
@@ -152,7 +152,7 @@ export default function HomePage() {
                   >
                     <h3 className="font-semibold text-default">{category}</h3>
                     <p className="mt-2 text-sm text-muted">
-                      {designSystem.components.filter(c => c.category === category).length} components
+                      {designSystem.components.filter(c => c.category === category).length} patterns
                     </p>
                   </Link>
                 ))}

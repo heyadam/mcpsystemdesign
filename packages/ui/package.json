@@ -1,0 +1,48 @@
+{
+  "name": "@mcpsystem/ui",
+  "version": "0.0.1",
+  "description": "AI-first Web Components for chat interfaces and AI interactions",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "test": "echo \"No tests yet\" && exit 0",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "web-components",
+    "lit",
+    "ai",
+    "chat",
+    "mcp",
+    "design-system",
+    "custom-elements"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcpsystem/design"
+  },
+  "homepage": "https://mcpsystem.design",
+  "devDependencies": {
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "lit": "^3.1.0"
+  }
+}

@@ -10,7 +10,7 @@ import {
 import { CodeBlock } from '@/components/code/CodeBlock';
 import { LivePreview } from '@/components/code/LivePreview';
 import { SectionTabs } from '@/components/component-page/SectionTabs';
-import { PropsTable } from '@/components/component-page/PropsTable';
+import { ClassVariationsTable } from '@/components/component-page/ClassVariationsTable';
 
 // Generate static params for all components
 export async function generateStaticParams() {
@@ -103,64 +103,17 @@ export default function ComponentPage({ params }: { params: { slug: string } }) 
           </div>
         )}
 
-        {/* Import */}
+        {/* Usage Note */}
         <div className="mt-8">
-          <h3 className="text-sm font-semibold text-default mb-2">Import</h3>
-          <CodeBlock code={component.importStatement} language="tsx" />
+          <h3 className="text-sm font-semibold text-default mb-2">Usage</h3>
+          <CodeBlock code={component.usageNote} language="html" />
         </div>
       </section>
 
       {/* Specs Section */}
       <section id="specs" className="mt-12 scroll-mt-24">
-        <h2 className="text-xl font-semibold text-default mb-4">Specifications</h2>
-
-        {/* Props Table */}
-        <div className="mb-8">
-          <h3 className="text-sm font-semibold text-default mb-4">Props</h3>
-          <PropsTable props={component.props} />
-        </div>
-
-        {/* Specs details */}
-        {component.specs && (
-          <div className="grid sm:grid-cols-3 gap-6">
-            {component.specs.variants && component.specs.variants.length > 0 && (
-              <div>
-                <h3 className="text-sm font-semibold text-default mb-2">Variants</h3>
-                <div className="flex flex-wrap gap-2">
-                  {component.specs.variants.map((v) => (
-                    <span key={v} className="px-2 py-1 text-xs bg-surface-hover text-default rounded">
-                      {v}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-            {component.specs.sizes && component.specs.sizes.length > 0 && (
-              <div>
-                <h3 className="text-sm font-semibold text-default mb-2">Sizes</h3>
-                <div className="flex flex-wrap gap-2">
-                  {component.specs.sizes.map((s) => (
-                    <span key={s} className="px-2 py-1 text-xs bg-surface-hover text-default rounded">
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-            {component.specs.states && component.specs.states.length > 0 && (
-              <div>
-                <h3 className="text-sm font-semibold text-default mb-2">States</h3>
-                <div className="flex flex-wrap gap-2">
-                  {component.specs.states.map((s) => (
-                    <span key={s} className="px-2 py-1 text-xs bg-surface-hover text-default rounded">
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
+        <h2 className="text-xl font-semibold text-default mb-4">Class Variations</h2>
+        <ClassVariationsTable specs={component.specs} />
       </section>
 
       {/* Guidelines Section */}

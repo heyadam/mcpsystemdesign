@@ -94,7 +94,7 @@ The server exposes 10 MCP tools organized into two categories:
 - **`lib/security/rate-limiter.ts`** - In-memory rate limiting (100 req/min/IP)
 
 #### Design System
-- **`lib/design-system/components.ts`** - Component definitions with props, examples, and metadata
+- **`lib/design-system/components.ts`** - Component pattern definitions with class variations, examples, and metadata
 - **`lib/design-system/style-guide.ts`** - Design tokens (colors, typography, spacing, breakpoints) - **Single source of truth**
 - **`lib/design-system/types.ts`** - TypeScript interfaces for the design system
 - **`lib/design-system/index.ts`** - Main exports, helpers, and **navigation data** (`getAllNavigation()`)
@@ -104,6 +104,10 @@ The server exposes 10 MCP tools organized into two categories:
 - **`components/docs/Sidebar.tsx`** - Unified sidebar with accordion navigation for all pages
 - **`components/docs/MobileDrawer.tsx`** - Mobile navigation drawer (reuses Sidebar)
 - **`components/docs/DocsHeader.tsx`** - Site header/navbar
+
+#### Component Page Components
+- **`components/component-page/ClassVariationsTable.tsx`** - Displays Tailwind class variations (variants, sizes, states)
+- **`components/component-page/SectionTabs.tsx`** - Tab navigation for component page sections (Overview, Classes, Guidelines, Examples)
 
 #### Validation Scripts
 - **`scripts/validate-css-tokens.ts`** - Validates CSS variables match design tokens
@@ -115,11 +119,12 @@ The server exposes 10 MCP tools organized into two categories:
 
 1. **TypeScript:** Use strict typing throughout. All design system data is fully typed.
 2. **File Organization:** Keep design system data in `lib/design-system/`, UI components in `components/`, pages in `app/`
-3. **Component Structure:** Each component definition includes:
+3. **Component Structure:** Each component pattern includes:
    - name, slug, description, category
-   - props with types, required status, defaults
+   - specs with class variations (variants, sizes, states) showing actual Tailwind classes
    - code examples with Tailwind CSS
    - related components for discoverability
+   - **Note:** These are Tailwind CSS patterns, not React components. Users copy HTML and swap classes.
 
 4. **Style Guide Structure:** Organized by:
    - Colors (by category: Semantic, Gray Scale, Accent)
@@ -150,7 +155,7 @@ The server exposes 10 MCP tools organized into two categories:
 
 ### Adding/Modifying Components
 
-When adding or modifying components in `lib/design-system/components.ts`:
+When adding or modifying component patterns in `lib/design-system/components.ts`:
 
 ```typescript
 {
@@ -158,27 +163,33 @@ When adding or modifying components in `lib/design-system/components.ts`:
   slug: "component-name",          // URL-friendly slug
   description: "Brief description",
   category: "Category",             // Forms, Layout, etc.
-  importStatement: "import { ComponentName } from '@your-lib'",
+  usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
   tailwind: true,                   // Whether it uses Tailwind CSS
-  props: [
-    {
-      name: "propName",
-      type: "string | number",      // TypeScript type
-      required: true,
-      default: "'value'",           // As a string
-      description: "What this prop does"
-    }
-  ],
+  specs: {                          // Class variations - show which Tailwind classes to swap
+    variants: [
+      { name: "Primary", classes: "bg-primary text-primary-foreground hover:bg-primary-hover" },
+      { name: "Secondary", classes: "bg-surface-hover text-default" }
+    ],
+    sizes: [
+      { name: "Small", classes: "h-8 px-3 text-xs" },
+      { name: "Medium", classes: "h-10 px-4 text-sm", description: "Default size" }
+    ],
+    states: [
+      { name: "Disabled", classes: "opacity-70 cursor-not-allowed", description: "Add disabled attribute" }
+    ]
+  },
   examples: [
     {
       title: "Example Title",
       code: `<div className="...">Example</div>`,
-      preview: "preview-id"         // Optional preview identifier
+      preview: "preview-id"          // Optional preview identifier
     }
   ],
   relatedComponents: ["OtherComponent"]
 }
 ```
+
+**Important:** The `specs` field documents which Tailwind classes to swap for different variations. This is honest documentation - users copy HTML and change classes, not pass props to components.
 
 ### Modifying Style Guide
 
@@ -430,4 +441,5 @@ Consider these when extending the project:
 - Add analytics for tool usage
 - Create component playground/sandbox
 - Add dark mode tokens to style guide
-- Implement component search by props/types
+- Add class variations to more components (currently Button, Input, Badge, Card, Alert have full specs)
+- Build AI-first Web Components in `packages/ui/` (see `docs/ROADMAP.md`)

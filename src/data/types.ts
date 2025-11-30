@@ -18,7 +18,7 @@ export interface Component {
   category: string;
   props: ComponentProp[];
   examples: ComponentExample[];
-  importStatement: string;
+  usageNote: string;
   relatedComponents?: string[];
 }
 

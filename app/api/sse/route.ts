@@ -58,7 +58,9 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
       if (!comp) {
         return { content: [{ type: "text", text: `Component not found. Available: ${designSystem.components.map(c => c.name).join(", ")}` }], isError: true };
       }
-      return { content: [{ type: "text", text: JSON.stringify(comp, null, 2) }] };
+      // Return component without deprecated props field
+      const { props: _props, ...componentData } = comp;
+      return { content: [{ type: "text", text: JSON.stringify(componentData, null, 2) }] };
     }
 
     case "search_components": {
@@ -79,7 +81,30 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
       if (!comp) {
         return { content: [{ type: "text", text: "Component not found" }], isError: true };
       }
-      return { content: [{ type: "text", text: `# ${comp.name}\n\n${comp.description}\n\nImport: \`${comp.importStatement}\`\n\n${comp.examples.map(e => `## ${e.title}\n\`\`\`html\n${e.code}\n\`\`\``).join("\n\n")}` }] };
+
+      // Build class variations section if specs exist
+      let classVariationsText = '';
+      if (comp.specs) {
+        const sections: string[] = [];
+        if (comp.specs.variants?.length) {
+          sections.push('**Variants:**\n' + comp.specs.variants.map(v => `- ${v.name}: \`${v.classes}\``).join('\n'));
+        }
+        if (comp.specs.sizes?.length) {
+          sections.push('**Sizes:**\n' + comp.specs.sizes.map(s => `- ${s.name}: \`${s.classes}\``).join('\n'));
+        }
+        if (comp.specs.states?.length) {
+          sections.push('**States:**\n' + comp.specs.states.map(s => `- ${s.name}: \`${s.classes}\``).join('\n'));
+        }
+        if (sections.length) {
+          classVariationsText = '\n## Class Variations\n\n' + sections.join('\n\n') + '\n';
+        }
+      }
+
+      const examplesText = comp.examples.map(e => {
+        const description = e.description ? `\n${e.description}` : '';
+        return `## ${e.title}${description}\n\n\`\`\`html\n${e.code}\n\`\`\``;
+      }).join("\n\n");
+      return { content: [{ type: "text", text: `# ${comp.name}\n\n${comp.description}\n\nUsage: ${comp.usageNote}${classVariationsText}\n\n${examplesText}` }] };
     }
 
     case "get_style_guide": {
