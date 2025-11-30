@@ -10,7 +10,7 @@ const designSystem = {
       name: "Button",
       description: "A versatile button component that supports multiple variants, sizes, and states.",
       category: "Actions",
-      importStatement: "import { Button } from '@acme/ui'",
+      usageNote: "import { Button } from '@acme/ui'",
       props: [
         { name: "variant", type: "'primary' | 'secondary' | 'ghost' | 'danger'", required: false, default: "'primary'", description: "Visual style variant" },
         { name: "size", type: "'sm' | 'md' | 'lg'", required: false, default: "'md'", description: "Size of the button" },
@@ -33,7 +33,7 @@ const designSystem = {
       name: "Input",
       description: "A form input component for text entry with validation states, labels, and helper text.",
       category: "Forms",
-      importStatement: "import { Input } from '@acme/ui'",
+      usageNote: "import { Input } from '@acme/ui'",
       props: [
         { name: "type", type: "'text' | 'email' | 'password' | 'number'", required: false, default: "'text'", description: "Input type" },
         { name: "label", type: "string", required: false, description: "Label text" },
@@ -53,7 +53,7 @@ const designSystem = {
       name: "Card",
       description: "A container for grouping related content with optional header and footer.",
       category: "Layout",
-      importStatement: "import { Card, CardHeader, CardBody, CardFooter } from '@acme/ui'",
+      usageNote: "import { Card, CardHeader, CardBody, CardFooter } from '@acme/ui'",
       props: [
         { name: "variant", type: "'elevated' | 'outlined' | 'filled'", required: false, default: "'elevated'", description: "Visual style" },
         { name: "padding", type: "'none' | 'sm' | 'md' | 'lg'", required: false, default: "'md'", description: "Internal padding" },
@@ -69,7 +69,7 @@ const designSystem = {
       name: "Modal",
       description: "A dialog overlay for focused interactions and confirmations.",
       category: "Overlays",
-      importStatement: "import { Modal, ModalHeader, ModalBody, ModalFooter } from '@acme/ui'",
+      usageNote: "import { Modal, ModalHeader, ModalBody, ModalFooter } from '@acme/ui'",
       props: [
         { name: "isOpen", type: "boolean", required: true, description: "Whether visible" },
         { name: "onClose", type: "() => void", required: true, description: "Close callback" },
@@ -85,7 +85,7 @@ const designSystem = {
       name: "Avatar",
       description: "Display user profile images with fallback to initials.",
       category: "Data Display",
-      importStatement: "import { Avatar, AvatarGroup } from '@acme/ui'",
+      usageNote: "import { Avatar, AvatarGroup } from '@acme/ui'",
       props: [
         { name: "src", type: "string", required: false, description: "Image URL" },
         { name: "name", type: "string", required: false, description: "Name for initials fallback" },
@@ -101,7 +101,7 @@ const designSystem = {
       name: "Toast",
       description: "Notification component for brief messages about actions or events.",
       category: "Feedback",
-      importStatement: "import { useToast } from '@acme/ui'",
+      usageNote: "import { useToast } from '@acme/ui'",
       props: [
         { name: "title", type: "string", required: false, description: "Toast title" },
         { name: "description", type: "string", required: false, description: "Toast message" },
@@ -322,7 +322,7 @@ function executeTool(name: string, args: Record<string, unknown>): { content: Ar
               name: c.name,
               category: c.category,
               description: c.description,
-              importStatement: c.importStatement,
+              usageNote: c.usageNote,
             })),
           }, null, 2),
         }],
@@ -341,7 +341,7 @@ function executeTool(name: string, args: Record<string, unknown>): { content: Ar
         .map((ex) => `### ${ex.title}\n\`\`\`tsx\n${ex.code}\n\`\`\``)
         .join("\n\n");
       return {
-        content: [{ type: "text", text: `# ${component.name} Examples\n\nImport: \`${component.importStatement}\`\n\n${examplesText}` }],
+        content: [{ type: "text", text: `# ${component.name} Examples\n\nUsage: ${component.usageNote}\n\n${examplesText}` }],
       };
     }
 

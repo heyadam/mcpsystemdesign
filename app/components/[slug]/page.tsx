@@ -103,10 +103,10 @@ export default function ComponentPage({ params }: { params: { slug: string } }) 
           </div>
         )}
 
-        {/* Import */}
+        {/* Usage Note */}
         <div className="mt-8">
-          <h3 className="text-sm font-semibold text-default mb-2">Import</h3>
-          <CodeBlock code={component.importStatement} language="tsx" />
+          <h3 className="text-sm font-semibold text-default mb-2">Usage</h3>
+          <CodeBlock code={component.usageNote} language="html" />
         </div>
       </section>
 

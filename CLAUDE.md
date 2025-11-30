@@ -158,7 +158,7 @@ When adding or modifying components in `lib/design-system/components.ts`:
   slug: "component-name",          // URL-friendly slug
   description: "Brief description",
   category: "Category",             // Forms, Layout, etc.
-  importStatement: "import { ComponentName } from '@your-lib'",
+  usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
   tailwind: true,                   // Whether it uses Tailwind CSS
   props: [
     {

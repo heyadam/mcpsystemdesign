@@ -7,7 +7,7 @@ export const components: Component[] = [
     slug: "colors",
     description: "Color palette and design tokens for the design system.",
     category: "Base",
-    importStatement: "// Use Tailwind color classes: bg-gray-900, text-info-emphasis, etc.",
+    usageNote: "// Use Tailwind color classes: bg-gray-900, text-info-emphasis, etc.",
     tailwind: true,
     overview: {
       introduction: "Our color system includes neutral grays and semantic accent colors. All colors are designed to work in both light and dark modes with sufficient contrast ratios.",
@@ -33,7 +33,7 @@ export const components: Component[] = [
     slug: "typography",
     description: "Typography scale and text styles for the design system.",
     category: "Base",
-    importStatement: "// Use Tailwind typography classes: text-3xl, font-semibold, etc.",
+    usageNote: "// Use Tailwind typography classes: text-3xl, font-semibold, etc.",
     tailwind: true,
     overview: {
       introduction: "Our typography system uses Inter for interface text and JetBrains Mono for code. The scale includes 8 predefined styles from Display to Caption.",
@@ -60,7 +60,7 @@ export const components: Component[] = [
     slug: "button",
     description: "Minimal button with subtle hover states and clean typography.",
     category: "Actions",
-    importStatement: "import { Button } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     overview: {
       introduction: "Buttons allow users to trigger actions with a single tap. They are the primary way for users to interact with your application.",
@@ -174,7 +174,7 @@ export const components: Component[] = [
     slug: "icon-button",
     description: "Square button for icon-only actions.",
     category: "Actions",
-    importStatement: "import { IconButton } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "variant", type: "'default' | 'ghost' | 'danger'", required: false, default: "'default'", description: "Visual style" },
@@ -203,7 +203,7 @@ export const components: Component[] = [
     slug: "button-group",
     description: "Group of connected buttons for related actions.",
     category: "Actions",
-    importStatement: "import { ButtonGroup } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "attached", type: "boolean", required: false, default: "true", description: "Attach buttons together" }
@@ -228,7 +228,7 @@ export const components: Component[] = [
     slug: "input",
     description: "Clean text input with focus ring and error states.",
     category: "Forms",
-    importStatement: "import { Input } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     overview: {
       introduction: "Text inputs allow users to enter and edit text. They are the foundation of forms and data entry.",
@@ -335,7 +335,7 @@ export const components: Component[] = [
     slug: "textarea",
     description: "Multi-line text input for longer content.",
     category: "Forms",
-    importStatement: "import { Textarea } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "placeholder", type: "string", required: false, description: "Placeholder text" },
@@ -375,7 +375,7 @@ export const components: Component[] = [
     slug: "select",
     description: "Dropdown select input for choosing from options.",
     category: "Forms",
-    importStatement: "import { Select } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "options", type: "Array<{ value: string; label: string }>", required: true, description: "Select options" },
@@ -421,7 +421,7 @@ export const components: Component[] = [
     slug: "checkbox",
     description: "Checkbox input for boolean or multiple selections.",
     category: "Forms",
-    importStatement: "import { Checkbox } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "checked", type: "boolean", required: false, default: "false", description: "Checked state" },
@@ -470,7 +470,7 @@ export const components: Component[] = [
     slug: "radio",
     description: "Radio button for single selection from multiple options.",
     category: "Forms",
-    importStatement: "import { Radio } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "checked", type: "boolean", required: false, default: "false", description: "Checked state" },
@@ -532,7 +532,7 @@ export const components: Component[] = [
     slug: "toggle",
     description: "Accessible toggle switch for boolean settings.",
     category: "Forms",
-    importStatement: "import { Toggle } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "checked", type: "boolean", required: false, default: "false", description: "Checked state" },
@@ -574,7 +574,7 @@ export const components: Component[] = [
     slug: "form-group",
     description: "Container for form fields with label and helper text.",
     category: "Forms",
-    importStatement: "import { FormGroup } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "label", type: "string", required: false, description: "Field label" },
@@ -617,7 +617,7 @@ export const components: Component[] = [
     slug: "file-upload",
     description: "File upload input with drag and drop support.",
     category: "Forms",
-    importStatement: "import { FileUpload } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "accept", type: "string", required: false, description: "Accepted file types" },
@@ -656,7 +656,7 @@ export const components: Component[] = [
     slug: "table",
     description: "Data table for displaying structured information.",
     category: "Data Display",
-    importStatement: "import { Table } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "columns", type: "Array<{ key: string; header: string; sortable?: boolean }>", required: true, description: "Column definitions" },
@@ -703,7 +703,7 @@ export const components: Component[] = [
     slug: "badge",
     description: "Small status indicator with semantic colors.",
     category: "Data Display",
-    importStatement: "import { Badge } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     overview: {
       introduction: "Badges are used to highlight status, categories, or counts in a compact visual form.",
@@ -756,7 +756,7 @@ export const components: Component[] = [
     slug: "avatar",
     description: "User avatar with image, initials, or icon fallback.",
     category: "Data Display",
-    importStatement: "import { Avatar } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "src", type: "string", required: false, description: "Image URL" },
@@ -800,7 +800,7 @@ export const components: Component[] = [
     slug: "card",
     description: "Versatile container for grouping related content.",
     category: "Data Display",
-    importStatement: "import { Card } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     overview: {
       introduction: "Cards are containers that group related content and actions. They provide a consistent way to display information.",
@@ -868,7 +868,7 @@ export const components: Component[] = [
     slug: "empty-state",
     description: "Placeholder for empty or missing content.",
     category: "Data Display",
-    importStatement: "import { EmptyState } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "icon", type: "ReactNode", required: false, description: "Icon element" },
@@ -897,7 +897,7 @@ export const components: Component[] = [
     slug: "code-block",
     description: "Syntax-highlighted code display with copy button.",
     category: "Data Display",
-    importStatement: "import { CodeBlock } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "code", type: "string", required: true, description: "Code content" },
@@ -935,7 +935,7 @@ console.log(greeting);</code></pre>
     slug: "tabs",
     description: "Tabbed navigation for switching between views.",
     category: "Navigation",
-    importStatement: "import { Tabs } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "items", type: "Array<{ label: string; value: string; disabled?: boolean }>", required: true, description: "Tab items" },
@@ -971,7 +971,7 @@ console.log(greeting);</code></pre>
     slug: "breadcrumb",
     description: "Navigation breadcrumbs showing page hierarchy.",
     category: "Navigation",
-    importStatement: "import { Breadcrumb } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "items", type: "Array<{ label: string; href?: string }>", required: true, description: "Breadcrumb items" },
@@ -997,7 +997,7 @@ console.log(greeting);</code></pre>
     slug: "pagination",
     description: "Navigation for paginated content.",
     category: "Navigation",
-    importStatement: "import { Pagination } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "currentPage", type: "number", required: true, description: "Current page number" },
@@ -1030,7 +1030,7 @@ console.log(greeting);</code></pre>
     slug: "sidebar",
     description: "Vertical navigation sidebar with sections and items.",
     category: "Navigation",
-    importStatement: "import { Sidebar } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "items", type: "Array<{ label: string; href: string; icon?: ReactNode; active?: boolean }>", required: true, description: "Navigation items" },
@@ -1070,7 +1070,7 @@ console.log(greeting);</code></pre>
     slug: "alert",
     description: "Contextual feedback messages for user actions.",
     category: "Feedback",
-    importStatement: "import { Alert } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     overview: {
       introduction: "Alerts provide contextual feedback messages for typical user actions with semantic variants.",
@@ -1144,7 +1144,7 @@ console.log(greeting);</code></pre>
     slug: "toast",
     description: "Brief notification messages that auto-dismiss.",
     category: "Feedback",
-    importStatement: "import { Toast } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "variant", type: "'default' | 'success' | 'error'", required: false, default: "'default'", description: "Toast variant" },
@@ -1187,7 +1187,7 @@ console.log(greeting);</code></pre>
     slug: "progress",
     description: "Visual indicator for task completion progress.",
     category: "Feedback",
-    importStatement: "import { Progress } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "value", type: "number", required: true, description: "Progress value (0-100)" },
@@ -1229,7 +1229,7 @@ console.log(greeting);</code></pre>
     slug: "skeleton",
     description: "Placeholder loading state for content.",
     category: "Feedback",
-    importStatement: "import { Skeleton } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "variant", type: "'text' | 'circular' | 'rectangular'", required: false, default: "'text'", description: "Skeleton shape" },
@@ -1275,7 +1275,7 @@ console.log(greeting);</code></pre>
     slug: "spinner",
     description: "Loading indicator with smooth animation.",
     category: "Feedback",
-    importStatement: "import { Spinner } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "size", type: "'sm' | 'md' | 'lg'", required: false, default: "'md'", description: "Spinner size" },
@@ -1310,7 +1310,7 @@ console.log(greeting);</code></pre>
     slug: "modal",
     description: "Dialog overlay for focused user interactions.",
     category: "Overlays",
-    importStatement: "import { Modal } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     overview: {
       introduction: "Modals focus user attention on a single task or piece of information, blocking interaction with the rest of the page.",
@@ -1392,7 +1392,7 @@ console.log(greeting);</code></pre>
     slug: "dropdown",
     description: "Floating menu for actions or navigation.",
     category: "Overlays",
-    importStatement: "import { Dropdown } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "trigger", type: "ReactNode", required: true, description: "Trigger element" },
@@ -1435,7 +1435,7 @@ console.log(greeting);</code></pre>
     slug: "tooltip",
     description: "Contextual information on hover.",
     category: "Overlays",
-    importStatement: "import { Tooltip } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "content", type: "string | ReactNode", required: true, description: "Tooltip content" },
@@ -1465,7 +1465,7 @@ console.log(greeting);</code></pre>
     slug: "divider",
     description: "Visual separator between content sections.",
     category: "Layout",
-    importStatement: "import { Divider } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "orientation", type: "'horizontal' | 'vertical'", required: false, default: "'horizontal'", description: "Divider orientation" },
@@ -1505,7 +1505,7 @@ console.log(greeting);</code></pre>
     slug: "container",
     description: "Responsive container for page content.",
     category: "Layout",
-    importStatement: "import { Container } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "size", type: "'sm' | 'md' | 'lg' | 'xl' | 'full'", required: false, default: "'lg'", description: "Max width" },
@@ -1540,7 +1540,7 @@ console.log(greeting);</code></pre>
     slug: "typing-indicator",
     description: "Animated indicator showing the AI assistant is generating a response.",
     category: "AI",
-    importStatement: "import { TypingIndicator } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "variant", type: "'dots' | 'text' | 'skeleton'", required: false, default: "'dots'", description: "Indicator style" },
@@ -1597,7 +1597,7 @@ console.log(greeting);</code></pre>
     slug: "file-attachment",
     description: "Display attached files with preview, upload progress, and status indicators.",
     category: "AI",
-    importStatement: "import { FileAttachment } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "filename", type: "string", required: true, description: "File name to display" },
@@ -1670,7 +1670,7 @@ console.log(greeting);</code></pre>
     slug: "ai-code-block",
     description: "Syntax-highlighted code block optimized for AI chat with copy button, language indicator, and streaming support.",
     category: "AI",
-    importStatement: "import { AICodeBlock } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "code", type: "string", required: true, description: "Code content to display" },
@@ -1738,7 +1738,7 @@ console.log(greet("World"));</code></pre>
     slug: "message-actions",
     description: "Action buttons for chat messages including copy, regenerate, edit, and feedback.",
     category: "AI",
-    importStatement: "import { MessageActions } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "role", type: "'user' | 'assistant'", required: true, description: "Message role determines available actions" },
@@ -1807,7 +1807,7 @@ console.log(greet("World"));</code></pre>
     slug: "chat-message",
     description: "Individual message bubble for AI chat interfaces with support for user and assistant roles.",
     category: "AI",
-    importStatement: "import { ChatMessage } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "role", type: "'user' | 'assistant'", required: true, description: "Message sender role" },
@@ -1880,7 +1880,7 @@ console.log(greet("World"));</code></pre>
     slug: "message-input",
     description: "Compose and send messages with auto-resizing textarea, attachments, and send button.",
     category: "AI",
-    importStatement: "import { MessageInput } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "value", type: "string", required: false, description: "Controlled input value" },
@@ -1970,7 +1970,7 @@ console.log(greet("World"));</code></pre>
     slug: "conversation-list",
     description: "Sidebar list of conversation threads with active state, previews, and timestamps.",
     category: "AI",
-    importStatement: "import { ConversationList } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "conversations", type: "Array<{ id: string; title: string; preview?: string; timestamp?: string }>", required: true, description: "Array of conversation items" },
@@ -2042,7 +2042,7 @@ console.log(greet("World"));</code></pre>
     slug: "artifact-panel",
     description: "Side panel for viewing and interacting with AI-generated artifacts like code, documents, and previews.",
     category: "AI",
-    importStatement: "import { ArtifactPanel } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "open", type: "boolean", required: true, description: "Panel visibility" },
@@ -2132,7 +2132,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "model-selector",
     description: "Dropdown to switch between AI models with capability indicators.",
     category: "AI",
-    importStatement: "import { ModelSelector } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "models", type: "Array<{ id: string; name: string; description?: string; capabilities?: string[] }>", required: true, description: "Available models" },
@@ -2187,7 +2187,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "token-counter",
     description: "Display token usage and remaining capacity with visual progress indicator.",
     category: "AI",
-    importStatement: "import { TokenCounter } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "used", type: "number", required: true, description: "Tokens used" },
@@ -2239,7 +2239,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "regenerate-button",
     description: "Button to retry generating an AI response with loading state.",
     category: "AI",
-    importStatement: "import { RegenerateButton } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "onClick", type: "() => void", required: true, description: "Click handler" },
@@ -2281,7 +2281,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "stop-generation",
     description: "Button to halt AI response generation mid-stream.",
     category: "AI",
-    importStatement: "import { StopGeneration } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "onClick", type: "() => void", required: true, description: "Click handler" },
@@ -2323,7 +2323,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "streaming-cursor",
     description: "Animated cursor indicator showing AI is actively writing text.",
     category: "AI",
-    importStatement: "import { StreamingCursor } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "variant", type: "'block' | 'line' | 'underscore'", required: false, default: "'block'", description: "Cursor style" }
@@ -2358,7 +2358,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "suggested-prompts",
     description: "Starter questions and prompt chips to help users begin conversations.",
     category: "AI",
-    importStatement: "import { SuggestedPrompts } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "prompts", type: "Array<{ label: string; prompt: string; icon?: ReactNode }>", required: true, description: "Prompt suggestions" },
@@ -2412,7 +2412,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "citation-card",
     description: "Display sources and references cited by the AI in responses.",
     category: "AI",
-    importStatement: "import { CitationCard } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "title", type: "string", required: true, description: "Source title" },
@@ -2466,7 +2466,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "ai-error-state",
     description: "Error displays for rate limits, API errors, and content warnings.",
     category: "AI",
-    importStatement: "import { AIErrorState } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "type", type: "'rate-limit' | 'api-error' | 'content-warning'", required: true, description: "Error type" },
@@ -2529,7 +2529,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "system-prompt-editor",
     description: "Editor to customize AI behavior and instructions.",
     category: "AI",
-    importStatement: "import { SystemPromptEditor } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "value", type: "string", required: true, description: "System prompt content" },
@@ -2586,7 +2586,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "temperature-slider",
     description: "Slider to adjust AI creativity and randomness settings.",
     category: "AI",
-    importStatement: "import { TemperatureSlider } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "value", type: "number", required: true, description: "Temperature value (0-2)" },
@@ -2646,7 +2646,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "context-indicator",
     description: "Shows what files, documents, or context the AI is currently using.",
     category: "AI",
-    importStatement: "import { ContextIndicator } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "items", type: "Array<{ type: 'file' | 'url' | 'text'; name: string; size?: string }>", required: true, description: "Context items" },
@@ -2698,7 +2698,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "voice-input-button",
     description: "Button to trigger speech-to-text input for hands-free messaging.",
     category: "AI",
-    importStatement: "import { VoiceInputButton } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "onStart", type: "() => void", required: true, description: "Recording start handler" },
@@ -2745,7 +2745,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "image-upload-zone",
     description: "Multi-modal input area for uploading images to AI conversations.",
     category: "AI",
-    importStatement: "import { ImageUploadZone } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "onUpload", type: "(files: File[]) => void", required: true, description: "Upload handler" }
@@ -2793,7 +2793,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "export-share-menu",
     description: "Menu for exporting and sharing conversation content.",
     category: "AI",
-    importStatement: "import { ExportShareMenu } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "onExport", type: "(format: 'pdf' | 'markdown' | 'json' | 'text') => void", required: true, description: "Export handler" },
@@ -2853,7 +2853,7 @@ console.log(sorted); // [1, 1, 3, 4, 5]</code></pre>
     slug: "conversation-search",
     description: "Search bar to find messages within conversation history.",
     category: "AI",
-    importStatement: "import { ConversationSearch } from '@minimal/ui'",
+    usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
     tailwind: true,
     props: [
       { name: "value", type: "string", required: false, description: "Search query" },

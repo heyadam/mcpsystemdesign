@@ -125,7 +125,7 @@ export function createMcpServer(): McpServer {
                   name: c.name,
                   category: c.category,
                   description: c.description,
-                  importStatement: c.importStatement,
+                  usageNote: c.usageNote,
                 })),
               },
               null,
@@ -172,7 +172,7 @@ export function createMcpServer(): McpServer {
         content: [
           {
             type: "text" as const,
-            text: `# ${component.name} Examples\n\nImport: \`${component.importStatement}\`\n\n${examplesText}`,
+            text: `# ${component.name} Examples\n\nUsage: ${component.usageNote}\n\n${examplesText}`,
           },
         ],
       };

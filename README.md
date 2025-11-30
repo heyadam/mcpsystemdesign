@@ -174,7 +174,7 @@ Edit `lib/design-system/components.ts` to add or modify components. Each compone
   slug: "component-name",
   description: "Component description",
   category: "Category",
-  importStatement: "import { ComponentName } from '@your-lib'",
+  usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
   tailwind: true,
   props: [
     {

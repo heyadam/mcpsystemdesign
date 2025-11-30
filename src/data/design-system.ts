@@ -10,7 +10,7 @@ export const designSystem: DesignSystem = {
       name: "Button",
       description: "A versatile button component that supports multiple variants, sizes, and states. Use buttons for primary actions, form submissions, and interactive elements.",
       category: "Actions",
-      importStatement: "import { Button } from '@acme/ui'",
+      usageNote: "import { Button } from '@acme/ui'",
       props: [
         { name: "variant", type: "'primary' | 'secondary' | 'ghost' | 'danger'", required: false, default: "'primary'", description: "Visual style variant of the button" },
         { name: "size", type: "'sm' | 'md' | 'lg'", required: false, default: "'md'", description: "Size of the button" },
@@ -49,7 +49,7 @@ export const designSystem: DesignSystem = {
       name: "Input",
       description: "A form input component for text entry with support for validation states, labels, and helper text.",
       category: "Forms",
-      importStatement: "import { Input } from '@acme/ui'",
+      usageNote: "import { Input } from '@acme/ui'",
       props: [
         { name: "type", type: "'text' | 'email' | 'password' | 'number' | 'tel' | 'url'", required: false, default: "'text'", description: "Input type" },
         { name: "label", type: "string", required: false, description: "Label text displayed above the input" },
@@ -90,7 +90,7 @@ export const designSystem: DesignSystem = {
       name: "Card",
       description: "A container component for grouping related content with optional header, footer, and various visual styles.",
       category: "Layout",
-      importStatement: "import { Card, CardHeader, CardBody, CardFooter } from '@acme/ui'",
+      usageNote: "import { Card, CardHeader, CardBody, CardFooter } from '@acme/ui'",
       props: [
         { name: "variant", type: "'elevated' | 'outlined' | 'filled'", required: false, default: "'elevated'", description: "Visual style of the card" },
         { name: "padding", type: "'none' | 'sm' | 'md' | 'lg'", required: false, default: "'md'", description: "Internal padding" },
@@ -126,7 +126,7 @@ export const designSystem: DesignSystem = {
       name: "Modal",
       description: "A dialog overlay component for focused interactions, confirmations, or displaying additional content.",
       category: "Overlays",
-      importStatement: "import { Modal, ModalHeader, ModalBody, ModalFooter } from '@acme/ui'",
+      usageNote: "import { Modal, ModalHeader, ModalBody, ModalFooter } from '@acme/ui'",
       props: [
         { name: "isOpen", type: "boolean", required: true, description: "Whether the modal is visible" },
         { name: "onClose", type: "() => void", required: true, description: "Callback when modal should close" },
@@ -160,7 +160,7 @@ export const designSystem: DesignSystem = {
       name: "Avatar",
       description: "A component for displaying user profile images with fallback to initials or a default icon.",
       category: "Data Display",
-      importStatement: "import { Avatar, AvatarGroup } from '@acme/ui'",
+      usageNote: "import { Avatar, AvatarGroup } from '@acme/ui'",
       props: [
         { name: "src", type: "string", required: false, description: "Image source URL" },
         { name: "alt", type: "string", required: false, description: "Alt text for the image" },
@@ -191,7 +191,7 @@ export const designSystem: DesignSystem = {
       name: "Toast",
       description: "A notification component for displaying brief messages to users about actions or events.",
       category: "Feedback",
-      importStatement: "import { useToast } from '@acme/ui'",
+      usageNote: "import { useToast } from '@acme/ui'",
       props: [
         { name: "title", type: "string", required: false, description: "Toast title" },
         { name: "description", type: "string", required: false, description: "Toast message content" },

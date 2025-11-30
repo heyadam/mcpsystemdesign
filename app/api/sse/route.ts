@@ -79,7 +79,7 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
       if (!comp) {
         return { content: [{ type: "text", text: "Component not found" }], isError: true };
       }
-      return { content: [{ type: "text", text: `# ${comp.name}\n\n${comp.description}\n\nImport: \`${comp.importStatement}\`\n\n${comp.examples.map(e => `## ${e.title}\n\`\`\`html\n${e.code}\n\`\`\``).join("\n\n")}` }] };
+      return { content: [{ type: "text", text: `# ${comp.name}\n\n${comp.description}\n\nUsage: ${comp.usageNote}\n\n${comp.examples.map(e => `## ${e.title}\n\`\`\`html\n${e.code}\n\`\`\``).join("\n\n")}` }] };
     }
 
     case "get_style_guide": {
