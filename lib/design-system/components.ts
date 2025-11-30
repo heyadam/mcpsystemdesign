@@ -92,18 +92,23 @@ export const components: Component[] = [
       ]
     },
     specs: {
-      variants: ["primary", "secondary", "outline", "ghost", "danger"],
-      sizes: ["sm", "md", "lg"],
-      states: ["default", "hover", "active", "focus", "disabled", "loading"]
+      variants: [
+        { name: "Primary", classes: "bg-primary text-primary-foreground hover:bg-primary-hover" },
+        { name: "Secondary", classes: "bg-surface-hover text-default" },
+        { name: "Outline", classes: "bg-surface-raised text-default border border-default hover:bg-surface-hover hover:border-emphasis" },
+        { name: "Ghost", classes: "text-muted hover:bg-surface-hover hover:text-default" },
+        { name: "Danger", classes: "bg-error-emphasis text-white hover:opacity-90" }
+      ],
+      sizes: [
+        { name: "Small", classes: "h-8 px-3 rounded-md text-xs" },
+        { name: "Medium", classes: "h-10 px-4 rounded-lg text-sm", description: "Default size" },
+        { name: "Large", classes: "h-12 px-6 rounded-lg text-base" }
+      ],
+      states: [
+        { name: "Disabled", classes: "opacity-70 cursor-not-allowed", description: "Add disabled attribute to button" },
+        { name: "Loading", classes: "opacity-70 cursor-not-allowed", description: "Add spinner SVG and disabled attribute" }
+      ]
     },
-    props: [
-      { name: "variant", type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'", required: false, default: "'primary'", description: "Visual style" },
-      { name: "size", type: "'sm' | 'md' | 'lg'", required: false, default: "'md'", description: "Button size" },
-      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disabled state" },
-      { name: "loading", type: "boolean", required: false, default: "false", description: "Loading state with spinner" },
-      { name: "icon", type: "ReactNode", required: false, description: "Optional icon element" },
-      { name: "fullWidth", type: "boolean", required: false, default: "false", description: "Full width button" }
-    ],
     examples: [
       {
         title: "Primary",
@@ -257,18 +262,20 @@ export const components: Component[] = [
       ]
     },
     specs: {
-      variants: ["default", "error", "disabled"],
-      sizes: ["sm", "md", "lg"],
-      states: ["default", "focus", "error", "disabled"]
+      variants: [
+        { name: "Default", classes: "bg-surface-raised border border-default text-default placeholder:text-subtle focus:ring-primary" },
+        { name: "Error", classes: "bg-surface-raised border border-error-border text-default focus:ring-error-emphasis" },
+        { name: "Disabled", classes: "bg-surface-sunken border border-default text-muted cursor-not-allowed" }
+      ],
+      sizes: [
+        { name: "Small", classes: "h-8 px-2 text-xs rounded-md" },
+        { name: "Medium", classes: "h-10 px-3 text-sm rounded-lg", description: "Default size" },
+        { name: "Large", classes: "h-12 px-4 text-base rounded-lg" }
+      ],
+      states: [
+        { name: "Focus", classes: "focus:outline-none focus:ring-2 focus:border-transparent" }
+      ]
     },
-    props: [
-      { name: "type", type: "'text' | 'email' | 'password' | 'number' | 'tel' | 'url'", required: false, default: "'text'", description: "Input type" },
-      { name: "placeholder", type: "string", required: false, description: "Placeholder text" },
-      { name: "error", type: "boolean", required: false, default: "false", description: "Error state" },
-      { name: "disabled", type: "boolean", required: false, default: "false", description: "Disabled state" },
-      { name: "prefix", type: "ReactNode", required: false, description: "Prefix element or icon" },
-      { name: "suffix", type: "ReactNode", required: false, description: "Suffix element or icon" }
-    ],
     examples: [
       {
         title: "Default",
@@ -747,14 +754,18 @@ export const components: Component[] = [
       ]
     },
     specs: {
-      variants: ["default", "success", "warning", "error", "info"],
-      sizes: ["sm", "md"]
+      variants: [
+        { name: "Default", classes: "bg-surface-hover text-default" },
+        { name: "Success", classes: "bg-success text-success-foreground" },
+        { name: "Warning", classes: "bg-warning text-warning-foreground" },
+        { name: "Error", classes: "bg-error text-error-foreground" },
+        { name: "Info", classes: "bg-info text-info-foreground" }
+      ],
+      sizes: [
+        { name: "Small", classes: "px-2 py-0.5 text-xs" },
+        { name: "Medium", classes: "px-2.5 py-0.5 text-xs", description: "Default size" }
+      ]
     },
-    props: [
-      { name: "variant", type: "'default' | 'success' | 'warning' | 'error' | 'info'", required: false, default: "'default'", description: "Badge variant" },
-      { name: "size", type: "'sm' | 'md'", required: false, default: "'md'", description: "Badge size" },
-      { name: "dot", type: "boolean", required: false, default: "false", description: "Show status dot" }
-    ],
     examples: [
       {
         title: "Variants",
@@ -845,13 +856,18 @@ export const components: Component[] = [
       ]
     },
     specs: {
-      variants: ["default", "outlined", "elevated", "filled"]
+      variants: [
+        { name: "Default", classes: "bg-surface-raised border border-default rounded-xl" },
+        { name: "Outlined", classes: "bg-transparent border border-default rounded-xl" },
+        { name: "Elevated", classes: "bg-surface-raised rounded-xl shadow-md" },
+        { name: "Interactive", classes: "hover:border-emphasis hover:shadow-md cursor-pointer transition-all", description: "Add to any variant for hover effects" }
+      ],
+      sizes: [
+        { name: "Small", classes: "p-4" },
+        { name: "Medium", classes: "p-6", description: "Default padding" },
+        { name: "Large", classes: "p-8" }
+      ]
     },
-    props: [
-      { name: "variant", type: "'default' | 'outlined' | 'elevated' | 'filled'", required: false, default: "'default'", description: "Card style variant" },
-      { name: "padding", type: "'none' | 'sm' | 'md' | 'lg'", required: false, default: "'md'", description: "Internal padding" },
-      { name: "interactive", type: "boolean", required: false, default: "false", description: "Clickable card with hover effect" }
-    ],
     examples: [
       {
         title: "Default",
@@ -1162,13 +1178,13 @@ console.log(greeting);</code></pre>
       ]
     },
     specs: {
-      variants: ["info", "success", "warning", "error"]
+      variants: [
+        { name: "Info", classes: "bg-info border border-info-border text-info-foreground" },
+        { name: "Success", classes: "bg-success border border-success-border text-success-foreground" },
+        { name: "Warning", classes: "bg-warning border border-warning-border text-warning-foreground" },
+        { name: "Error", classes: "bg-error border border-error-border text-error-foreground" }
+      ]
     },
-    props: [
-      { name: "variant", type: "'info' | 'success' | 'warning' | 'error'", required: false, default: "'info'", description: "Alert variant" },
-      { name: "title", type: "string", required: false, description: "Alert title" },
-      { name: "dismissible", type: "boolean", required: false, default: "false", description: "Show dismiss button" }
-    ],
     examples: [
       {
         title: "Variants",

@@ -1,4 +1,11 @@
-// Component prop definition
+// Class variation for Tailwind patterns
+export interface ClassVariation {
+  name: string;        // e.g., "Primary", "Small", "Disabled"
+  classes: string;     // The Tailwind classes to use
+  description?: string;
+}
+
+// Legacy prop definition - deprecated, use ClassVariation instead
 export interface ComponentProp {
   name: string;
   type: string;
@@ -29,9 +36,9 @@ export interface ComponentGuidelines {
 }
 
 export interface ComponentSpecs {
-  variants?: string[];
-  sizes?: string[];
-  states?: string[];
+  variants?: ClassVariation[];
+  sizes?: ClassVariation[];
+  states?: ClassVariation[];
 }
 
 // Main component interface
@@ -40,7 +47,6 @@ export interface Component {
   slug: string;
   description: string;
   category: string;
-  props: ComponentProp[];
   examples: ComponentExample[];
   usageNote: string;
   relatedComponents?: string[];
@@ -49,6 +55,8 @@ export interface Component {
   overview?: ComponentOverview;
   guidelines?: ComponentGuidelines;
   specs?: ComponentSpecs;
+  // Deprecated - kept for backwards compatibility
+  props?: ComponentProp[];
 }
 
 // Style guide types
