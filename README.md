@@ -51,10 +51,6 @@ vercel
 │   ├── components/         # Component documentation pages
 │   ├── docs/               # Documentation pages
 │   └── page.tsx            # Landing page
-├── api/                    # Vercel Serverless Functions (legacy)
-│   ├── index.ts            # Landing page API
-│   ├── health.ts           # Health check endpoint
-│   └── mcp.ts              # Legacy MCP endpoint (deprecated)
 ├── lib/
 │   ├── design-system/      # Design system data
 │   │   ├── index.ts        # Main exports and helpers
@@ -70,6 +66,8 @@ vercel
 │       ├── host-validator.ts  # Host header validation
 │       └── rate-limiter.ts    # Rate limiting
 ├── components/             # React components for the website
+├── packages/               # Publishable packages
+│   └── ui/                 # @mcpsystem/ui Web Components
 ├── scripts/                # Build and validation scripts
 │   ├── validate-css-tokens.ts       # CSS token validation
 │   └── validate-component-colors.ts # Component color validation
@@ -85,8 +83,7 @@ vercel
 |----------|--------|-------------|
 | `/sse` or `/api/sse` | GET | Establish SSE connection |
 | `/sse` or `/api/sse` | POST | Send MCP JSON-RPC messages |
-| `/api/health` | GET | Health check |
-| `/` | GET | Server info page |
+| `/` | GET | Landing page |
 
 ## Available MCP Tools
 
@@ -176,15 +173,19 @@ Edit `lib/design-system/components.ts` to add or modify components. Each compone
   category: "Category",
   usageNote: "<!-- Tailwind CSS pattern - copy the HTML/classes below -->",
   tailwind: true,
-  props: [
-    {
-      name: "propName",
-      type: "string | number",
-      required: true,
-      default: "'value'",
-      description: "What this prop does"
-    }
-  ],
+  specs: {                          // Class variations - which Tailwind classes to swap
+    variants: [
+      { name: "Primary", classes: "bg-primary text-primary-foreground" },
+      { name: "Secondary", classes: "bg-surface-hover text-default" }
+    ],
+    sizes: [
+      { name: "Small", classes: "h-8 px-3 text-xs" },
+      { name: "Medium", classes: "h-10 px-4 text-sm" }
+    ],
+    states: [
+      { name: "Disabled", classes: "opacity-70 cursor-not-allowed" }
+    ]
+  },
   examples: [
     {
       title: "Example Title",
