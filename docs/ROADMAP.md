@@ -90,8 +90,9 @@ Build components specifically designed for AI interfaces.
 ### Usage Example
 
 ```html
-<!-- Just include the script -->
-<script src="https://unpkg.com/@mcpsystem/ui"></script>
+<script type="module">
+  import '@mcpsystem/ui';
+</script>
 
 <!-- Use the components -->
 <mcp-chat-message role="user">
@@ -113,7 +114,6 @@ Build components specifically designed for AI interfaces.
 - [ ] Implement 6 core AI components
 - [ ] Add component documentation to MCP server
 - [ ] Publish to npm as @mcpsystem/ui
-- [ ] Create CDN bundle for script tag usage
 
 ---
 
@@ -144,9 +144,9 @@ Enhance MCP server with opinionated guidance.
 
 ## Open Questions
 
-1. **Package naming** - `@mcpsystem/ui` or `@mcp-design/ui`?
+1. ~~**Package naming** - `@mcpsystem/ui` or `@mcp-design/ui`?~~ → Resolved: `@mcpsystem/ui`
 2. **Theming** - CSS custom properties vs Tailwind integration?
-3. **Bundle strategy** - Single bundle vs per-component bundles?
+3. ~~**Bundle strategy** - Single bundle vs per-component bundles?~~ → Resolved: ESM-only via TypeScript
 4. **SSR** - Declarative Shadow DOM for server rendering?
 
 ---
