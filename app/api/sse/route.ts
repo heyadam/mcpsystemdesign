@@ -79,7 +79,12 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
       if (!comp) {
         return { content: [{ type: "text", text: "Component not found" }], isError: true };
       }
-      return { content: [{ type: "text", text: `# ${comp.name}\n\n${comp.description}\n\nUsage: ${comp.usageNote}\n\n${comp.examples.map(e => `## ${e.title}\n\`\`\`html\n${e.code}\n\`\`\``).join("\n\n")}` }] };
+      const examplesText = comp.examples.map(e => {
+        const requiresNote = e.interactive === 'alpine' ? '\n*Requires Alpine.js*' : '';
+        const description = e.description ? `\n${e.description}` : '';
+        return `## ${e.title}${requiresNote}${description}\n\n\`\`\`html\n${e.code}\n\`\`\``;
+      }).join("\n\n");
+      return { content: [{ type: "text", text: `# ${comp.name}\n\n${comp.description}\n\nUsage: ${comp.usageNote}\n\n${examplesText}` }] };
     }
 
     case "get_style_guide": {
