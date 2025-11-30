@@ -7,7 +7,6 @@
     "dev": "next dev",
     "build": "npm run validate && next build",
     "start": "next start",
-    "dev:mcp": "tsx watch server.ts",
     "typecheck": "tsc --noEmit",
     "validate": "npm run validate:tokens && npm run validate:component-colors",
     "validate:tokens": "tsx scripts/validate-css-tokens.ts",

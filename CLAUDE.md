@@ -32,10 +32,6 @@ This is a production-ready MCP (Model Context Protocol) server that exposes desi
 │   │   └── getting-started/  # Getting started guide
 │   ├── layout.tsx             # Root layout
 │   └── page.tsx               # Landing page
-├── api/                        # Vercel Serverless Functions (legacy)
-│   ├── index.ts               # Landing page API
-│   ├── health.ts              # Health check endpoint
-│   └── mcp.ts                 # Deprecated MCP endpoint
 ├── lib/
 │   ├── design-system/         # Core design system data
 │   │   ├── index.ts           # Main exports and helpers
@@ -56,6 +52,10 @@ This is a production-ready MCP (Model Context Protocol) server that exposes desi
 │       ├── MobileDrawer.tsx    # Mobile navigation drawer
 │       ├── DocsHeader.tsx      # Site header/navbar
 │       └── ThemeToggle.tsx     # Dark mode toggle
+├── packages/                   # Publishable packages
+│   └── ui/                     # @mcpsystem/ui Web Components (Phase 2)
+│       ├── src/                # Lit-based component source
+│       └── package.json        # Package configuration
 ├── scripts/                    # Build and validation scripts
 │   ├── validate-css-tokens.ts        # CSS token validation
 │   └── validate-component-colors.ts  # Component color validation
@@ -304,8 +304,7 @@ vercel --prod       # Deploy to production
 |----------|--------|-------------|
 | `/api/sse` | GET | Establish SSE connection for MCP |
 | `/api/sse` | POST | Send MCP JSON-RPC messages |
-| `/api/health` | GET | Health check endpoint |
-| `/` | GET | Landing page with server info |
+| `/` | GET | Landing page |
 
 ## Integration with AI Assistants
 
