@@ -13,6 +13,7 @@ export interface ComponentExample {
   description?: string;
   code: string;
   preview?: string;
+  interactive?: 'alpine';  // Indicates example requires Alpine.js
 }
 
 // Documentation sections for component pages
