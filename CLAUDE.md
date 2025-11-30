@@ -398,6 +398,7 @@ The SSE endpoint includes comprehensive security hardening:
 - **Feature Branches:** Create feature branches for new work
 - **Commits:** Use conventional commit messages
 - **Pull Requests:** Create PRs against `main` branch
+- **Documentation:** After major changes (adding/removing files, changing project structure, updating APIs), always update both `CLAUDE.md` and `README.md` to keep documentation in sync
 
 ## Dependencies
 
