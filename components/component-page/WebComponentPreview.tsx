@@ -59,6 +59,7 @@ function loadWebComponentsScript(): Promise<void> {
 export function WebComponentPreview({ code, className = '' }: WebComponentPreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(scriptLoaded);
+  const lastCodeRef = useRef<string>('');
 
   useEffect(() => {
     loadWebComponentsScript().then(() => {
@@ -67,10 +68,11 @@ export function WebComponentPreview({ code, className = '' }: WebComponentPrevie
   }, []);
 
   useEffect(() => {
-    if (containerRef.current && isLoaded) {
+    if (containerRef.current && isLoaded && code !== lastCodeRef.current) {
       // Remove script tags for safety
       const cleanCode = code.replace(/<script[\s\S]*?<\/script>/gi, '');
       containerRef.current.innerHTML = cleanCode;
+      lastCodeRef.current = code;
     }
   }, [code, isLoaded]);
 

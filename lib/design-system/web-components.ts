@@ -171,13 +171,11 @@ export const webComponents: WebComponentDoc[] = [
         title: 'Basic Usage',
         code: `<mcp-code-block language="javascript">
 const greeting = "Hello, World!";
-console.log(greeting);
 </mcp-code-block>`,
       },
       {
         title: 'With Line Numbers',
         code: `<mcp-code-block language="python" show-line-numbers>
-def hello():
     return "Hello, World!"
 </mcp-code-block>`,
       },
