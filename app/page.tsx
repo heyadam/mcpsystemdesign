@@ -171,7 +171,7 @@ export default function HomePage() {
                   Getting Started
                 </Link>
                 <Link href="/components" className="text-sm text-muted hover:text-default">
-                  Components
+                  Patterns
                 </Link>
               </div>
             </div>
