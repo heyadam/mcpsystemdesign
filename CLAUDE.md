@@ -70,11 +70,13 @@ This is a production-ready MCP (Model Context Protocol) server that exposes desi
 
 The server exposes 13 MCP tools organized into three categories:
 
-#### Component Tools (Tailwind Patterns)
-1. `list_components` - List all components with categories
-2. `get_component` - Get detailed specification for a component
-3. `search_components` - Search components by name/description/category
-4. `get_component_examples` - Get code examples for a component
+#### Pattern Tools (Tailwind CSS)
+Tailwind patterns are copy-paste HTML with class variations for variants, sizes, and states.
+
+1. `list_patterns` - List all Tailwind CSS patterns with categories
+2. `get_pattern` - Get detailed pattern with class variations
+3. `search_patterns` - Search patterns by name/description/category
+4. `get_pattern_examples` - Get code examples for a pattern
 
 #### Style Guide Tools
 5. `get_style_guide` - Get entire style guide or specific section
@@ -84,10 +86,12 @@ The server exposes 13 MCP tools organized into three categories:
 9. `get_breakpoints` - Get responsive breakpoint definitions
 10. `get_design_system_info` - Get design system overview and stats
 
-#### Web Components Tools (@mcpsystem/ui)
-11. `list_web_components` - List all @mcpsystem/ui Web Components
-12. `get_web_component` - Get detailed Web Component docs (props, events, CSS parts)
-13. `search_web_components` - Search Web Components by name or description
+#### Component Tools (@mcpsystem/ui)
+Components are real Lit elements you import and use: `<mcp-chat-message>`, `<mcp-typing-indicator>`, etc.
+
+11. `list_components` - List all @mcpsystem/ui components
+12. `get_component` - Get component docs (props, events, CSS parts)
+13. `search_components` - Search components by name or description
 
 ### Key Files
 

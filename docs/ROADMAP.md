@@ -113,7 +113,7 @@ Build components specifically designed for AI interfaces.
 ### Deliverables
 - [x] Implement 6 core AI components
 - [x] Add component documentation to MCP server
-- [x] New MCP tools: `list_web_components`, `get_web_component`, `search_web_components`
+- [x] New MCP tools: `list_components`, `get_component`, `search_components`
 - [ ] Publish to npm as @mcpsystem/ui
 
 ---

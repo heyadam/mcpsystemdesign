@@ -30,49 +30,52 @@ import { checkRateLimit, getClientIp } from '@/lib/security/rate-limiter';
 
 // Tool definitions for MCP
 const tools = [
-  { name: "list_components", description: "List all available design system components", inputSchema: { type: "object", properties: {}, required: [] } },
-  { name: "get_component", description: "Get detailed component specification with Tailwind classes", inputSchema: { type: "object", properties: { componentName: { type: "string", description: "Component name" } }, required: ["componentName"] } },
-  { name: "search_components", description: "Search for components", inputSchema: { type: "object", properties: { query: { type: "string", description: "Search query" } }, required: ["query"] } },
-  { name: "get_component_examples", description: "Get Tailwind code examples for a component", inputSchema: { type: "object", properties: { componentName: { type: "string", description: "Component name" } }, required: ["componentName"] } },
+  // Tailwind pattern tools (copy-paste HTML with class variations)
+  { name: "list_patterns", description: "List all Tailwind CSS patterns (copy-paste HTML with class variations)", inputSchema: { type: "object", properties: {}, required: [] } },
+  { name: "get_pattern", description: "Get detailed Tailwind pattern with class variations for variants, sizes, and states", inputSchema: { type: "object", properties: { patternName: { type: "string", description: "Pattern name (e.g., 'Button', 'Card')" } }, required: ["patternName"] } },
+  { name: "search_patterns", description: "Search Tailwind patterns by name, description, or category", inputSchema: { type: "object", properties: { query: { type: "string", description: "Search query" } }, required: ["query"] } },
+  { name: "get_pattern_examples", description: "Get code examples for a Tailwind pattern", inputSchema: { type: "object", properties: { patternName: { type: "string", description: "Pattern name" } }, required: ["patternName"] } },
+  // Style guide tools
   { name: "get_style_guide", description: "Get style guide (colors, typography, spacing, breakpoints)", inputSchema: { type: "object", properties: { section: { type: "string", enum: ["colors", "typography", "spacing", "breakpoints", "all"] } }, required: [] } },
   { name: "get_colors", description: "Get color tokens", inputSchema: { type: "object", properties: { category: { type: "string" } }, required: [] } },
   { name: "get_typography", description: "Get typography scale", inputSchema: { type: "object", properties: {}, required: [] } },
   { name: "get_spacing", description: "Get spacing scale", inputSchema: { type: "object", properties: {}, required: [] } },
   { name: "get_breakpoints", description: "Get breakpoints", inputSchema: { type: "object", properties: {}, required: [] } },
   { name: "get_design_system_info", description: "Get design system overview", inputSchema: { type: "object", properties: {}, required: [] } },
-  // Web Components tools
-  { name: "list_web_components", description: "List all @mcpsystem/ui Web Components for AI chat interfaces", inputSchema: { type: "object", properties: {}, required: [] } },
-  { name: "get_web_component", description: "Get detailed Web Component documentation including props, events, CSS parts, and examples", inputSchema: { type: "object", properties: { tagName: { type: "string", description: "Web Component tag name (e.g., 'mcp-chat-message')" } }, required: ["tagName"] } },
-  { name: "search_web_components", description: "Search Web Components by name or description", inputSchema: { type: "object", properties: { query: { type: "string", description: "Search query" } }, required: ["query"] } },
+  // @mcpsystem/ui component tools (import and use)
+  { name: "list_components", description: "List all @mcpsystem/ui components for AI chat interfaces", inputSchema: { type: "object", properties: {}, required: [] } },
+  { name: "get_component", description: "Get component documentation including props, events, CSS parts, and examples", inputSchema: { type: "object", properties: { tagName: { type: "string", description: "Component tag name (e.g., 'mcp-chat-message')" } }, required: ["tagName"] } },
+  { name: "search_components", description: "Search @mcpsystem/ui components by name or description", inputSchema: { type: "object", properties: { query: { type: "string", description: "Search query" } }, required: ["query"] } },
 ];
 
 // Execute tool with validated arguments
 function executeTool(name: string, args: Record<string, unknown>): ToolResult {
   switch (name) {
-    case "list_components": {
+    // Tailwind pattern tools
+    case "list_patterns": {
       const byCategory = designSystem.components.reduce((acc, c) => {
         if (!acc[c.category]) acc[c.category] = [];
         acc[c.category].push({ name: c.name, description: c.description });
         return acc;
       }, {} as Record<string, { name: string; description: string }[]>);
-      return { content: [{ type: "text", text: JSON.stringify({ designSystem: designSystem.name, version: designSystem.version, componentsByCategory: byCategory }, null, 2) }] };
+      return { content: [{ type: "text", text: JSON.stringify({ designSystem: designSystem.name, version: designSystem.version, patternsByCategory: byCategory }, null, 2) }] };
     }
 
-    case "get_component": {
-      const parsed = ComponentNameArgsSchema.safeParse(args);
-      if (!parsed.success) {
-        return { content: [{ type: "text", text: `Invalid arguments: ${formatZodError(parsed.error)}` }], isError: true };
+    case "get_pattern": {
+      const patternName = typeof args.patternName === 'string' ? args.patternName : '';
+      if (!patternName) {
+        return { content: [{ type: "text", text: "Missing patternName argument" }], isError: true };
       }
-      const comp = getComponentByName(parsed.data.componentName);
-      if (!comp) {
-        return { content: [{ type: "text", text: `Component not found. Available: ${designSystem.components.map(c => c.name).join(", ")}` }], isError: true };
+      const pattern = getComponentByName(patternName);
+      if (!pattern) {
+        return { content: [{ type: "text", text: `Pattern not found. Available: ${designSystem.components.map(c => c.name).join(", ")}` }], isError: true };
       }
-      // Return component without deprecated props field
-      const { props: _props, ...componentData } = comp;
-      return { content: [{ type: "text", text: JSON.stringify(componentData, null, 2) }] };
+      // Return pattern without deprecated props field
+      const { props: _props, ...patternData } = pattern;
+      return { content: [{ type: "text", text: JSON.stringify(patternData, null, 2) }] };
     }
 
-    case "search_components": {
+    case "search_patterns": {
       const parsed = SearchArgsSchema.safeParse(args);
       if (!parsed.success) {
         return { content: [{ type: "text", text: `Invalid arguments: ${formatZodError(parsed.error)}` }], isError: true };
@@ -81,39 +84,39 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
       return { content: [{ type: "text", text: JSON.stringify({ query: parsed.data.query, results: results.map(c => ({ name: c.name, category: c.category, description: c.description })) }, null, 2) }] };
     }
 
-    case "get_component_examples": {
-      const parsed = ComponentNameArgsSchema.safeParse(args);
-      if (!parsed.success) {
-        return { content: [{ type: "text", text: `Invalid arguments: ${formatZodError(parsed.error)}` }], isError: true };
+    case "get_pattern_examples": {
+      const patternName = typeof args.patternName === 'string' ? args.patternName : '';
+      if (!patternName) {
+        return { content: [{ type: "text", text: "Missing patternName argument" }], isError: true };
       }
-      const comp = getComponentByName(parsed.data.componentName);
-      if (!comp) {
-        return { content: [{ type: "text", text: "Component not found" }], isError: true };
+      const pattern = getComponentByName(patternName);
+      if (!pattern) {
+        return { content: [{ type: "text", text: "Pattern not found" }], isError: true };
       }
 
       // Build class variations section if specs exist
       let classVariationsText = '';
-      if (comp.specs) {
+      if (pattern.specs) {
         const sections: string[] = [];
-        if (comp.specs.variants?.length) {
-          sections.push('**Variants:**\n' + comp.specs.variants.map(v => `- ${v.name}: \`${v.classes}\``).join('\n'));
+        if (pattern.specs.variants?.length) {
+          sections.push('**Variants:**\n' + pattern.specs.variants.map(v => `- ${v.name}: \`${v.classes}\``).join('\n'));
         }
-        if (comp.specs.sizes?.length) {
-          sections.push('**Sizes:**\n' + comp.specs.sizes.map(s => `- ${s.name}: \`${s.classes}\``).join('\n'));
+        if (pattern.specs.sizes?.length) {
+          sections.push('**Sizes:**\n' + pattern.specs.sizes.map(s => `- ${s.name}: \`${s.classes}\``).join('\n'));
         }
-        if (comp.specs.states?.length) {
-          sections.push('**States:**\n' + comp.specs.states.map(s => `- ${s.name}: \`${s.classes}\``).join('\n'));
+        if (pattern.specs.states?.length) {
+          sections.push('**States:**\n' + pattern.specs.states.map(s => `- ${s.name}: \`${s.classes}\``).join('\n'));
         }
         if (sections.length) {
           classVariationsText = '\n## Class Variations\n\n' + sections.join('\n\n') + '\n';
         }
       }
 
-      const examplesText = comp.examples.map(e => {
+      const examplesText = pattern.examples.map(e => {
         const description = e.description ? `\n${e.description}` : '';
         return `## ${e.title}${description}\n\n\`\`\`html\n${e.code}\n\`\`\``;
       }).join("\n\n");
-      return { content: [{ type: "text", text: `# ${comp.name}\n\n${comp.description}\n\nUsage: ${comp.usageNote}${classVariationsText}\n\n${examplesText}` }] };
+      return { content: [{ type: "text", text: `# ${pattern.name}\n\n${pattern.description}\n\nUsage: ${pattern.usageNote}${classVariationsText}\n\n${examplesText}` }] };
     }
 
     case "get_style_guide": {
@@ -139,10 +142,10 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
     case "get_design_system_info":
       return { content: [{ type: "text", text: JSON.stringify({ name: designSystem.name, version: designSystem.version, description: designSystem.description, stats: { components: designSystem.components.length, categories: getAllCategories() } }, null, 2) }] };
 
-    // Web Components tools
-    case "list_web_components": {
-      const webComponents = getAllWebComponents();
-      const summary = webComponents.map(c => ({
+    // @mcpsystem/ui component tools
+    case "list_components": {
+      const components = getAllWebComponents();
+      const summary = components.map(c => ({
         name: c.name,
         tagName: c.tagName,
         description: c.description,
@@ -154,7 +157,7 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
           text: JSON.stringify({
             package: "@mcpsystem/ui",
             version: "0.1.0",
-            description: "AI-first Web Components for chat interfaces",
+            description: "AI-first components for chat interfaces",
             install: "npm install @mcpsystem/ui",
             usage: "import '@mcpsystem/ui';",
             components: summary,
@@ -163,7 +166,7 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
       };
     }
 
-    case "get_web_component": {
+    case "get_component": {
       const tagName = typeof args.tagName === 'string' ? args.tagName : '';
       if (!tagName) {
         return { content: [{ type: "text", text: "Missing tagName argument" }], isError: true };
@@ -171,7 +174,7 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
       const comp = getWebComponentByTag(tagName);
       if (!comp) {
         const available = getAllWebComponents().map(c => c.tagName).join(", ");
-        return { content: [{ type: "text", text: `Web Component not found: ${tagName}. Available: ${available}` }], isError: true };
+        return { content: [{ type: "text", text: `Component not found: ${tagName}. Available: ${available}` }], isError: true };
       }
 
       // Format as documentation
@@ -216,7 +219,7 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
       return { content: [{ type: "text", text: doc }] };
     }
 
-    case "search_web_components": {
+    case "search_components": {
       const query = typeof args.query === 'string' ? args.query : '';
       if (!query) {
         return { content: [{ type: "text", text: "Missing query argument" }], isError: true };
