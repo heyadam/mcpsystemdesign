@@ -14,7 +14,6 @@ import {
 import {
   JsonRpcRequestSchema,
   BatchRequestSchema,
-  PatternNameArgsSchema,
   SearchArgsSchema,
   StyleGuideSectionSchema,
 } from '@/lib/mcp/schemas';
@@ -122,8 +121,10 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
     case "get_style_guide": {
       const parsed = StyleGuideSectionSchema.safeParse(args);
       const section = parsed.success ? (parsed.data.section || "all") : "all";
-      const sg = styleGuide as unknown as Record<string, unknown>;
-      const data = section === "all" ? styleGuide : { [section]: sg[section] };
+      type StyleGuideSection = keyof typeof styleGuide;
+      const data = section === "all"
+        ? styleGuide
+        : { [section]: styleGuide[section as StyleGuideSection] };
       return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
     }
 

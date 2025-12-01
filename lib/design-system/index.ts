@@ -97,7 +97,9 @@ export function getRelatedComponents(component: Component): Component[] {
 // ============ NAVIGATION HELPERS ============
 
 /**
- * Get navigation structure for sidebar (legacy - for backwards compatibility)
+ * Get patterns grouped by category with full metadata.
+ * Use this when you need the complete category info (name, slug, description).
+ * For sidebar navigation, use getAllNavigation() instead.
  */
 export function getNavigationItems(): Array<{ category: ComponentCategory; components: Component[] }> {
   return categories

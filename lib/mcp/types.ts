@@ -1,20 +1,8 @@
 import { z } from 'zod';
-import {
-  JsonRpcRequestSchema,
-  ToolCallParamsSchema,
-  PatternNameArgsSchema,
-  SearchArgsSchema,
-  StyleGuideSectionSchema,
-  ColorCategorySchema,
-} from './schemas';
+import { JsonRpcRequestSchema } from './schemas';
 
 // Types derived from Zod schemas
 export type JsonRpcRequest = z.infer<typeof JsonRpcRequestSchema>;
-export type ToolCallParams = z.infer<typeof ToolCallParamsSchema>;
-export type PatternNameArgs = z.infer<typeof PatternNameArgsSchema>;
-export type SearchArgs = z.infer<typeof SearchArgsSchema>;
-export type StyleGuideSectionArgs = z.infer<typeof StyleGuideSectionSchema>;
-export type ColorCategoryArgs = z.infer<typeof ColorCategorySchema>;
 
 // Tool execution result
 export interface ToolResult {

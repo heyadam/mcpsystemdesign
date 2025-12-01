@@ -35,8 +35,13 @@ export function validateHost(host: string | null): string {
     return host;
   }
 
-  // Log and reject invalid hosts
-  console.warn(`Invalid host header rejected: ${host}`);
+  // Log and reject invalid hosts (structured JSON for Vercel log aggregation)
+  console.log(JSON.stringify({
+    level: 'warn',
+    message: 'Invalid host header rejected',
+    host,
+    timestamp: new Date().toISOString(),
+  }));
   return DEFAULT_HOST;
 }
 
