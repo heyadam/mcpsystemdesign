@@ -95,10 +95,11 @@ export default function WebComponentPage({ params }: { params: { tagName: string
         <div className="mt-8">
           <h3 className="text-sm font-semibold text-default mb-2">Import</h3>
           <CodeBlock
-            code={`import '@mcpsystem/ui';
+            code={`// Import all components (recommended)
+import '@mcpsystem/ui';
 
-// Or import specific component
-import '@mcpsystem/ui/components/${component.tagName.replace('mcp-', '')}';`}
+// Or import the class for TypeScript
+import { Mcp${component.name.replace(/\s+/g, '')} } from '@mcpsystem/ui';`}
             language="javascript"
           />
         </div>

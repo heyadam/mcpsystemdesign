@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "npm run build:ui && npm run validate && next build",
-    "build:ui": "cd packages/ui && npm run build:all && cp dist/mcp-ui.min.js ../../public/",
+    "build:ui": "cd packages/ui && npm install && npm run build:all && cp dist/mcp-ui.min.js ../../public/",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "validate": "npm run validate:tokens && npm run validate:component-colors",
