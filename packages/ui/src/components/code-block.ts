@@ -264,7 +264,6 @@ export class McpCodeBlock extends McpBaseElement {
 
   render() {
     const showHeader = this.language || this.filename;
-    const codeContent = this._getCodeContent();
 
     return html`
       <div class="container" part="container">
@@ -306,7 +305,10 @@ export class McpCodeBlock extends McpBaseElement {
 
         <div class="code-wrapper">
           ${this._renderLineNumbers()}
-          <pre part="code"><code>${codeContent ? escapeHtml(codeContent) : html`<slot @slotchange="${this._handleSlotChange}"></slot>`}</code></pre>
+          <pre part="code"><code>${this.code
+            ? escapeHtml(this.code)
+            : html`<slot @slotchange="${this._handleSlotChange}"></slot>`
+          }</code></pre>
         </div>
       </div>
     `;
