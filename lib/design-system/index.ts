@@ -1,13 +1,16 @@
 import type { DesignSystem, Component, ComponentCategory } from './types';
 import { components } from './components';
 import { styleGuide, categories } from './style-guide';
+import { getAllWebComponents, type WebComponentDoc } from './web-components';
 
 // Re-export types
 export * from './types';
+export type { WebComponentDoc } from './web-components';
 
 // Re-export data
 export { components } from './components';
 export { styleGuide, categories } from './style-guide';
+export { getAllWebComponents, getWebComponentByTag, searchWebComponents } from './web-components';
 
 // Main design system object
 export const designSystem: DesignSystem = {
@@ -138,9 +141,11 @@ export interface NavSection {
 /**
  * Get complete site navigation structure for unified sidebar
  * This is the single source of truth for all navigation
- * Returns 3 main sections: Home, Docs, and Patterns (all expanded by default)
+ * Returns 4 main sections: Home, Docs, Patterns, and Components (all expanded by default)
  */
 export function getAllNavigation(): NavSection[] {
+  const webComponents = getAllWebComponents();
+
   return [
     // Home section
     {
@@ -188,6 +193,21 @@ export function getAllNavigation(): NavSection[] {
           href: `/patterns/${c.slug}`,
         })),
       })),
+    },
+    // Components section (@mcpsystem/ui Web Components)
+    {
+      id: 'components',
+      title: 'Components',
+      items: [
+        {
+          title: 'All Components',
+          href: '/components',
+        },
+        ...webComponents.map(c => ({
+          title: c.name,
+          href: `/components/${c.tagName}`,
+        })),
+      ],
     },
   ];
 }
