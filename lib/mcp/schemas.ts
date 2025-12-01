@@ -14,8 +14,8 @@ export const ToolCallParamsSchema = z.object({
   arguments: z.record(z.unknown()).optional(),
 });
 
-// Component name argument (for get_component, get_component_examples)
-export const ComponentNameArgsSchema = z.object({
+// Pattern name argument (for get_pattern, get_pattern_examples)
+export const PatternNameArgsSchema = z.object({
   componentName: z.string().min(1).max(100),
 });
 

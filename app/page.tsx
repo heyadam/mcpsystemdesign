@@ -75,7 +75,7 @@ export default function HomePage() {
               </p>
               <div className="mt-8 flex items-center gap-4">
                 <Link
-                  href="/components"
+                  href="/patterns"
                   className="h-12 px-6 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary-hover transition-colors inline-flex items-center"
                 >
                   Browse Patterns
@@ -147,7 +147,7 @@ export default function HomePage() {
                 {categories.map((category) => (
                   <Link
                     key={category}
-                    href={`/components?category=${encodeURIComponent(category)}`}
+                    href={`/patterns?category=${encodeURIComponent(category)}`}
                     className="p-6 bg-surface-raised rounded-xl border border-default hover:border-emphasis hover:shadow-md transition-all"
                   >
                     <h3 className="font-semibold text-default">{category}</h3>
@@ -170,8 +170,8 @@ export default function HomePage() {
                 <Link href="/docs/getting-started" className="text-sm text-muted hover:text-default">
                   Getting Started
                 </Link>
-                <Link href="/components" className="text-sm text-muted hover:text-default">
-                  Components
+                <Link href="/patterns" className="text-sm text-muted hover:text-default">
+                  Patterns
                 </Link>
               </div>
             </div>

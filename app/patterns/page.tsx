@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { getNavigationItems, getDesignSystemStats } from '@/lib/design-system';
 
 export const metadata = {
-  title: 'Components - mcpsystem.design',
-  description: 'Browse all components in mcpsystem.design.',
+  title: 'Patterns - mcpsystem.design',
+  description: 'Browse all Tailwind CSS patterns in mcpsystem.design.',
 };
 
 export default function ComponentsPage() {
@@ -14,10 +14,10 @@ export default function ComponentsPage() {
     <div className="p-6 md:p-10 max-w-4xl">
       {/* Header */}
       <div className="mb-10">
-        <h1 className="text-3xl font-semibold text-default">Components</h1>
+        <h1 className="text-3xl font-semibold text-default">Tailwind Patterns</h1>
         <p className="mt-3 text-muted">
-          {stats.totalComponents} components across {stats.totalCategories} categories.
-          Built with Tailwind CSS for consistency and flexibility.
+          {stats.totalComponents} patterns across {stats.totalCategories} categories.
+          Copy-paste HTML with Tailwind CSS class variations.
         </p>
       </div>
 
@@ -35,7 +35,7 @@ export default function ComponentsPage() {
               {components.map((component) => (
                 <Link
                   key={component.slug}
-                  href={`/components/${component.slug}`}
+                  href={`/patterns/${component.slug}`}
                   className="group p-5 bg-surface-raised border border-default rounded-xl hover:border-emphasis hover:shadow-md dark:hover:shadow-black/50 transition-all"
                 >
                   <h3 className="font-medium text-default group-hover:text-primary">

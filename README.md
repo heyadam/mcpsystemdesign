@@ -48,7 +48,7 @@ vercel
 │   ├── api/
 │   │   └── sse/
 │   │       └── route.ts    # MCP SSE transport endpoint
-│   ├── components/         # Component documentation pages
+│   ├── patterns/           # Pattern documentation pages
 │   ├── docs/               # Documentation pages
 │   └── page.tsx            # Landing page
 ├── lib/
@@ -87,14 +87,16 @@ vercel
 
 ## Available MCP Tools
 
-### Component Tools
+### Pattern Tools (Tailwind CSS)
+
+Tailwind patterns are copy-paste HTML with class variations for variants, sizes, and states.
 
 | Tool | Description |
 |------|-------------|
-| `list_components` | List all components with their categories |
-| `get_component` | Get detailed specification for a component |
-| `search_components` | Search components by name/description/category |
-| `get_component_examples` | Get code examples for a component |
+| `list_patterns` | List all Tailwind patterns with categories |
+| `get_pattern` | Get pattern with class variations |
+| `search_patterns` | Search patterns by name/description/category |
+| `get_pattern_examples` | Get code examples for a pattern |
 
 ### Style Guide Tools
 
@@ -106,6 +108,16 @@ vercel
 | `get_spacing` | Get spacing scale tokens |
 | `get_breakpoints` | Get responsive breakpoint definitions |
 | `get_design_system_info` | Get design system overview and stats |
+
+### Component Tools (@mcpsystem/ui)
+
+@mcpsystem/ui components are Lit-based Web Components you import and use.
+
+| Tool | Description |
+|------|-------------|
+| `list_components` | List all @mcpsystem/ui components |
+| `get_component` | Get component docs with props, events, CSS parts |
+| `search_components` | Search components by name or description |
 
 ## Connecting to AI Assistants
 

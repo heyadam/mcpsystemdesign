@@ -44,8 +44,8 @@ export default function ComponentPage({ params }: { params: { slug: string } }) 
     <div className="p-6 md:p-10 max-w-4xl">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm mb-6">
-        <Link href="/components" className="text-muted hover:text-default transition-colors">
-          Components
+        <Link href="/patterns" className="text-muted hover:text-default transition-colors">
+          Patterns
         </Link>
         <span className="text-subtle">/</span>
         <span className="text-muted">{component.category}</span>
@@ -195,15 +195,15 @@ export default function ComponentPage({ params }: { params: { slug: string } }) 
         </div>
       </section>
 
-      {/* Related Components */}
+      {/* Related Patterns */}
       {relatedComponents.length > 0 && (
         <section className="mt-12 pt-8 border-t border-default">
-          <h2 className="text-sm font-semibold text-default mb-4">Related Components</h2>
+          <h2 className="text-sm font-semibold text-default mb-4">Related Patterns</h2>
           <div className="flex flex-wrap gap-2">
             {relatedComponents.map((related) => (
               <Link
                 key={related.slug}
-                href={`/components/${related.slug}`}
+                href={`/patterns/${related.slug}`}
                 className="px-3 py-2 text-sm bg-surface-hover text-default rounded-lg hover:bg-surface-sunken transition-colors"
               >
                 {related.name}

@@ -138,7 +138,7 @@ export interface NavSection {
 /**
  * Get complete site navigation structure for unified sidebar
  * This is the single source of truth for all navigation
- * Returns 3 main sections: Home, Docs, and Components (all expanded by default)
+ * Returns 3 main sections: Home, Docs, and Patterns (all expanded by default)
  */
 export function getAllNavigation(): NavSection[] {
   return [
@@ -170,14 +170,14 @@ export function getAllNavigation(): NavSection[] {
         },
       ],
     },
-    // Components section with nested categories
+    // Patterns section with nested categories (Tailwind CSS patterns)
     {
-      id: 'components',
-      title: 'Components',
+      id: 'patterns',
+      title: 'Patterns',
       items: [
         {
-          title: 'All Components',
-          href: '/components',
+          title: 'All Patterns',
+          href: '/patterns',
         },
       ],
       categories: categories.sort((a, b) => a.order - b.order).map(category => ({
@@ -185,7 +185,7 @@ export function getAllNavigation(): NavSection[] {
         title: category.name,
         items: getComponentsByCategory(category.name).map(c => ({
           title: c.name,
-          href: `/components/${c.slug}`,
+          href: `/patterns/${c.slug}`,
         })),
       })),
     },
