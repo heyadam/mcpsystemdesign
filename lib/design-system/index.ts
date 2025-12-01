@@ -177,7 +177,7 @@ export function getAllNavigation(): NavSection[] {
       items: [
         {
           title: 'All Patterns',
-          href: '/components',
+          href: '/patterns',
         },
       ],
       categories: categories.sort((a, b) => a.order - b.order).map(category => ({
@@ -185,7 +185,7 @@ export function getAllNavigation(): NavSection[] {
         title: category.name,
         items: getComponentsByCategory(category.name).map(c => ({
           title: c.name,
-          href: `/components/${c.slug}`,
+          href: `/patterns/${c.slug}`,
         })),
       })),
     },
