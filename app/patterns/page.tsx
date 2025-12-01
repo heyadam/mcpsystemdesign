@@ -35,7 +35,7 @@ export default function ComponentsPage() {
               {components.map((component) => (
                 <Link
                   key={component.slug}
-                  href={`/components/${component.slug}`}
+                  href={`/patterns/${component.slug}`}
                   className="group p-5 bg-surface-raised border border-default rounded-xl hover:border-emphasis hover:shadow-md dark:hover:shadow-black/50 transition-all"
                 >
                   <h3 className="font-medium text-default group-hover:text-primary">

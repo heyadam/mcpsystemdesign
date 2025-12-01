@@ -22,10 +22,10 @@ This is a production-ready MCP (Model Context Protocol) server that exposes desi
 ```
 ├── app/                        # Next.js App Router
 │   ├── api/sse/route.ts       # Main MCP SSE transport endpoint
-│   ├── components/            # Component documentation pages
-│   │   ├── [slug]/page.tsx   # Dynamic component detail pages
-│   │   ├── page.tsx          # Component list page
-│   │   └── layout.tsx        # Components section layout
+│   ├── patterns/              # Pattern documentation pages
+│   │   ├── [slug]/page.tsx   # Dynamic pattern detail pages
+│   │   ├── page.tsx          # Pattern list page
+│   │   └── layout.tsx        # Patterns section layout
 │   ├── docs/                  # Documentation pages
 │   │   ├── page.tsx          # Docs home
 │   │   ├── layout.tsx        # Docs section layout

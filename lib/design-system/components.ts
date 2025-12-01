@@ -22,7 +22,7 @@ export const components: Component[] = [
     examples: [
       {
         title: "Color Tokens",
-        code: `<!-- This page has a custom layout - visit /components/colors to see the full color palette -->`,
+        code: `<!-- This page has a custom layout - visit /patterns/colors to see the full color palette -->`,
         description: "Interactive color swatches with click-to-copy functionality"
       }
     ],
@@ -48,7 +48,7 @@ export const components: Component[] = [
     examples: [
       {
         title: "Typography Styles",
-        code: `<!-- This page has a custom layout - visit /components/typography to see all typography styles -->`,
+        code: `<!-- This page has a custom layout - visit /patterns/typography to see all typography styles -->`,
         description: "Complete typography scale with live examples and specifications"
       }
     ],

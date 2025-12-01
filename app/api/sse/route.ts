@@ -14,7 +14,7 @@ import {
 import {
   JsonRpcRequestSchema,
   BatchRequestSchema,
-  ComponentNameArgsSchema,
+  PatternNameArgsSchema,
   SearchArgsSchema,
   StyleGuideSectionSchema,
 } from '@/lib/mcp/schemas';
