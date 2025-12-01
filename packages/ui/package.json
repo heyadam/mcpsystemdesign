@@ -18,10 +18,12 @@
   ],
   "scripts": {
     "build": "tsc",
+    "build:bundle": "esbuild src/index.ts --bundle --format=esm --minify --outfile=dist/mcp-ui.min.js",
+    "build:all": "npm run build && npm run build:bundle",
     "build:watch": "tsc --watch",
     "clean": "rm -rf dist",
     "test": "echo \"No tests yet\" && exit 0",
-    "prepublishOnly": "npm run clean && npm run build"
+    "prepublishOnly": "npm run clean && npm run build:all"
   },
   "keywords": [
     "web-components",
