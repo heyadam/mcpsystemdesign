@@ -2,15 +2,24 @@
 
 import { useEffect, useState } from 'react';
 
-const sections = [
+interface Section {
+  id: string;
+  label: string;
+}
+
+const defaultSections: Section[] = [
   { id: 'overview', label: 'Overview' },
   { id: 'specs', label: 'Classes' },
   { id: 'guidelines', label: 'Guidelines' },
   { id: 'examples', label: 'Examples' },
 ];
 
-export function SectionTabs() {
-  const [activeSection, setActiveSection] = useState('overview');
+interface SectionTabsProps {
+  sections?: Section[];
+}
+
+export function SectionTabs({ sections = defaultSections }: SectionTabsProps) {
+  const [activeSection, setActiveSection] = useState(sections[0]?.id || 'overview');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +36,7 @@ export function SectionTabs() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [sections]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -45,7 +54,7 @@ export function SectionTabs() {
 
   return (
     <div className="sticky top-16 z-10 bg-surface py-4 -mx-6 px-6 md:-mx-10 md:px-10 border-b border-default">
-      <div className="inline-flex bg-surface-hover rounded-lg p-1">
+      <div className="inline-flex bg-surface-hover rounded-lg p-1 flex-wrap">
         {sections.map((section) => (
           <button
             key={section.id}
