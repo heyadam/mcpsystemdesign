@@ -277,21 +277,27 @@ console.log(greeting);
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "build": "esbuild src/main.js --bundle --format=esm --outfile=dist/bundle.js && npx @tailwindcss/cli -i src/styles.css -o dist/styles.css",
-    "watch": "esbuild src/main.js --bundle --format=esm --outfile=dist/bundle.js --watch",
-    "serve": "npx serve ."
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@mcpsystem/ui": "^0.1.0",
     "lit": "^3.0.0"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.0.0",
-    "esbuild": "^0.24.0",
-    "serve": "^14.0.0",
-    "tailwindcss": "^4.0.0"
+    "@tailwindcss/vite": "^4.0.0",
+    "tailwindcss": "^4.0.0",
+    "vite": "^6.0.0"
   }
 }`;
+
+      const viteConfig = `import { defineConfig } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  plugins: [tailwindcss()],
+});`;
 
       const indexHtml = `<!DOCTYPE html>
 <html lang="en" class="${theme}">
@@ -299,7 +305,7 @@ console.log(greeting);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${projectName}</title>
-  <link rel="stylesheet" href="/dist/styles.css">
+  <link rel="stylesheet" href="/src/styles.css">
 </head>
 <body class="min-h-screen p-8">
   <header class="mb-8">
@@ -318,11 +324,14 @@ console.log(greeting);
   <main>${exampleSection}
   </main>
 
-  <script type="module" src="/dist/bundle.js"></script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>`;
 
-      const mainJs = `// Import @mcpsystem/ui components (linked via npm link)
+      const mainJs = `// Import styles
+import './styles.css';
+
+// Import @mcpsystem/ui components (linked via npm link)
 import '@mcpsystem/ui';
 
 // Handle message input submissions
@@ -382,7 +391,7 @@ Here's a starter project with Tailwind CSS, Lit, and @mcpsystem/ui pre-configure
 ${projectName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/
 ├── index.html
 ├── package.json
-├── dist/           # Generated output
+├── vite.config.js
 └── src/
     ├── main.js
     └── styles.css
@@ -399,18 +408,11 @@ ${projectName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/
    # In your new project directory
    npm link @mcpsystem/ui
    \`\`\`
-3. Install dependencies, build, and serve:
+3. Install dependencies and run:
    \`\`\`bash
    npm install
-   npm run build
-   npm run serve
+   npm run dev
    \`\`\`
-
-For development with watch mode:
-\`\`\`bash
-npm run watch    # In one terminal
-npm run serve    # In another terminal
-\`\`\`
 
 ---
 
@@ -419,6 +421,11 @@ npm run serve    # In another terminal
 ### package.json
 \`\`\`json
 ${packageJson}
+\`\`\`
+
+### vite.config.js
+\`\`\`javascript
+${viteConfig}
 \`\`\`
 
 ### index.html
@@ -439,10 +446,10 @@ ${stylesCss}
 ---
 
 ## Features
-- **Tailwind CSS v4** with design system color tokens
+- **Vite** for fast development with HMR
+- **Tailwind CSS v4** via @tailwindcss/vite plugin
 - **Lit** for Web Components support
 - **@mcpsystem/ui** components via npm link
-- **esbuild** for fast bundling
 - **Dark mode** toggle included
 
 ## Available Components
