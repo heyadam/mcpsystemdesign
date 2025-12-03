@@ -57,3 +57,6 @@ Success responses wrap data in `result.content[0].text` (often stringified JSON 
 - Batch calls supported (array body) up to 100 items; invalid items return JSON-RPC errors.
 - Structured logging and request IDs are added automatically (`X-Request-Id` header).
 - If a tool name/args are missing, the server returns JSON-RPC errors rather than throwing.
+- Global base styles hide horizontal overflow on `html`/`body` to prevent iPhone horizontal scrolling on the landing page.
+- Landing page full-bleed sections only use negative horizontal margins at `md`+ breakpoints; mobile uses normal padding to avoid clipped content on iPhone.
+- Landing page MCP config code block now wraps (`whitespace-pre-wrap break-words`) to avoid clipping long URLs on small screens.

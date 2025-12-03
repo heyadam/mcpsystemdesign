@@ -63,26 +63,26 @@ export default function HomePage() {
       {/* Main layout with sidebar */}
       <div className="flex pt-16">
         <Sidebar />
-        <main className="flex-1 p-6 md:p-10">
+        <main className="flex-1 p-4 sm:p-6 md:p-10">
           {/* Hero */}
           <section className="pb-10">
             <div className="max-w-6xl">
-              <h1 className="text-5xl font-semibold tracking-tight max-w-3xl">
-                <span className="gradient-text">{designSystem.name}</span>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl text-default">
+                {designSystem.name}
               </h1>
               <p className="mt-6 text-xl text-muted max-w-2xl">
                 {designSystem.description}
               </p>
-              <div className="mt-8 flex items-center gap-4">
+              <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                 <Link
                   href="/patterns"
-                  className="h-12 px-6 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary-hover transition-colors inline-flex items-center"
+                  className="h-12 px-6 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary-hover transition-colors inline-flex items-center justify-center"
                 >
                   Browse Patterns
                 </Link>
                 <Link
                   href="/docs/getting-started"
-                  className="h-12 px-6 bg-surface-raised text-default border border-default rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors inline-flex items-center"
+                  className="h-12 px-6 bg-surface-raised text-default border border-default rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors inline-flex items-center justify-center"
                 >
                   Get Started
                 </Link>
@@ -91,17 +91,17 @@ export default function HomePage() {
           </section>
 
           {/* MCP Setup */}
-          <section className="py-10 bg-surface-sunken -mx-6 md:-mx-10 px-6 md:px-10">
+          <section className="py-10 bg-surface-sunken -mx-6 px-6 sm:px-6 md:px-10 md:-mx-10">
             <div className="max-w-6xl">
               <h2 className="text-2xl font-semibold text-default">MCP Server Setup</h2>
               <p className="mt-4 text-muted max-w-2xl">
                 Connect to your AI assistant (Claude, Cursor) via MCP for instant access to Tailwind component patterns.
               </p>
-              <div className="mt-8 p-6 bg-surface-raised border border-default rounded-xl">
+              <div className="mt-8 p-4 sm:p-6 bg-surface-raised border border-default rounded-xl">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-xs text-muted">MCP Configuration</span>
                 </div>
-                <pre className="text-sm text-default font-mono overflow-x-auto">
+                <pre className="text-xs sm:text-sm text-default font-mono overflow-x-auto whitespace-pre-wrap break-words">
 {`{
   "mcpServers": {
     "mcpdesignsystem": {
@@ -140,7 +140,7 @@ export default function HomePage() {
           </section>
 
           {/* Categories */}
-          <section className="py-10 bg-surface-sunken -mx-6 md:-mx-10 px-6 md:px-10">
+          <section className="py-10 bg-surface-sunken -mx-6 px-6 sm:px-6 md:px-10 md:-mx-10">
             <div className="max-w-6xl">
               <h2 className="text-2xl font-semibold text-default">Pattern Categories</h2>
               <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -162,7 +162,7 @@ export default function HomePage() {
 
           {/* Footer */}
           <footer className="py-8 border-t border-default">
-            <div className="max-w-6xl flex items-center justify-between">
+            <div className="max-w-6xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <p className="text-sm text-muted">
                 mcpsystem.design v{designSystem.version}
               </p>
