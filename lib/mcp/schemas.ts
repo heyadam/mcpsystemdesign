@@ -36,3 +36,10 @@ export const ColorCategorySchema = z.object({
 
 // Batch request validation (max 100 items to prevent abuse)
 export const BatchRequestSchema = z.array(JsonRpcRequestSchema).max(100);
+
+// Generate boilerplate arguments
+export const GenerateBoilerplateArgsSchema = z.object({
+  projectName: z.string().max(100).optional(),
+  theme: z.enum(['light', 'dark']).optional(),
+  includeExamples: z.boolean().optional(),
+});
