@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Sidebar } from './Sidebar';
 
@@ -11,6 +11,29 @@ interface MobileDrawerProps {
 
 export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
   const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Handle visibility and animation states
+  useEffect(() => {
+    if (isOpen) {
+      setIsVisible(true);
+      // Reset animation state first to ensure it starts from closed position
+      setIsAnimating(false);
+      // Trigger animation after DOM is ready - small delay ensures initial state is painted
+      const timer = setTimeout(() => {
+        setIsAnimating(true);
+      }, 10); // Small delay to ensure browser paints the initial closed state
+      return () => clearTimeout(timer);
+    } else {
+      setIsAnimating(false);
+      // Wait for animation to complete before removing from DOM
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+      }, 300); // Match transition duration
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   // Close drawer on route change
   useEffect(() => {
@@ -45,19 +68,25 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!isVisible) return null;
 
   return (
     <div className="fixed inset-0 z-[60] md:hidden">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-surface-overlay backdrop-blur-sm"
+        className={`fixed inset-0 bg-surface-overlay backdrop-blur-sm transition-opacity duration-300 ${
+          isAnimating ? 'opacity-100' : 'opacity-0'
+        }`}
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Drawer */}
-      <div className="fixed inset-y-0 left-0 w-72 bg-surface shadow-xl overflow-y-auto z-10">
+      <div
+        className={`fixed inset-y-0 left-0 w-72 bg-surface shadow-xl overflow-y-auto z-10 transition-transform duration-300 ease-out ${
+          isAnimating ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-default">
           <div className="flex items-center gap-2">
