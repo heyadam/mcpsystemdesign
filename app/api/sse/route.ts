@@ -305,7 +305,6 @@ export default defineConfig({
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${projectName}</title>
-  <link rel="stylesheet" href="/src/styles.css">
 </head>
 <body class="min-h-screen p-8">
   <header class="mb-8">
