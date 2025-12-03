@@ -272,90 +272,32 @@ console.log(greeting);
       <mcp-message-input placeholder="Type your message..."></mcp-message-input>
     </div>` : '';
 
-      const boilerplate = `<!DOCTYPE html>
+      const packageJson = `{
+  "name": "${projectName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@mcpsystem/ui": "^0.1.0",
+    "lit": "^3.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.0.0",
+    "vite": "^5.0.0"
+  }
+}`;
+
+      const indexHtml = `<!DOCTYPE html>
 <html lang="en" class="${theme}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${projectName}</title>
-
-  <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            // MCP Design System semantic colors
-            surface: {
-              DEFAULT: 'var(--color-surface)',
-              hover: 'var(--color-surface-hover)',
-              active: 'var(--color-surface-active)',
-            },
-            primary: {
-              DEFAULT: 'var(--color-primary)',
-              foreground: 'var(--color-primary-foreground)',
-              hover: 'var(--color-primary-hover)',
-            },
-            muted: {
-              DEFAULT: 'var(--color-muted)',
-              foreground: 'var(--color-muted-foreground)',
-            },
-          },
-        },
-      },
-    }
-  </script>
-
-  <!-- Lit for Web Components -->
-  <script type="module">
-    import 'https://cdn.jsdelivr.net/npm/lit@3/+esm';
-  </script>
-
-  <!-- @mcpsystem/ui Web Components -->
-  <script type="module">
-    import 'https://cdn.jsdelivr.net/npm/@mcpsystem/ui@latest/dist/index.js';
-  </script>
-
-  <style>
-    /* MCP Design System CSS Custom Properties */
-    :root {
-      /* Light mode colors */
-      --color-surface: #ffffff;
-      --color-surface-hover: #f5f5f5;
-      --color-surface-active: #ebebeb;
-      --color-primary: #2563eb;
-      --color-primary-foreground: #ffffff;
-      --color-primary-hover: #1d4ed8;
-      --color-muted: #f5f5f5;
-      --color-muted-foreground: #737373;
-      --color-border: #e5e5e5;
-      --color-text: #171717;
-      --color-text-muted: #737373;
-    }
-
-    .dark {
-      /* Dark mode colors */
-      --color-surface: #171717;
-      --color-surface-hover: #262626;
-      --color-surface-active: #404040;
-      --color-primary: #3b82f6;
-      --color-primary-foreground: #ffffff;
-      --color-primary-hover: #60a5fa;
-      --color-muted: #262626;
-      --color-muted-foreground: #a3a3a3;
-      --color-border: #404040;
-      --color-text: #fafafa;
-      --color-text-muted: #a3a3a3;
-    }
-
-    body {
-      background-color: var(--color-surface);
-      color: var(--color-text);
-      font-family: system-ui, -apple-system, sans-serif;
-    }
-  </style>
+  <link rel="stylesheet" href="/src/styles.css">
 </head>
 <body class="min-h-screen p-8">
   <header class="mb-8">
@@ -374,39 +316,124 @@ console.log(greeting);
   <main>${exampleSection}
   </main>
 
-  <script>
-    // Handle message input submissions
-    document.querySelector('mcp-message-input')?.addEventListener('mcp-submit', (e) => {
-      console.log('Message submitted:', e.detail.value);
-    });
-  </script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>`;
+
+      const mainJs = `// Import @mcpsystem/ui components (linked via npm link)
+import '@mcpsystem/ui';
+
+// Handle message input submissions
+document.querySelector('mcp-message-input')?.addEventListener('mcp-submit', (e) => {
+  console.log('Message submitted:', e.detail.value);
+});`;
+
+      const stylesCss = `@import "tailwindcss";
+
+/* MCP Design System CSS Custom Properties */
+:root {
+  /* Light mode colors */
+  --color-surface: #ffffff;
+  --color-surface-hover: #f5f5f5;
+  --color-surface-active: #ebebeb;
+  --color-primary: #2563eb;
+  --color-primary-foreground: #ffffff;
+  --color-primary-hover: #1d4ed8;
+  --color-muted: #f5f5f5;
+  --color-muted-foreground: #737373;
+  --color-border: #e5e5e5;
+  --color-text: #171717;
+  --color-text-muted: #737373;
+}
+
+.dark {
+  /* Dark mode colors */
+  --color-surface: #171717;
+  --color-surface-hover: #262626;
+  --color-surface-active: #404040;
+  --color-primary: #3b82f6;
+  --color-primary-foreground: #ffffff;
+  --color-primary-hover: #60a5fa;
+  --color-muted: #262626;
+  --color-muted-foreground: #a3a3a3;
+  --color-border: #404040;
+  --color-text: #fafafa;
+  --color-text-muted: #a3a3a3;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-family: system-ui, -apple-system, sans-serif;
+}`;
 
       return {
         content: [{
           type: "text",
           text: `# Boilerplate Generated
 
-Here's a starter HTML page with Tailwind CSS, Lit, and @mcpsystem/ui pre-configured.
+Here's a starter project with Tailwind CSS, Lit, and @mcpsystem/ui pre-configured.
 
-## Features
-- **Tailwind CSS** via CDN with custom design system colors
-- **Lit** for Web Components support
-- **@mcpsystem/ui** components ready to use
-- **Dark mode** toggle included
-- **Responsive** layout with semantic color tokens
+## Project Structure
 
-## Usage
-1. Copy the HTML below to a new \`.html\` file
-2. Open in a browser - no build step required!
-3. Customize the content and add more components
+\`\`\`
+${projectName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/
+├── index.html
+├── package.json
+└── src/
+    ├── main.js
+    └── styles.css
+\`\`\`
+
+## Setup Instructions
+
+1. Create project directory and files (shown below)
+2. Link @mcpsystem/ui locally:
+   \`\`\`bash
+   # In the @mcpsystem/ui package directory
+   cd packages/ui && npm link
+
+   # In your new project directory
+   npm link @mcpsystem/ui
+   \`\`\`
+3. Install dependencies and run:
+   \`\`\`bash
+   npm install
+   npm run dev
+   \`\`\`
 
 ---
 
-\`\`\`html
-${boilerplate}
+## Files
+
+### package.json
+\`\`\`json
+${packageJson}
 \`\`\`
+
+### index.html
+\`\`\`html
+${indexHtml}
+\`\`\`
+
+### src/main.js
+\`\`\`javascript
+${mainJs}
+\`\`\`
+
+### src/styles.css
+\`\`\`css
+${stylesCss}
+\`\`\`
+
+---
+
+## Features
+- **Tailwind CSS v4** with design system color tokens
+- **Lit** for Web Components support
+- **@mcpsystem/ui** components via npm link
+- **Vite** for fast development
+- **Dark mode** toggle included
 
 ## Available Components
 - \`<mcp-chat-message>\` - Chat message bubbles
