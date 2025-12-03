@@ -175,6 +175,21 @@ export function getAllNavigation(): NavSection[] {
         },
       ],
     },
+    // Components section (@mcpsystem/ui Web Components)
+    {
+      id: 'components',
+      title: 'Components',
+      items: [
+        {
+          title: 'All Components',
+          href: '/components',
+        },
+        ...webComponents.map(c => ({
+          title: c.name,
+          href: `/components/${c.tagName}`,
+        })),
+      ],
+    },
     // Patterns section with nested categories (Tailwind CSS patterns)
     {
       id: 'patterns',
@@ -193,21 +208,6 @@ export function getAllNavigation(): NavSection[] {
           href: `/patterns/${c.slug}`,
         })),
       })),
-    },
-    // Components section (@mcpsystem/ui Web Components)
-    {
-      id: 'components',
-      title: 'Components',
-      items: [
-        {
-          title: 'All Components',
-          href: '/components',
-        },
-        ...webComponents.map(c => ({
-          title: c.name,
-          href: `/components/${c.tagName}`,
-        })),
-      ],
     },
   ];
 }
