@@ -277,17 +277,19 @@ console.log(greeting);
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "esbuild src/main.js --bundle --format=esm --outfile=dist/bundle.js && npx @tailwindcss/cli -i src/styles.css -o dist/styles.css",
+    "watch": "esbuild src/main.js --bundle --format=esm --outfile=dist/bundle.js --watch",
+    "serve": "npx serve ."
   },
   "dependencies": {
     "@mcpsystem/ui": "^0.1.0",
     "lit": "^3.0.0"
   },
   "devDependencies": {
-    "tailwindcss": "^4.0.0",
-    "vite": "^5.0.0"
+    "@tailwindcss/cli": "^4.0.0",
+    "esbuild": "^0.24.0",
+    "serve": "^14.0.0",
+    "tailwindcss": "^4.0.0"
   }
 }`;
 
@@ -297,7 +299,7 @@ console.log(greeting);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${projectName}</title>
-  <link rel="stylesheet" href="/src/styles.css">
+  <link rel="stylesheet" href="/dist/styles.css">
 </head>
 <body class="min-h-screen p-8">
   <header class="mb-8">
@@ -316,7 +318,7 @@ console.log(greeting);
   <main>${exampleSection}
   </main>
 
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/dist/bundle.js"></script>
 </body>
 </html>`;
 
@@ -380,6 +382,7 @@ Here's a starter project with Tailwind CSS, Lit, and @mcpsystem/ui pre-configure
 ${projectName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/
 ├── index.html
 ├── package.json
+├── dist/           # Generated output
 └── src/
     ├── main.js
     └── styles.css
@@ -396,11 +399,18 @@ ${projectName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/
    # In your new project directory
    npm link @mcpsystem/ui
    \`\`\`
-3. Install dependencies and run:
+3. Install dependencies, build, and serve:
    \`\`\`bash
    npm install
-   npm run dev
+   npm run build
+   npm run serve
    \`\`\`
+
+For development with watch mode:
+\`\`\`bash
+npm run watch    # In one terminal
+npm run serve    # In another terminal
+\`\`\`
 
 ---
 
@@ -432,7 +442,7 @@ ${stylesCss}
 - **Tailwind CSS v4** with design system color tokens
 - **Lit** for Web Components support
 - **@mcpsystem/ui** components via npm link
-- **Vite** for fast development
+- **esbuild** for fast bundling
 - **Dark mode** toggle included
 
 ## Available Components
