@@ -67,7 +67,7 @@ export default function HomePage() {
           {/* Hero */}
           <section className="pb-10">
             <div className="max-w-6xl">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight max-w-3xl text-default">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight max-w-3xl text-default">
                 {designSystem.name}
               </h1>
               <p className="mt-6 text-xl text-muted max-w-2xl">
@@ -76,13 +76,13 @@ export default function HomePage() {
               <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                 <Link
                   href="/patterns"
-                  className="h-12 px-6 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary-hover transition-colors inline-flex items-center justify-center"
+                  className="h-12 px-6 bg-primary text-primary-foreground rounded-lg text-base font-medium hover:bg-primary-hover transition-colors inline-flex items-center justify-center"
                 >
                   Browse Patterns
                 </Link>
                 <Link
                   href="/docs/getting-started"
-                  className="h-12 px-6 bg-surface-raised text-default border border-default rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors inline-flex items-center justify-center"
+                  className="h-12 px-6 bg-surface-raised text-default border border-default rounded-lg text-base font-medium hover:bg-surface-hover hover:border-emphasis transition-colors inline-flex items-center justify-center"
                 >
                   Get Started
                 </Link>
@@ -91,7 +91,7 @@ export default function HomePage() {
           </section>
 
           {/* MCP Setup */}
-          <section className="py-10 bg-surface-sunken -mx-6 px-6 sm:px-6 md:px-10 md:-mx-10">
+          <section className="py-10 bg-surface-sunken rounded-xl md:rounded-none px-4 sm:px-6 md:-mx-10 md:px-10">
             <div className="max-w-6xl">
               <h2 className="text-2xl font-semibold text-default">MCP Server Setup</h2>
               <p className="mt-4 text-muted max-w-2xl">
@@ -140,7 +140,7 @@ export default function HomePage() {
           </section>
 
           {/* Categories */}
-          <section className="py-10 bg-surface-sunken -mx-6 px-6 sm:px-6 md:px-10 md:-mx-10">
+          <section className="py-10 bg-surface-sunken rounded-xl md:rounded-none px-4 sm:px-6 md:-mx-10 md:px-10">
             <div className="max-w-6xl">
               <h2 className="text-2xl font-semibold text-default">Pattern Categories</h2>
               <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

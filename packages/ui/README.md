@@ -239,6 +239,10 @@ npm run build
 npm run build:watch  # Watch mode
 ```
 
+### Testing in a Separate Repository
+
+To test this package in your own project before it's published to npm, see [Testing @mcpsystem/ui Locally](../../docs/TESTING-LOCAL.md) for instructions on using `npm link`, `npm pack`, or the `file:` protocol.
+
 ### Demo Page
 
 A demo page is included for manual testing and visual verification of components:
