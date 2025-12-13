@@ -17,6 +17,7 @@ import {
   PatternNameArgsSchema,
   SearchArgsSchema,
   StyleGuideSectionSchema,
+  GenerateBoilerplateArgsSchema,
 } from '@/lib/mcp/schemas';
 import {
   JsonRpcErrorCodes,
@@ -46,6 +47,8 @@ const tools = [
   { name: "list_components", description: "List all @mcpsystem/ui components for AI chat interfaces", inputSchema: { type: "object", properties: {}, required: [] } },
   { name: "get_component", description: "Get component documentation including props, events, CSS parts, and examples", inputSchema: { type: "object", properties: { tagName: { type: "string", description: "Component tag name (e.g., 'mcp-chat-message')" } }, required: ["tagName"] } },
   { name: "search_components", description: "Search @mcpsystem/ui components by name or description", inputSchema: { type: "object", properties: { query: { type: "string", description: "Search query" } }, required: ["query"] } },
+  // Boilerplate generation tool
+  { name: "generate_boilerplate", description: "Generate a starter HTML page with Tailwind CSS, Lit, and @mcpsystem/ui pre-configured", inputSchema: { type: "object", properties: { projectName: { type: "string", description: "Project name for the page title (default: 'My Project')" }, theme: { type: "string", enum: ["light", "dark"], description: "Initial theme (default: 'light')" }, includeExamples: { type: "boolean", description: "Include example components (default: true)" } }, required: [] } },
 ];
 
 // Execute tool with validated arguments
@@ -236,6 +239,227 @@ function executeTool(name: string, args: Record<string, unknown>): ToolResult {
               description: c.description,
             }))
           }, null, 2)
+        }]
+      };
+    }
+
+    case "generate_boilerplate": {
+      const parsed = GenerateBoilerplateArgsSchema.safeParse(args);
+      const projectName = parsed.success && parsed.data.projectName ? parsed.data.projectName : 'My Project';
+      const theme = parsed.success && parsed.data.theme ? parsed.data.theme : 'light';
+      const includeExamples = parsed.success && parsed.data.includeExamples !== undefined ? parsed.data.includeExamples : true;
+
+      const exampleSection = includeExamples ? `
+    <!-- Example Chat Interface -->
+    <div class="max-w-2xl mx-auto space-y-4">
+      <mcp-chat-message role="user">
+        Hello! How can I use these components?
+      </mcp-chat-message>
+
+      <mcp-chat-message role="assistant" name="Claude">
+        <mcp-streaming-text text="Welcome! These components are designed for AI chat interfaces. You can customize them with CSS custom properties and Tailwind classes."></mcp-streaming-text>
+      </mcp-chat-message>
+
+      <mcp-typing-indicator></mcp-typing-indicator>
+
+      <mcp-code-block language="javascript">
+const greeting = "Hello, World!";
+console.log(greeting);
+      </mcp-code-block>
+
+      <mcp-token-counter used="1250" limit="4096" show-label></mcp-token-counter>
+
+      <mcp-message-input placeholder="Type your message..."></mcp-message-input>
+    </div>` : '';
+
+      const packageJson = `{
+  "name": "${projectName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@mcpsystem/ui": "^0.1.0",
+    "lit": "^3.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "tailwindcss": "^4.0.0",
+    "vite": "^6.0.0"
+  }
+}`;
+
+      const viteConfig = `import { defineConfig } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  plugins: [tailwindcss()],
+});`;
+
+      const indexHtml = `<!DOCTYPE html>
+<html lang="en" class="${theme}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${projectName}</title>
+</head>
+<body class="min-h-screen p-8">
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold">${projectName}</h1>
+    <p class="text-[var(--color-text-muted)] mt-2">
+      Built with Tailwind CSS, Lit, and @mcpsystem/ui
+    </p>
+    <button
+      onclick="document.documentElement.classList.toggle('dark')"
+      class="mt-4 px-4 py-2 bg-[var(--color-primary)] text-[var(--color-primary-foreground)] rounded-lg hover:bg-[var(--color-primary-hover)] transition-colors"
+    >
+      Toggle Theme
+    </button>
+  </header>
+
+  <main>${exampleSection}
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>`;
+
+      const mainJs = `// Import styles
+import './styles.css';
+
+// Import @mcpsystem/ui components (linked via npm link)
+import '@mcpsystem/ui';
+
+// Handle message input submissions
+document.querySelector('mcp-message-input')?.addEventListener('mcp-submit', (e) => {
+  console.log('Message submitted:', e.detail.value);
+});`;
+
+      const stylesCss = `@import "tailwindcss";
+
+/* MCP Design System CSS Custom Properties */
+:root {
+  /* Light mode colors */
+  --color-surface: #ffffff;
+  --color-surface-hover: #f5f5f5;
+  --color-surface-active: #ebebeb;
+  --color-primary: #2563eb;
+  --color-primary-foreground: #ffffff;
+  --color-primary-hover: #1d4ed8;
+  --color-muted: #f5f5f5;
+  --color-muted-foreground: #737373;
+  --color-border: #e5e5e5;
+  --color-text: #171717;
+  --color-text-muted: #737373;
+}
+
+.dark {
+  /* Dark mode colors */
+  --color-surface: #171717;
+  --color-surface-hover: #262626;
+  --color-surface-active: #404040;
+  --color-primary: #3b82f6;
+  --color-primary-foreground: #ffffff;
+  --color-primary-hover: #60a5fa;
+  --color-muted: #262626;
+  --color-muted-foreground: #a3a3a3;
+  --color-border: #404040;
+  --color-text: #fafafa;
+  --color-text-muted: #a3a3a3;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-family: system-ui, -apple-system, sans-serif;
+}`;
+
+      return {
+        content: [{
+          type: "text",
+          text: `# Boilerplate Generated
+
+Here's a starter project with Tailwind CSS, Lit, and @mcpsystem/ui pre-configured.
+
+## Project Structure
+
+\`\`\`
+${projectName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/
+├── index.html
+├── package.json
+├── vite.config.js
+└── src/
+    ├── main.js
+    └── styles.css
+\`\`\`
+
+## Setup Instructions
+
+1. Create project directory and files (shown below)
+2. Link @mcpsystem/ui locally:
+   \`\`\`bash
+   # In the @mcpsystem/ui package directory
+   cd packages/ui && npm link
+
+   # In your new project directory
+   npm link @mcpsystem/ui
+   \`\`\`
+3. Install dependencies and run:
+   \`\`\`bash
+   npm install
+   npm run dev
+   \`\`\`
+
+---
+
+## Files
+
+### package.json
+\`\`\`json
+${packageJson}
+\`\`\`
+
+### vite.config.js
+\`\`\`javascript
+${viteConfig}
+\`\`\`
+
+### index.html
+\`\`\`html
+${indexHtml}
+\`\`\`
+
+### src/main.js
+\`\`\`javascript
+${mainJs}
+\`\`\`
+
+### src/styles.css
+\`\`\`css
+${stylesCss}
+\`\`\`
+
+---
+
+## Features
+- **Vite** for fast development with HMR
+- **Tailwind CSS v4** via @tailwindcss/vite plugin
+- **Lit** for Web Components support
+- **@mcpsystem/ui** components via npm link
+- **Dark mode** toggle included
+
+## Available Components
+- \`<mcp-chat-message>\` - Chat message bubbles
+- \`<mcp-typing-indicator>\` - "AI is thinking" animation
+- \`<mcp-code-block>\` - Code display with copy button
+- \`<mcp-message-input>\` - Auto-resize textarea with send button
+- \`<mcp-streaming-text>\` - Typewriter effect
+- \`<mcp-token-counter>\` - Token usage visualization
+
+Use \`get_component\` to learn more about each component's props and events.`
         }]
       };
     }
